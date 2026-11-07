@@ -210,7 +210,7 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
 /* Stream Section */
 .player-wrapper{background:#0a0a14;border:1px solid #332748;border-radius:12px;overflow:hidden;padding:12px}
 
-/* بنر تحميل المشغل السريع CPA */
+/* بنر تحميل المشغل الذكي CPA */
 .cpa-app-banner {
   background: linear-gradient(90deg, #15803d, #22c55e);
   color: #ffffff;
@@ -236,11 +236,14 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
 }
 .cpa-app-btn-tag {
   background: rgba(0, 0, 0, 0.25);
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: 6px;
   font-size: 11.5px;
   white-space: nowrap;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 @keyframes pulseCpa {
@@ -248,7 +251,7 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
   50% { box-shadow: 0 4px 22px rgba(34, 197, 94, 0.7); }
 }
 
-/* شريط سيرفر VIP المستقل والبارز */
+/* شريط سيرفر VIP المستقل */
 .vip-bar-fixed {
   margin-bottom: 12px;
   width: 100%;
@@ -280,7 +283,7 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
   50% { box-shadow: 0 4px 22px rgba(245, 158, 11, 0.65); }
 }
 
-/* شريط أزرار المباريات المنظم (سطر واحد قابل للتمرير الأفقي) */
+/* شريط المباريات المنظم (سطر واحد قابل للتمرير الأفقي) */
 .stream-switchers {
   display: flex;
   gap: 8px;
@@ -504,6 +507,7 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
   }
   .cpa-app-btn-tag {
     width: 100%;
+    justify-content: center;
   }
 }
 </style>
@@ -575,9 +579,9 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
   <h2 id="liveTitle">📺 البث المباشر</h2>
 
   <div class="player-wrapper">
-    <!-- بنر تحميل المشغل السريع (CPA Banner) -->
+    <!-- بنر تحميل المشغل الذكي (يكتشف تلقائياً جهاز الزائر: Android / iOS / PC) -->
     <a href="#" id="cpaAppBtn" class="cpa-app-banner" target="_blank" rel="noopener noreferrer">
-      <span id="cpaBannerText">⚡ لمشاهدة المباراة بدون تقطيع وبجودة 4K على الهاتف (تطبيق مجاني)</span>
+      <span id="cpaBannerText">⚡ لمشاهدة المباراة بدون تقطيع وبجودة 4K (تطبيق مجاني)</span>
       <span class="cpa-app-btn-tag" id="cpaBannerBtn">تحميل المشغل ⤓</span>
     </a>
 
@@ -653,20 +657,44 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
 </div>
 
 <script>
-// ==========================================
-// 🔗 إعداد رابط AdBlueMedia (CPA / SmartLink)
-// استبدل الرمز "#" برابط العرض فور تفعيل حسابك
-// ==========================================
-const CPA_OFFER_URL = "#";
+// ========================================================
+// 🔗 إعداد روابط AdBlueMedia حسب جهاز الزائر (CPA Smart Routing)
+// استبدل الرمز "#" برابط العرض المخصص فور تفعيل حسابك
+// ========================================================
+const CPA_ANDROID_URL = "#"; // رابط عرض تطبيق الأندرويد
+const CPA_IOS_URL     = "#"; // رابط عرض تطبيق الآيفون (iOS)
+const CPA_PC_URL      = "#"; // رابط عرض برنامج الكمبيوتر (Windows/PC)
+const CPA_VIP_URL     = "#"; // رابط قفل المحتوى (Content Locker) لسيرفر VIP
 
+// دالة الكشف الذكي عن نوع جهاز الزائر
+function detectUserDevice() {
+  const ua = navigator.userAgent || navigator.vendor || window.opera;
+  if (/android/i.test(ua)) {
+    return "android";
+  }
+  if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+    return "ios";
+  }
+  return "pc";
+}
+
+// توجيه الزائر للعرض المناسب لجهازه
+function getTargetCpaOffer() {
+  const device = detectUserDevice();
+  if (device === "android") return CPA_ANDROID_URL;
+  if (device === "ios") return CPA_IOS_URL;
+  return CPA_PC_URL;
+}
+
+// الضغط على سيرفر VIP الذهبي
 function handleVipServerClick() {
-  if (CPA_OFFER_URL === "#") {
+  if (CPA_VIP_URL === "#") {
     alert(language === "ar" 
       ? "⭐ سيرفر VIP قيد التجهيز والصيانة حالياً، جرب السيرفرات العادية المتاحة بالأسفل!" 
       : "⭐ Le serveur VIP est en maintenance, veuillez utiliser les serveurs ci-dessous !");
     return;
   }
-  window.open(CPA_OFFER_URL, "_blank", "noopener,noreferrer");
+  window.open(CPA_VIP_URL, "_blank", "noopener,noreferrer");
 }
 
 const API_BASE = "https://ala-tv-api.lyanita000.workers.dev";
@@ -1175,6 +1203,31 @@ function filterMatches() {
   renderMatches();
 }
 
+// تحديث نصوص بنر التطبيق الذكي حسب نوع الجهاز واللغة
+function updateSmartBanner() {
+  const device = detectUserDevice();
+  const ar = language === "ar";
+  const cpaText = $("cpaBannerText");
+  const cpaBtn = $("cpaBannerBtn");
+
+  if (device === "android") {
+    if (cpaText) cpaText.textContent = ar 
+      ? "⚡ لمشاهدة المباراة بدون تقطيع وبجودة 4K على هاتف أندرويد" 
+      : "⚡ Regardez en 4K sans coupure sur votre Android";
+    if (cpaBtn) cpaBtn.innerHTML = ar ? "تحميل مشغل أندرويد ⤓" : "Télécharger Android ⤓";
+  } else if (device === "ios") {
+    if (cpaText) cpaText.textContent = ar 
+      ? "⚡ لمشاهدة المباراة بجودة فائقة وبدون تقطيع على الآيفون (iOS)" 
+      : "⚡ Regardez en Ultra HD sur iPhone / iPad (iOS)";
+    if (cpaBtn) cpaBtn.innerHTML = ar ? "تحميل مشغل iOS ⤓" : "Télécharger iOS ⤓";
+  } else {
+    if (cpaText) cpaText.textContent = ar 
+      ? "⚡ لمشاهدة المباراة بدون تقطيع وبجودة شاشة كاملة على الكمبيوتر" 
+      : "⚡ Regardez en plein écran sans coupure sur PC / Mac";
+    if (cpaBtn) cpaBtn.innerHTML = ar ? "تحميل برنامج الكمبيوتر ⤓" : "Télécharger pour PC ⤓";
+  }
+}
+
 function toggleLanguage() {
   language = language === "ar" ? "fr" : "ar";
   document.documentElement.lang = language;
@@ -1220,24 +1273,14 @@ function toggleLanguage() {
     ? '<option value="all">كل المباريات</option><option value="cl">أبطال أوروبا</option><option value="pl">الدوري الإنجليزي</option><option value="la_liga">الدوري الإسباني</option><option value="serie_a">الدوري الإيطالي</option><option value="ligue_1">الدوري الفرنسي</option>'
     : '<option value="all">Tous les matchs</option><option value="cl">Ligue des Champions</option><option value="pl">Premier League</option><option value="la_liga">La Liga</option><option value="serie_a">Serie A</option><option value="ligue_1">Ligue 1</option>';
 
-  // تحديث نصوص الـ CPA حسب اللغة
-  const cpaText = $("cpaBannerText");
-  const cpaBtn = $("cpaBannerBtn");
   const vipBtn = $("btnVipServer");
-  
-  if (cpaText) {
-    cpaText.textContent = ar 
-      ? "⚡ لمشاهدة المباراة بدون تقطيع وبجودة 4K على الهاتف (تطبيق مجاني)" 
-      : "⚡ Regardez sans coupure en 4K sur mobile (Application Gratuite)";
-  }
-  if (cpaBtn) {
-    cpaBtn.textContent = ar ? "تحميل المشغل ⤓" : "Télécharger ⤓";
-  }
   if (vipBtn) {
     vipBtn.textContent = ar 
       ? "⭐ سيرفر VIP المشفر (جودة فائقة 4K بدون تقطيع)" 
       : "⭐ Serveur VIP Dédié (Ultra 4K sans coupure)";
   }
+
+  updateSmartBanner();
 
   if ($("matchModal").classList.contains("open") && activeMatch) {
     openMatchDetails(activeMatch);
@@ -1247,18 +1290,21 @@ function toggleLanguage() {
   $("refreshBtn").textContent = ar ? "تحديث" : "Actualiser";
 }
 
-// ربط زر تطبيق الـ CPA بالحدث والرابط
+// ربط بنر التحميل الذكي بحدث النقر
 document.addEventListener("DOMContentLoaded", function() {
+  updateSmartBanner();
+
   const cpaAppBtn = $("cpaAppBtn");
   if (cpaAppBtn) {
     cpaAppBtn.addEventListener("click", function(e) {
-      if (CPA_OFFER_URL === "#") {
+      const targetOfferUrl = getTargetCpaOffer();
+      if (targetOfferUrl === "#") {
         e.preventDefault();
         alert(language === "ar" 
-          ? "تطبيق المشغل السريع قيد التحديث وسيتوفر خلال ساعات!" 
-          : "L'application est en cours de mise à jour, disponible bientôt !");
+          ? "المشغل المخصص لجهازك قيد التحديث وسيتوفر خلال ساعات!" 
+          : "L'application compatible avec votre appareil sera disponible bientôt !");
       } else {
-        cpaAppBtn.href = CPA_OFFER_URL;
+        cpaAppBtn.href = targetOfferUrl;
       }
     });
   }
