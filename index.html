@@ -477,24 +477,24 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
 
   <div class="player-wrapper">
     <div class="stream-switchers">
+      <button type="button" class="btn-channel active" onclick="switchStreamMatch('miami', this)">🤾 إنتر ميامي / MLS</button>
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('real', this)">👑 ريال مدريد × فالنسيا (21:00)</button>
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('psg', this)">🔵 باريس × تروا (21:05)</button>
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('city', this)">🔵 مان سيتي × نوتنجهام (18:30)</button>
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('arsenal', this)">🔴 آرسنال × هال سيتي (16:00)</button>
       <button type="button" class="btn-channel" onclick="switchStreamMatch('tottenham', this)">⚪ توتنهام × ليدز (13:30)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('rasing', this)">⚪ مالقا × راسينج (14:00)</button>
       <button type="button" class="btn-channel" onclick="switchStreamMatch('bayern', this)">🔴 بايرن ميونخ × ماينز (15:30)</button>
       <button type="button" class="btn-channel" onclick="switchStreamMatch('dortmund', this)">🟡 دورتموند × إلفيرسبيرغ (15:30)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('arsenal', this)">🔴 آرسنال × هال سيتي (16:00)</button>
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('rasing', this)">⚪ مالقا × راسينج (14:00)</button>
       <button type="button" class="btn-channel" onclick="switchStreamMatch('wac', this)">🔴 الوداد × الكوكب (17:00)</button>
       <button type="button" class="btn-channel" onclick="switchStreamMatch('hilal', this)">🔵 الهلال × الاتفاق (18:00)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('city', this)">🔵 مان سيتي × نوتنجهام (18:30)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('bilbao', this)">⚪ بلباو × أوساسونا (18:30)</button>
       <button type="button" class="btn-channel" onclick="switchStreamMatch('ahly', this)">🔴 الأهلي × السكة الحديد (19:00)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('real', this)">👑 ريال مدريد × فالنسيا (21:00)</button>
-      <button type="button" class="btn-channel active" onclick="switchStreamMatch('psg', this)">🔵 باريس × تروا (21:05)</button>
     </div>
 
     <div class="player-meta">
       <div>
-        <div class="match-name" id="currentStreamTitle">🔵 باريس سان جيرمان × تروا</div>
-        <div class="match-comp" id="currentStreamSub">الدوري الفرنسي (Ligue 1) • 21:05 بتوقيت الجزائر</div>
+        <div class="match-name" id="currentStreamTitle">🤾 إنتر ميامي (بث مباشر الدوري الأمريكي MLS)</div>
+        <div class="match-comp" id="currentStreamSub">Major League Soccer • بث مباشر بجودة عالية</div>
       </div>
       <div class="status live" id="liveTag">مباشر • LIVE</div>
     </div>
@@ -505,11 +505,11 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
       </button>
 
       <iframe id="streamIframe" 
-        src="https://912acsss8af382.sirtv.top/playerv5.php?match=4735212&key=9f39972b67d6ce22189507d008acwc26" 
+        src="https://1.draximo.site/splayer/Live3.php" 
         allowfullscreen="true" 
         webkitallowfullscreen="true" 
         mozallowfullscreen="true" 
-        allow="autoplay; encrypted-media; fullscreen" 
+        allow="autoplay; encrypted-media; fullscreen; picture-in-picture" 
         playsinline>
       </iframe>
     </div>
@@ -547,6 +547,11 @@ let allMatches = [];
 let activeMatch = null;
 
 const STREAMS = {
+  miami: {
+    title: "إنتر ميامي (بث مباشر الدوري الأمريكي MLS)",
+    comp: "Major League Soccer • بث مباشر بجودة عالية",
+    url: "https://1.draximo.site/splayer/Live3.php"
+  },
   tottenham: {
     title: "توتنهام هوتسبر × ليدز يونايتد",
     comp: "الدوري الإنجليزي الممتاز • 13:30 بتوقيت الجزائر",
@@ -587,11 +592,6 @@ const STREAMS = {
     comp: "الدوري الإنجليزي الممتاز • 18:30 بتوقيت الجزائر",
     url: "https://912acsss8af382.sirtv.top/playerv5.php?match=4742003&key=9f39972b67d6ce22189507d008acwc26"
   },
-  bilbao: {
-    title: "أتلتيك بلباو × أوساسونا",
-    comp: "الدوري الإسباني (La Liga) • 18:30 بتوقيت الجزائر",
-    url: ""
-  },
   ahly: {
     title: "الأهلي × السكة الحديد",
     comp: "الدوري المصري الممتاز • 19:00 بتوقيت الجزائر",
@@ -609,7 +609,6 @@ const STREAMS = {
   }
 };
 
-/* مصفوفة الكلمات الدلالية الموسّعة للتعرف على كل تسميات الدوريات بأي شكل */
 const LEAGUE_PRIORITIES = [
   { key: "cl", rank: 1, words: ["champions", "ابطال", "أبطال", "uefa"] },
   { key: "pl", rank: 2, words: ["premier", "انجليز", "إنجليز", "انكليز", "إنكليز", "الممتاز", "england"] },
