@@ -208,43 +208,7 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
 .message{background:var(--panel);border:1px solid #29263a;border-radius:10px;padding:16px;text-align:center;color:var(--muted);font-size:12px}
 
 /* Stream Section */
-.stream-switchers {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
-}
-.btn-channel {
-  background: #1b172a;
-  border: 1px solid #372954;
-  color: #ddd6fe;
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: .15s;
-  white-space: nowrap;
-}
-.btn-channel:hover, .btn-channel.active {
-  background: var(--purple);
-  color: white;
-  border-color: var(--purple);
-}
-
-/* زر وسيرفر الـ VIP */
-.btn-channel.vip-channel {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-  color: #111;
-  border-color: #fbbf24;
-  font-weight: 900;
-  box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
-}
-.btn-channel.vip-channel:hover {
-  background: linear-gradient(135deg, #fbbf24, #f59e0b);
-  filter: brightness(1.1);
-  color: #000;
-}
+.player-wrapper{background:#0a0a14;border:1px solid #332748;border-radius:12px;overflow:hidden;padding:12px}
 
 /* بنر تحميل المشغل السريع CPA */
 .cpa-app-banner {
@@ -284,7 +248,81 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
   50% { box-shadow: 0 4px 22px rgba(34, 197, 94, 0.7); }
 }
 
-.player-wrapper{background:#0a0a14;border:1px solid #332748;border-radius:12px;overflow:hidden;padding:10px}
+/* شريط سيرفر VIP المستقل والبارز */
+.vip-bar-fixed {
+  margin-bottom: 12px;
+  width: 100%;
+}
+.btn-vip-highlight {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #11101a !important;
+  font-weight: 900;
+  font-size: 13px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #fbbf24;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+  cursor: pointer;
+  transition: transform .2s ease, filter .2s ease;
+  animation: pulseVip 2.5s infinite ease-in-out;
+}
+.btn-vip-highlight:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+}
+@keyframes pulseVip {
+  0%, 100% { box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35); }
+  50% { box-shadow: 0 4px 22px rgba(245, 158, 11, 0.65); }
+}
+
+/* شريط أزرار المباريات المنظم (سطر واحد قابل للتمرير الأفقي) */
+.stream-switchers {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 6px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--purple) rgba(255,255,255,0.05);
+}
+.stream-switchers::-webkit-scrollbar {
+  height: 5px;
+}
+.stream-switchers::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.04);
+  border-radius: 10px;
+}
+.stream-switchers::-webkit-scrollbar-thumb {
+  background: var(--purple);
+  border-radius: 10px;
+}
+
+.btn-channel {
+  background: #1b172a;
+  border: 1px solid #372954;
+  color: #ddd6fe;
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-size: 11.5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.btn-channel:hover, .btn-channel.active {
+  background: var(--purple);
+  color: white;
+  border-color: var(--purple);
+}
+
 .player-meta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid #28203d}
 .player-meta .match-name{font-weight:bold;font-size:14px;color:white}
 .player-meta .match-comp{color:var(--light);font-size:11px}
@@ -543,11 +581,15 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
       <span class="cpa-app-btn-tag" id="cpaBannerBtn">تحميل المشغل ⤓</span>
     </a>
 
+    <!-- سيرفر VIP الذهبي الثابت في الأعلى -->
+    <div class="vip-bar-fixed">
+      <button type="button" class="btn-vip-highlight" id="btnVipServer" onclick="handleVipServerClick()">
+        ⭐ سيرفر VIP المشفر (جودة فائقة 4K بدون تقطيع)
+      </button>
+    </div>
+
+    <!-- شريط أزرار المباريات (شريط أفقي منظم وأنيق) -->
     <div class="stream-switchers">
-      <!-- سيرفر VIP الذهبي (CPA Server) -->
-      <button type="button" class="btn-channel vip-channel" onclick="handleVipServerClick()">⭐ سيرفر VIP (بدون تقطيع)</button>
-      
-      <!-- السيرفرات العادية -->
       <button type="button" class="btn-channel active" onclick="switchStreamMatch('miami', this)">🤾 إنتر ميامي / MLS</button>
       <button type="button" class="btn-channel" onclick="switchStreamMatch('real', this)">👑 ريال مدريد × فالنسيا (21:00)</button>
       <button type="button" class="btn-channel" onclick="switchStreamMatch('psg', this)">🔵 باريس × تروا (21:05)</button>
@@ -1178,9 +1220,11 @@ function toggleLanguage() {
     ? '<option value="all">كل المباريات</option><option value="cl">أبطال أوروبا</option><option value="pl">الدوري الإنجليزي</option><option value="la_liga">الدوري الإسباني</option><option value="serie_a">الدوري الإيطالي</option><option value="ligue_1">الدوري الفرنسي</option>'
     : '<option value="all">Tous les matchs</option><option value="cl">Ligue des Champions</option><option value="pl">Premier League</option><option value="la_liga">La Liga</option><option value="serie_a">Serie A</option><option value="ligue_1">Ligue 1</option>';
 
-  // نصوص عناصر الـ CPA حسب اللغة
+  // تحديث نصوص الـ CPA حسب اللغة
   const cpaText = $("cpaBannerText");
   const cpaBtn = $("cpaBannerBtn");
+  const vipBtn = $("btnVipServer");
+  
   if (cpaText) {
     cpaText.textContent = ar 
       ? "⚡ لمشاهدة المباراة بدون تقطيع وبجودة 4K على الهاتف (تطبيق مجاني)" 
@@ -1188,6 +1232,11 @@ function toggleLanguage() {
   }
   if (cpaBtn) {
     cpaBtn.textContent = ar ? "تحميل المشغل ⤓" : "Télécharger ⤓";
+  }
+  if (vipBtn) {
+    vipBtn.textContent = ar 
+      ? "⭐ سيرفر VIP المشفر (جودة فائقة 4K بدون تقطيع)" 
+      : "⭐ Serveur VIP Dédié (Ultra 4K sans coupure)";
   }
 
   if ($("matchModal").classList.contains("open") && activeMatch) {
