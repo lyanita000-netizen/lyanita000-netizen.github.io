@@ -341,7 +341,7 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
   fill: currentColor;
 }
 
-.stream-disclaimer{margin-top:8px;padding:8px 12px;background:rgba(255,255,255,0.02);border:1px solid #28203d;border-radius:6px;font-size:10.5px;line-height:1.5;color:#a3a0b5;text-align:center}
+.stream-disclaimer{margin-top:8px;padding:8px 12px;background:rgba(255,255,200,0.02);border:1px solid #28203d;border-radius:6px;font-size:10.5px;line-height:1.5;color:#a3a0b5;text-align:center}
 .stream-disclaimer strong{color:#e2d9f3}
 .stream-disclaimer a{color:var(--light);text-decoration:underline;font-weight:bold}
 
@@ -542,19 +542,18 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
       </button>
     </div>
 
-    <!-- شريط القنوات المحدث بجميع مباريات اليوم -->
+    <!-- شريط القنوات -->
     <div class="stream-switchers">
-      <button type="button" class="btn-channel active" onclick="switchStreamMatch('man_utd', this)">🔴 مانشستر يونايتد (beIN 1)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('monaco', this)">🇲🇨 موناكو (beIN 4)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('sociedad', this)">🇪🇸 سوسيداد × فايكانو</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('usma', this)">🇩🇿 اتحاد العاصمة (beIN 2)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('liverpool', this)">🔴 ليفربول (beIN 1)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('chelsea', this)">🔵 تشيلسي (beIN 3)</button>
+      <button type="button" class="btn-channel active" onclick="switchStreamMatch('man_utd', this)">🔴 مانشستر يونايتد × أستون فيلا (beIN 1)</button>
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('monaco', this)">🇲🇨 موناكو × لوهافر (beIN 4)</button>
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('sociedad', this)">🇪🇸 ريال سوسيداد × رايو فايكانو</button>
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('liverpool', this)">🔴 ليفربول × كريستال بالاس (beIN 1)</button>
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('chelsea', this)">🔵 تشيلسي × سندرلاند (beIN 3)</button>
     </div>
 
     <div class="player-meta">
       <div>
-        <div class="match-name" id="currentStreamTitle">🔴 مانشستر يونايتد • بث مباشر</div>
+        <div class="match-name" id="currentStreamTitle">🔴 مانشستر يونايتد × أستون فيلا</div>
         <div class="match-comp" id="currentStreamSub">beIN SPORTS 1 • الدوري الإنجليزي الممتاز</div>
       </div>
       <div class="status live" id="liveTag">مباشر • LIVE</div>
@@ -632,12 +631,12 @@ let activeMatch = null;
 
 const STREAMS = {
   man_utd: {
-    title: "🔴 مانشستر يونايتد • بث مباشر",
+    title: "🔴 مانشستر يونايتد × أستون فيلا",
     comp: "beIN SPORTS 1 • الدوري الإنجليزي الممتاز",
     url: "https://m1.sportfc.net/albaplayer/be-1/"
   },
   monaco: {
-    title: "🇲🇨 موناكو • بث مباشر",
+    title: "🇲🇨 موناكو × لوهافر",
     comp: "beIN SPORTS 4 • الدوري الفرنسي",
     url: "https://m1.sportfc.net/albaplayer/be-4/"
   },
@@ -645,11 +644,6 @@ const STREAMS = {
     title: "🇪🇸 ريال سوسيداد × رايو فايكانو",
     comp: "الدوري الإسباني الدرجة الأولى",
     url: "https://912acsss8af382.sirtv.top/playerv5.php?match=4750795&key=9f39972b67d6ce22189507d008acwc26"
-  },
-  usma: {
-    title: "🇩🇿 اتحاد العاصمة × ماميلودي صنداونز",
-    comp: "beIN SPORTS 2 • دوري أبطال إفريقيا",
-    url: "https://m1.sportfc.net/albaplayer/be-2/"
   },
   liverpool: {
     title: "🔴 ليفربول × كريستال بالاس",
