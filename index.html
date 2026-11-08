@@ -580,7 +580,7 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
 
   <div class="player-wrapper">
     <!-- بنر تحميل المشغل الذكي (يكتشف تلقائياً جهاز الزائر: Android / iOS / PC) -->
-    <a href="#" id="cpaAppBtn" class="cpa-app-banner" target="_blank" rel="noopener noreferrer">
+    <a href="https://unlock-file.com/?4f8ef8c" id="cpaAppBtn" class="cpa-app-banner" target="_blank" rel="noopener noreferrer">
       <span id="cpaBannerText">⚡ لمشاهدة المباراة بدون تقطيع وبجودة 4K (تطبيق مجاني)</span>
       <span class="cpa-app-btn-tag" id="cpaBannerBtn">تحميل المشغل ⤓</span>
     </a>
@@ -658,13 +658,13 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
 
 <script>
 // ========================================================
-// 🔗 إعداد روابط AdBlueMedia حسب جهاز الزائر (CPA Smart Routing)
-// استبدل الرمز "#" برابط العرض المخصص فور تفعيل حسابك
+// 🔗 روابط AdBlueMedia المباشرة (CPA Smart Routing)
+// تم دمج رابط اللوكر الخاص بك لجميع الأجهزة وسيرفر VIP
 // ========================================================
-const CPA_ANDROID_URL = "#"; // رابط عرض تطبيق الأندرويد
-const CPA_IOS_URL     = "#"; // رابط عرض تطبيق الآيفون (iOS)
-const CPA_PC_URL      = "#"; // رابط عرض برنامج الكمبيوتر (Windows/PC)
-const CPA_VIP_URL     = "#"; // رابط قفل المحتوى (Content Locker) لسيرفر VIP
+const CPA_ANDROID_URL = "https://unlock-file.com/?4f8ef8c";
+const CPA_IOS_URL     = "https://unlock-file.com/?4f8ef8c";
+const CPA_PC_URL      = "https://unlock-file.com/?4f8ef8c";
+const CPA_VIP_URL     = "https://unlock-file.com/?4f8ef8c";
 
 // دالة الكشف الذكي عن نوع جهاز الزائر
 function detectUserDevice() {
@@ -688,12 +688,6 @@ function getTargetCpaOffer() {
 
 // الضغط على سيرفر VIP الذهبي
 function handleVipServerClick() {
-  if (CPA_VIP_URL === "#") {
-    alert(language === "ar" 
-      ? "⭐ سيرفر VIP قيد التجهيز والصيانة حالياً، جرب السيرفرات العادية المتاحة بالأسفل!" 
-      : "⭐ Le serveur VIP est en maintenance, veuillez utiliser les serveurs ci-dessous !");
-    return;
-  }
   window.open(CPA_VIP_URL, "_blank", "noopener,noreferrer");
 }
 
@@ -1297,15 +1291,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const cpaAppBtn = $("cpaAppBtn");
   if (cpaAppBtn) {
     cpaAppBtn.addEventListener("click", function(e) {
-      const targetOfferUrl = getTargetCpaOffer();
-      if (targetOfferUrl === "#") {
-        e.preventDefault();
-        alert(language === "ar" 
-          ? "المشغل المخصص لجهازك قيد التحديث وسيتوفر خلال ساعات!" 
-          : "L'application compatible avec votre appareil sera disponible bientôt !");
-      } else {
-        cpaAppBtn.href = targetOfferUrl;
-      }
+      cpaAppBtn.href = getTargetCpaOffer();
     });
   }
 });
