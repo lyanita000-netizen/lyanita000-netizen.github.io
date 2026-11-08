@@ -143,7 +143,7 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
   color:var(--muted);
 }
 
-/* شارات الحالة المباشرة والاستراحة */
+/* شارات الحالة */
 .live-badge-wrapper {
   display: inline-flex;
   align-items: center;
@@ -168,7 +168,7 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
 /* Stream Section */
 .player-wrapper{background:#0a0a14;border:1px solid #332748;border-radius:12px;overflow:hidden;padding:12px}
 
-/* بنر تحميل المشغل CPA */
+/* بنر CPA */
 .cpa-app-banner {
   background: linear-gradient(90deg, #15803d, #22c55e);
   color: #ffffff;
@@ -209,7 +209,7 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
   50% { box-shadow: 0 4px 22px rgba(34, 197, 94, 0.7); }
 }
 
-/* شريط VIP */
+/* سيرفر VIP */
 .vip-bar-fixed {
   margin-bottom: 12px;
   width: 100%;
@@ -241,7 +241,7 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
   50% { box-shadow: 0 4px 22px rgba(245, 158, 11, 0.65); }
 }
 
-/* شريط أزرار المشغل */
+/* شريط القنوات المنظف (3 مباريات فقط) */
 .stream-switchers {
   display: flex;
   gap: 8px;
@@ -269,9 +269,9 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
   background: #1b172a;
   border: 1px solid #372954;
   color: #ddd6fe;
-  padding: 7px 12px;
+  padding: 8px 14px;
   border-radius: 8px;
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: bold;
   cursor: pointer;
   transition: .15s;
@@ -542,22 +542,11 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
       </button>
     </div>
 
-    <!-- شريط الأزرار -->
+    <!-- شريط الأزرار (المباريات النشطة اليوم فقط) -->
     <div class="stream-switchers">
       <button type="button" class="btn-channel active" onclick="switchStreamMatch('usma', this)">🇩🇿 اتحاد العاصمة × صنداونز (beIN 2)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('betis', this)">🇪🇸 ريال بيتيس × إلتشي (beIN 8)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('miami', this)">🤾 إنتر ميامي / MLS</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('real', this)">👑 ريال مدريد × فالنسيا (21:00)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('psg', this)">🔵 باريس × تروا (21:05)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('city', this)">🔵 مان سيتي × نوتنجهام (18:30)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('arsenal', this)">🔴 آرسنال × هال سيتي (16:00)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('tottenham', this)">⚪ توتنهام × ليدز (13:30)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('bayern', this)">🔴 بايرن ميونخ × ماينز (15:30)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('dortmund', this)">🟡 دورتموند × إلفيرسبيرغ (15:30)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('rasing', this)">⚪ مالقا × راسينج (14:00)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('wac', this)">🔴 الوداد × الكوكب (17:00)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('hilal', this)">🔵 الهلال × الاتفاق (18:00)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('ahly', this)">🔴 الأهلي × السكة الحديد (19:00)</button>
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('liverpool', this)">🔴 ليفربول × كريستال بالاس (beIN 1)</button>
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('chelsea', this)">🔵 تشيلسي × سندرلاند (beIN 3)</button>
     </div>
 
     <div class="player-meta">
@@ -638,76 +627,22 @@ let language = "ar";
 let allMatches = [];
 let activeMatch = null;
 
+/* قنوات ومباريات اليوم الحالية فقط */
 const STREAMS = {
   usma: {
     title: "🇩🇿 اتحاد العاصمة × ماميلودي صنداونز",
     comp: "beIN SPORTS 2 • دوري أبطال إفريقيا",
     url: "https://m1.sportfc.net/albaplayer/be-2/"
   },
-  betis: {
-    title: "🇪🇸 ريال بيتيس × إلتشي",
-    comp: "beIN SPORTS 8 • الدوري الإسباني",
-    url: "https://m1.sportfc.net/albaplayer/be-8/"
+  liverpool: {
+    title: "🔴 ليفربول × كريستال بالاس",
+    comp: "beIN SPORTS 1 • الدوري الإنجليزي الممتاز",
+    url: "https://m1.sportfc.net/albaplayer/be-1/"
   },
-  miami: {
-    title: "إنتر ميامي (بث مباشر الدوري الأمريكي MLS)",
-    comp: "Major League Soccer • بث مباشر بجودة عالية",
-    url: "https://1.draximo.site/splayer/Live3.php"
-  },
-  tottenham: {
-    title: "توتنهام هوتسبر × ليدز يونايتد",
-    comp: "الدوري الإنجليزي الممتاز • 13:30 بتوقيت الجزائر",
-    url: "https://912acsss8af382.sirtv.top/playerv5.php?match=4742005&key=9f39972b67d6ce22189507d008acwc26"
-  },
-  rasing: {
-    title: "مالقا × راسينج سانتاندير",
-    comp: "الدوري الإسباني (La Liga) • 14:00 بتوقيت الجزائر",
-    url: "https://912acsss8af382.sirtv.top/playerv5.php?match=4750797&key=9f39972b67d6ce22189507d008acwc26"
-  },
-  bayern: {
-    title: "بايرن ميونخ × ماينز 05",
-    comp: "الدوري الألماني (بوندسليغا) • 15:30 بتوقيت الجزائر",
-    url: "https://912acsss8af382.sirtv.top/playerv5.php?match=4755348&key=9f39972b67d6ce22189507d008acwc26"
-  },
-  dortmund: {
-    title: "بوروسيا دورتموند × إلفيرسبيرغ",
-    comp: "الدوري الألماني (بوندسليغا) • 15:30 بتوقيت الجزائر",
-    url: "https://912acsss8af382.sirtv.top/playerv5.php?match=4755353&key=9f39972b67d6ce22189507d008acwc26"
-  },
-  arsenal: {
-    title: "آرسنال × هال سيتي",
-    comp: "الدوري الإنجليزي • 16:00 بتوقيت الجزائر",
-    url: "https://912acsss8af382.sirtv.top/playerv5.php?match=4742011&key=9f39972b67d6ce22189507d008acwc26"
-  },
-  wac: {
-    title: "الوداد الرياضي × الكوكب المراكشي",
-    comp: "الدوري المغربي للمحترفين • 17:00 بتوقيت الجزائر",
-    url: ""
-  },
-  hilal: {
-    title: "الهلال × الاتفاق",
-    comp: "دوري روشن السعودي • 18:00 بتوقيت الجزائر",
-    url: ""
-  },
-  city: {
-    title: "مانشستر سيتي × نوتنجهام فورست",
-    comp: "الدوري الإنجليزي الممتاز • 18:30 بتوقيت الجزائر",
-    url: "https://912acsss8af382.sirtv.top/playerv5.php?match=4742003&key=9f39972b67d6ce22189507d008acwc26"
-  },
-  ahly: {
-    title: "الأهلي × السكة الحديد",
-    comp: "الدوري المصري الممتاز • 19:00 بتوقيت الجزائر",
-    url: ""
-  },
-  real: {
-    title: "ريال مدريد × فالنسيا",
-    comp: "الدوري الإسباني (La Liga) • 21:00 بتوقيت الجزائر",
-    url: "https://912acsss8af382.sirtv.top/playerv5.php?match=4750793&key=9f39972b67d6ce22189507d008acwc26"
-  },
-  psg: {
-    title: "باريس سان جيرمان × تروا",
-    comp: "الدوري الفرنسي (Ligue 1) • 21:05 بتوقيت الجزائر",
-    url: "https://912acsss8af382.sirtv.top/playerv5.php?match=4735212&key=9f39972b67d6ce22189507d008acwc26"
+  chelsea: {
+    title: "🔵 تشيلسي × سندرلاند",
+    comp: "beIN SPORTS 3 • الدوري الإنجليزي الممتاز",
+    url: "https://m1.sportfc.net/albaplayer/be-3/"
   }
 };
 
