@@ -542,18 +542,20 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
       </button>
     </div>
 
-    <!-- شريط القنوات -->
+    <!-- شريط القنوات المحدث بجميع مباريات اليوم -->
     <div class="stream-switchers">
-      <button type="button" class="btn-channel active" onclick="switchStreamMatch('sociedad', this)">🇪🇸 ريال سوسيداد × رايو فايكانو</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('usma', this)">🇩🇿 اتحاد العاصمة × صنداونز (beIN 2)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('liverpool', this)">🔴 ليفربول × كريستال بالاس (beIN 1)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('chelsea', this)">🔵 تشيلسي × سندرلاند (beIN 3)</button>
+      <button type="button" class="btn-channel active" onclick="switchStreamMatch('man_utd', this)">🔴 مانشستر يونايتد (beIN 1)</button>
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('monaco', this)">🇲🇨 موناكو (beIN 4)</button>
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('sociedad', this)">🇪🇸 سوسيداد × فايكانو</button>
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('usma', this)">🇩🇿 اتحاد العاصمة (beIN 2)</button>
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('liverpool', this)">🔴 ليفربول (beIN 1)</button>
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('chelsea', this)">🔵 تشيلسي (beIN 3)</button>
     </div>
 
     <div class="player-meta">
       <div>
-        <div class="match-name" id="currentStreamTitle">🇪🇸 ريال سوسيداد × رايو فايكانو</div>
-        <div class="match-comp" id="currentStreamSub">الدوري الإسباني الدرجة الأولى</div>
+        <div class="match-name" id="currentStreamTitle">🔴 مانشستر يونايتد • بث مباشر</div>
+        <div class="match-comp" id="currentStreamSub">beIN SPORTS 1 • الدوري الإنجليزي الممتاز</div>
       </div>
       <div class="status live" id="liveTag">مباشر • LIVE</div>
     </div>
@@ -564,7 +566,7 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
       </button>
 
       <iframe id="streamIframe" 
-        src="https://912acsss8af382.sirtv.top/playerv5.php?match=4750795&key=9f39972b67d6ce22189507d008acwc26" 
+        src="https://m1.sportfc.net/albaplayer/be-1/" 
         allowfullscreen="true" 
         webkitallowfullscreen="true" 
         mozallowfullscreen="true" 
@@ -629,6 +631,16 @@ let allMatches = [];
 let activeMatch = null;
 
 const STREAMS = {
+  man_utd: {
+    title: "🔴 مانشستر يونايتد • بث مباشر",
+    comp: "beIN SPORTS 1 • الدوري الإنجليزي الممتاز",
+    url: "https://m1.sportfc.net/albaplayer/be-1/"
+  },
+  monaco: {
+    title: "🇲🇨 موناكو • بث مباشر",
+    comp: "beIN SPORTS 4 • الدوري الفرنسي",
+    url: "https://m1.sportfc.net/albaplayer/be-4/"
+  },
   sociedad: {
     title: "🇪🇸 ريال سوسيداد × رايو فايكانو",
     comp: "الدوري الإسباني الدرجة الأولى",
