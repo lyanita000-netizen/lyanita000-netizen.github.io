@@ -161,7 +161,6 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
 }
 
 .status{display:inline-block;background:#231c33;color:var(--light);border-radius:8px;padding:2px 7px;font-size:10px}
-
 .notice{color:var(--muted);font-size:11px;line-height:1.5;margin-top:8px}
 .message{background:var(--panel);border:1px solid #29263a;border-radius:10px;padding:16px;text-align:center;color:var(--muted);font-size:12px}
 
@@ -241,47 +240,63 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
   50% { box-shadow: 0 4px 22px rgba(245, 158, 11, 0.65); }
 }
 
-/* شريط القنوات */
+/* شريط القنوات المحدث عمودياً بالوسط مع الشعارات */
 .stream-switchers {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 8px;
-  margin-bottom: 12px;
-  overflow-x: auto;
-  white-space: nowrap;
-  padding-bottom: 6px;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  scrollbar-color: var(--purple) rgba(255,255,255,0.05);
-}
-.stream-switchers::-webkit-scrollbar {
-  height: 5px;
-}
-.stream-switchers::-webkit-scrollbar-track {
-  background: rgba(255,255,255,0.04);
-  border-radius: 10px;
-}
-.stream-switchers::-webkit-scrollbar-thumb {
-  background: var(--purple);
-  border-radius: 10px;
+  margin-bottom: 14px;
+  width: 100%;
 }
 
 .btn-channel {
-  background: #1b172a;
-  border: 1px solid #372954;
-  color: #ddd6fe;
-  padding: 8px 14px;
-  border-radius: 8px;
+  background: #171427;
+  border: 1px solid #3b2a59;
+  color: #f1edfd;
+  width: 100%;
+  max-width: 520px;
+  padding: 9px 12px;
+  border-radius: 9px;
   font-size: 12px;
   font-weight: bold;
   cursor: pointer;
-  transition: .15s;
-  white-space: nowrap;
+  transition: all .2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  text-align: center;
+}
+
+.btn-channel:hover, .btn-channel.active {
+  background: linear-gradient(90deg, #6d28d9, #8b5cf6);
+  color: white;
+  border-color: #a78bfa;
+  box-shadow: 0 3px 12px rgba(139, 92, 246, 0.3);
+}
+
+.btn-channel-team {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+.btn-channel-team.home { justify-content: flex-start; }
+.btn-channel-team.away { justify-content: flex-end; }
+.btn-channel-team img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
   flex-shrink: 0;
 }
-.btn-channel:hover, .btn-channel.active {
-  background: var(--purple);
-  color: white;
-  border-color: var(--purple);
+.btn-channel-vs {
+  font-size: 10.5px;
+  color: var(--light);
+  background: rgba(0,0,0,0.3);
+  padding: 2px 7px;
+  border-radius: 4px;
+  flex-shrink: 0;
 }
 
 .player-meta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid #28203d}
@@ -676,12 +691,55 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
       </button>
     </div>
 
-    <!-- شريط القنوات المحدث -->
+    <!-- شريط القنوات في الوسط وعمودياً مع الشعارات -->
     <div class="stream-switchers">
-      <button type="button" class="btn-channel active" onclick="switchStreamMatch('inter', this)">🔵 إنتر ميلان × كومو (beIN 10)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('juventus', this)">⚪️ يوفنتوس × فيورنتينا (beIN 10)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('barca_atleti', this)">🔴 أتلتيكو مدريد × برشلونة (beIN 1)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('raja_tanger', this)">🟢 الرجاء الرياضي × اتحاد طنجة</button>
+      <button type="button" class="btn-channel active" onclick="switchStreamMatch('inter', this)">
+        <span class="btn-channel-team home">
+          <img src="https://crests.football-data.org/108.png" alt="Inter" onerror="this.style.display='none'">
+          إنتر ميلان
+        </span>
+        <span class="btn-channel-vs">× beIN 10</span>
+        <span class="btn-channel-team away">
+          كومو
+          <img src="https://crests.football-data.org/1079.png" alt="Como" onerror="this.style.display='none'">
+        </span>
+      </button>
+
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('juventus', this)">
+        <span class="btn-channel-team home">
+          <img src="https://crests.football-data.org/109.png" alt="Juventus" onerror="this.style.display='none'">
+          يوفنتوس
+        </span>
+        <span class="btn-channel-vs">× beIN 10</span>
+        <span class="btn-channel-team away">
+          فيورنتينا
+          <img src="https://crests.football-data.org/99.png" alt="Fiorentina" onerror="this.style.display='none'">
+        </span>
+      </button>
+
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('barca_atleti', this)">
+        <span class="btn-channel-team home">
+          <img src="https://crests.football-data.org/79.png" alt="Atleti" onerror="this.style.display='none'">
+          أتلتيكو مدريد
+        </span>
+        <span class="btn-channel-vs">× beIN 1</span>
+        <span class="btn-channel-team away">
+          برشلونة
+          <img src="https://crests.football-data.org/81.png" alt="Barca" onerror="this.style.display='none'">
+        </span>
+      </button>
+
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('raja_tanger', this)">
+        <span class="btn-channel-team home">
+          <img src="https://upload.wikimedia.org/wikipedia/fr/5/59/Logo_Raja_Club_Athletic.svg" alt="Raja" onerror="this.style.display='none'">
+          الرجاء الرياضي
+        </span>
+        <span class="btn-channel-vs">× البطولة</span>
+        <span class="btn-channel-team away">
+          اتحاد طنجة
+          <img src="https://upload.wikimedia.org/wikipedia/fr/b/b3/Ittihad_Tanger_logo.png" alt="IRT" onerror="this.style.display='none'">
+        </span>
+      </button>
     </div>
 
     <div class="player-meta">
@@ -880,7 +938,6 @@ let language = "ar";
 let allMatches = [];
 let activeMatch = null;
 
-// تم تفريغ المباريات القديمة وإبقاء الـ 4 المحددة
 const STREAMS = {
   inter: {
     title: "🔵 إنتر ميلان × كومو",
