@@ -715,7 +715,7 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
         <span>💬 محادثة المشاهدين المباشرة</span>
         <div class="chat-online-count">
           <span class="chat-online-dot"></span>
-          <span id="chatOnlineNum">1,482</span> مشاهد متصل
+          <span id="chatOnlineNum">11,842</span> مشاهد متصل
         </div>
       </div>
 
@@ -833,15 +833,19 @@ function initLiveChat() {
     addFakeMessage();
   }
 
-  // إضافة رسالة جديدة كل 5 إلى 9 ثوانٍ
+  // إضافة رسالة جديدة وتذبذب المتصلين بين 11k و 12k
   setInterval(() => {
     addFakeMessage();
-    // تذبذب طفيف في عدد المتصلين لإعطاء واقعية
+
     const numElem = $("chatOnlineNum");
     if (numElem) {
-      const current = parseInt(numElem.textContent.replace(",", "")) || 1480;
-      const change = Math.floor(Math.random() * 7) - 3;
-      numElem.textContent = (current + change).toLocaleString();
+      let current = parseInt(numElem.textContent.replace(/,/g, "")) || 11840;
+      current += Math.floor(Math.random() * 31) - 15;
+      
+      if (current < 11400) current = 11450;
+      if (current > 12400) current = 12350;
+
+      numElem.textContent = current.toLocaleString();
     }
   }, Math.floor(Math.random() * 4000) + 5000);
 }
@@ -865,12 +869,10 @@ function addFakeMessage() {
 
   container.appendChild(row);
 
-  // حذف أقدم رسالة إذا زاد العدد عن 20 رسالة للحفاظ على خفة الصفحة
   if (container.children.length > 20) {
     container.removeChild(container.firstChild);
   }
 
-  // التمرير التلقائي لأسفل الشات
   container.scrollTop = container.scrollHeight;
 }
 
@@ -1399,4 +1401,3 @@ loadMatches();
 </script>
 </body>
 </html>
-```[cite: 1]
