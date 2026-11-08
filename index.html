@@ -11,15 +11,29 @@
 <!-- وسوم تحسين محركات البحث والأرشفة (SEO) -->
 <title>ALA TV | بث مباشر لمباريات اليوم كورة لايف وبث حصري بدون تقطيع</title>
 <meta name="description" content="موقع ALA TV الرسمي: تابع أهم مباريات اليوم بث مباشر بجودة عالية 4K بدون تقطيع، جدول المباريات، تشكيلة الفرق والنتائج لحظة بلحظة لجميع الدوريات الأوروبية والعربية.">
-<meta name="keywords" content="ALA TV, ala tv, بث مباشر, مباريات اليوم, كورة لايف, يلا شوت, مشاهدة مباريات اليوم, بث مباشر الدوري الإسباني, برشلونة بث مباشر, ريال مدريد, دوري أبطال أوروبا">
+<meta name="keywords" content="ALA TV, ala tv, بث مباشر, مباريات اليوم, كورة لايف, يلا شوت, مشاهدة مباريات اليوم, بث مباشر الدوري الإسباني, برشلونة بث مباشر, ريال مدريد, دوري أبطال أوروبا, الدوري الإنجليزي الممتاز">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://lyanita000-netizen.github.io/">
 
 <!-- وسوم المشاركة في السوشيال ميديا وOpen Graph -->
 <meta property="og:title" content="ALA TV | بث مباشر لمباريات اليوم بدون تقطيع">
-<meta property="og:description" content="منصة ALA TV الرياضية لمتابعة البث المباشر وجدول المباريات والنتائج مباشرة">
+<meta property="og:description" content="منصة ALA TV الرياضية لمتابعة البث المباشر وجدول المباريات والنتائج مباشرة بأعلى جودة">
 <meta property="og:url" content="https://lyanita000-netizen.github.io/">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="ALA TV">
+
+<!-- Schema.org لتسريع أرشفة محرك بحث Google -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "ALA TV",
+  "alternateName": "ALA TV Live",
+  "url": "https://lyanita000-netizen.github.io/",
+  "description": "منصة ALA TV لمتابعة مباريات كرة القدم والبث المباشر وجداول المباريات والنتائج الحية.",
+  "inLanguage": "ar"
+}
+</script>
 
 <style>
 :root {
@@ -316,7 +330,7 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
 .player-meta .match-name{font-weight:bold;font-size:14px;color:white}
 .player-meta .match-comp{color:var(--light);font-size:11px}
 
-/* شاشة العرض بحجم كبير وواضح */
+/* شاشة العرض */
 .video-responsive{
   position:relative;
   width:100%;
@@ -509,6 +523,26 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
 .stream-disclaimer{margin-top:12px;padding:8px 12px;background:rgba(255,255,200,0.02);border:1px solid #28203d;border-radius:6px;font-size:10.5px;line-height:1.5;color:#a3a0b5;text-align:center}
 .stream-disclaimer strong{color:#e2d9f3}
 .stream-disclaimer a{color:var(--light);text-decoration:underline;font-weight:bold}
+
+/* قسم مقال SEO النصي للأرشفة */
+.seo-content-section {
+  background: var(--panel);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-top: 24px;
+}
+.seo-content-section h3 {
+  font-size: 15px;
+  color: var(--light);
+  margin: 0 0 8px;
+}
+.seo-content-section p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin: 0;
+}
 
 footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;color:var(--muted);border-top:1px solid #29223f;font-size:12px}
 
@@ -818,6 +852,14 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
     </div>
   </div>
   <p class="notice" id="legalNotice">يتم استضافة البث عبر خوادم تضمين خارجية. الموقع لا يقوم بتخزين أي فيديو.</p>
+
+  <!-- قسم تحسين محركات البحث والأرشفة (SEO Article) -->
+  <section class="seo-content-section">
+    <h3>عن موقع ALA TV للبث المباشر ونتائج المباريات</h3>
+    <p>
+      موقع <strong>ALA TV</strong> هو وجهتك الرياضية لمتابعة <strong>بث مباشر لمباريات اليوم</strong> بدون تقطيع وبجودة عالية تتناسب مع جميع سرعات الإنترنت والأجهزة الذكية. نوفر تغطية شاملة لجميع المسابقات الكبرى مثل الدوري الإسباني، الدوري الإنجليزي الممتاز، دوري أبطال أوروبا، والدوري الإيطالي، إلى جانب البطولات العربية والإفريقية مع تحديث لحظي للنتائج والتشكيلات الرسمية.
+    </p>
+  </section>
 </section>
 
 </main>
@@ -1276,7 +1318,7 @@ async function openMatchDetails(match) {
         `<span class="channel">${escapeHTML(name)}</span>`
       ).join("")}</div>`;
     } else {
-      $("modalChannels").textContent = language === "ar" ? "beIN SPORTS" : "beIN SPORTS";
+      $("modalChannels").textContent = "beIN SPORTS";
     }
 
     const homePlayers = fullData.lineups?.home?.players || [];
