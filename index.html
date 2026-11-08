@@ -240,7 +240,7 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
   50% { box-shadow: 0 4px 22px rgba(245, 158, 11, 0.65); }
 }
 
-/* شريط القنوات المحدث عمودياً بالوسط مع الشعارات */
+/* شريط القنوات عمودياً بالوسط */
 .stream-switchers {
   display: flex;
   flex-direction: column;
@@ -303,10 +303,12 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
 .player-meta .match-name{font-weight:bold;font-size:14px;color:white}
 .player-meta .match-comp{color:var(--light);font-size:11px}
 
+/* تحسين حجم شاشة العرض */
 .video-responsive{
   position:relative;
   width:100%;
-  padding-top:56.25%;
+  padding-top:68%;
+  min-height:260px;
   background:#020205;
   border-radius:8px;
   overflow:hidden;
@@ -315,6 +317,7 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
 .video-responsive:fullscreen, 
 .video-responsive:-webkit-full-screen {
   padding-top: 0 !important;
+  min-height: 100vh !important;
   width: 100vw !important;
   height: 100vh !important;
   border-radius: 0 !important;
@@ -356,7 +359,7 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
   fill: currentColor;
 }
 
-/* نافذة المحادثة التفاعلية الذكية */
+/* المحادثة الحية التفاعلية */
 .live-chat-box {
   margin-top: 14px;
   background: #11101d;
@@ -563,6 +566,13 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
 }
 
 @media(max-width:650px){
+  .player-wrapper{
+    padding:8px 6px;
+  }
+  .video-responsive{
+    padding-top:72%;
+    min-height:270px;
+  }
   .match-row{
     padding:8px 8px;
   }
