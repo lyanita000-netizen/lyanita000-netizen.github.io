@@ -241,7 +241,7 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
   50% { box-shadow: 0 4px 22px rgba(245, 158, 11, 0.65); }
 }
 
-/* شريط القنوات المنظف (3 مباريات نشطة فقط) */
+/* شريط القنوات */
 .stream-switchers {
   display: flex;
   gap: 8px;
@@ -542,17 +542,18 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
       </button>
     </div>
 
-    <!-- شريط الأزرار (المباريات النشطة اليوم فقط) -->
+    <!-- شريط القنوات (المباريات النشطة اليوم) -->
     <div class="stream-switchers">
-      <button type="button" class="btn-channel active" onclick="switchStreamMatch('usma', this)">🇩🇿 اتحاد العاصمة × صنداونز (beIN 2)</button>
+      <button type="button" class="btn-channel active" onclick="switchStreamMatch('sociedad', this)">🇪🇸 ريال سوسيداد × رايو فايكانو (beIN 8)</button>
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('usma', this)">🇩🇿 اتحاد العاصمة × صنداونز (beIN 2)</button>
       <button type="button" class="btn-channel" onclick="switchStreamMatch('liverpool', this)">🔴 ليفربول × كريستال بالاس (beIN 1)</button>
       <button type="button" class="btn-channel" onclick="switchStreamMatch('chelsea', this)">🔵 تشيلسي × سندرلاند (beIN 3)</button>
     </div>
 
     <div class="player-meta">
       <div>
-        <div class="match-name" id="currentStreamTitle">🇩🇿 اتحاد العاصمة × ماميلودي صنداونز</div>
-        <div class="match-comp" id="currentStreamSub">beIN SPORTS 2 • دوري أبطال إفريقيا</div>
+        <div class="match-name" id="currentStreamTitle">🇪🇸 ريال سوسيداد × رايو فايكانو</div>
+        <div class="match-comp" id="currentStreamSub">beIN SPORTS 8 • الدوري الإسباني</div>
       </div>
       <div class="status live" id="liveTag">مباشر • LIVE</div>
     </div>
@@ -563,7 +564,7 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
       </button>
 
       <iframe id="streamIframe" 
-        src="https://m1.sportfc.net/albaplayer/be-2/" 
+        src="https://m1.sportfc.net/albaplayer/be-8/" 
         allowfullscreen="true" 
         webkitallowfullscreen="true" 
         mozallowfullscreen="true" 
@@ -628,6 +629,11 @@ let allMatches = [];
 let activeMatch = null;
 
 const STREAMS = {
+  sociedad: {
+    title: "🇪🇸 ريال سوسيداد × رايو فايكانو",
+    comp: "beIN SPORTS 8 • الدوري الإسباني",
+    url: "https://m1.sportfc.net/albaplayer/be-8/"
+  },
   usma: {
     title: "🇩🇿 اتحاد العاصمة × ماميلودي صنداونز",
     comp: "beIN SPORTS 2 • دوري أبطال إفريقيا",
