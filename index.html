@@ -544,8 +544,8 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
 
     <!-- شريط القنوات -->
     <div class="stream-switchers">
-      <button type="button" class="btn-channel active" onclick="switchStreamMatch('man_utd', this)">🔴 مانشستر يونايتد × أستون فيلا (beIN 1)</button>
-      <button type="button" class="btn-channel" onclick="switchStreamMatch('monaco', this)">🇲🇨 موناكو × لوهافر (beIN 4)</button>
+      <button type="button" class="btn-channel active" onclick="switchStreamMatch('inter', this)">🔵 إنتر ميلان × كومو (beIN 10)</button>
+      <button type="button" class="btn-channel" onclick="switchStreamMatch('man_utd', this)">🔴 مانشستر يونايتد × أستون فيلا (beIN 1)</button>
       <button type="button" class="btn-channel" onclick="switchStreamMatch('sociedad', this)">🇪🇸 ريال سوسيداد × رايو فايكانو</button>
       <button type="button" class="btn-channel" onclick="switchStreamMatch('liverpool', this)">🔴 ليفربول × كريستال بالاس (beIN 1)</button>
       <button type="button" class="btn-channel" onclick="switchStreamMatch('chelsea', this)">🔵 تشيلسي × سندرلاند (beIN 3)</button>
@@ -553,8 +553,8 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
 
     <div class="player-meta">
       <div>
-        <div class="match-name" id="currentStreamTitle">🔴 مانشستر يونايتد × أستون فيلا</div>
-        <div class="match-comp" id="currentStreamSub">beIN SPORTS 1 • الدوري الإنجليزي الممتاز</div>
+        <div class="match-name" id="currentStreamTitle">🔵 إنتر ميلان × كومو</div>
+        <div class="match-comp" id="currentStreamSub">beIN SPORTS 10 • الدوري الإيطالي</div>
       </div>
       <div class="status live" id="liveTag">مباشر • LIVE</div>
     </div>
@@ -565,7 +565,7 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
       </button>
 
       <iframe id="streamIframe" 
-        src="https://m1.sportfc.net/albaplayer/be-1/" 
+        src="https://m1.sportfc.net/albaplayer/be-10/" 
         allowfullscreen="true" 
         webkitallowfullscreen="true" 
         mozallowfullscreen="true" 
@@ -630,15 +630,15 @@ let allMatches = [];
 let activeMatch = null;
 
 const STREAMS = {
+  inter: {
+    title: "🔵 إنتر ميلان × كومو",
+    comp: "beIN SPORTS 10 • الدوري الإيطالي",
+    url: "https://m1.sportfc.net/albaplayer/be-10/"
+  },
   man_utd: {
     title: "🔴 مانشستر يونايتد × أستون فيلا",
     comp: "beIN SPORTS 1 • الدوري الإنجليزي الممتاز",
     url: "https://m1.sportfc.net/albaplayer/be-1/"
-  },
-  monaco: {
-    title: "🇲🇨 موناكو × لوهافر",
-    comp: "beIN SPORTS 4 • الدوري الفرنسي",
-    url: "https://m1.sportfc.net/albaplayer/be-4/"
   },
   sociedad: {
     title: "🇪🇸 ريال سوسيداد × رايو فايكانو",
@@ -1073,7 +1073,7 @@ function toggleLanguage() {
 
   $("heroText").textContent = ar
     ? "تابع مباريات كرة القدم ومواعيدها ونتائجها وشاهد البث المباشر في مكان واحد."
-    : "Suivez les matchs, les horaires, les résultats et le streaming au même endroit.";
+    : "Suivez les matchs, les horaires, les نتائج et le streaming au même endroit.";
 
   $("btnTgText").textContent = ar ? "قناة التيليغرام الرسمية" : "Canal Telegram";
   $("btnAndroidText").textContent = ar ? "تطبيق أندرويد (أخبار ونتائج)" : "App Android (Scores/News)";
