@@ -143,25 +143,15 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
   color:var(--muted);
 }
 
-/* شارات ومؤقت المباشر والاستراحة */
+/* شارة المباشر المبسطة */
 .live-badge-wrapper {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
   background: rgba(239, 68, 68, 0.16);
   border: 1px solid rgba(239, 68, 68, 0.5);
-  padding: 2px 7px;
-  border-radius: 12px;
-  animation: pulseLive 2s infinite ease-in-out;
-}
-.live-badge-wrapper.paused {
-  background: rgba(34, 197, 94, 0.16);
-  border-color: rgba(34, 197, 94, 0.5);
-  animation: none;
-}
-@keyframes pulseLive {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.75; }
+  padding: 2px 8px;
+  border-radius: 10px;
 }
 .live-badge-text {
   font-size: 10px;
@@ -169,40 +159,8 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
   color: #fca5a5;
   white-space: nowrap;
 }
-.live-badge-wrapper.paused .live-badge-text {
-  color: #86efac;
-}
-.circle-timer {
-  position: relative;
-  width: 14px;
-  height: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.circle-timer svg {
-  transform: rotate(-90deg);
-  width: 14px;
-  height: 14px;
-}
-.circle-timer circle {
-  fill: none;
-  stroke-width: 2.2;
-}
-.circle-timer .circle-bg {
-  stroke: rgba(255, 255, 255, 0.12);
-}
-.circle-timer .circle-bar {
-  stroke: var(--red);
-  stroke-linecap: round;
-  transition: stroke-dashoffset 1s linear;
-}
-.live-badge-wrapper.paused .circle-bar {
-  stroke: var(--green);
-}
 
 .status{display:inline-block;background:#231c33;color:var(--light);border-radius:8px;padding:2px 7px;font-size:10px}
-.status.finished{background:#182e23;color:#86efac}
 
 .notice{color:var(--muted);font-size:11px;line-height:1.5;margin-top:8px}
 .message{background:var(--panel);border:1px solid #29263a;border-radius:10px;padding:16px;text-align:center;color:var(--muted);font-size:12px}
@@ -283,7 +241,7 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
   50% { box-shadow: 0 4px 22px rgba(245, 158, 11, 0.65); }
 }
 
-/* شريط المباريات المنظم (سطر واحد قابل للتمرير الأفقي) */
+/* شريط المباريات المنظم */
 .stream-switchers {
   display: flex;
   gap: 8px;
@@ -482,14 +440,6 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
   .live-badge-wrapper{
     padding:1px 5px;
   }
-  .circle-timer{
-    width:12px;
-    height:12px;
-  }
-  .circle-timer svg{
-    width:12px;
-    height:12px;
-  }
   .hero-actions {
     flex-direction: column;
     width: 100%;
@@ -579,7 +529,7 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
   <h2 id="liveTitle">📺 البث المباشر</h2>
 
   <div class="player-wrapper">
-    <!-- بنر تحميل المشغل الذكي (يكتشف تلقائياً جهاز الزائر: Android / iOS / PC) -->
+    <!-- بنر تحميل المشغل الذكي CPA -->
     <a href="https://unlock-file.com/?4f8ef8c" id="cpaAppBtn" class="cpa-app-banner" target="_blank" rel="noopener noreferrer">
       <span id="cpaBannerText">⚡ لمشاهدة المباراة بدون تقطيع وبجودة 4K (تطبيق مجاني)</span>
       <span class="cpa-app-btn-tag" id="cpaBannerBtn">تحميل المشغل ⤓</span>
@@ -592,7 +542,7 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
       </button>
     </div>
 
-    <!-- شريط أزرار المباريات (شريط أفقي منظم وأنيق) -->
+    <!-- شريط أزرار المباريات -->
     <div class="stream-switchers">
       <button type="button" class="btn-channel active" onclick="switchStreamMatch('miami', this)">🤾 إنتر ميامي / MLS</button>
       <button type="button" class="btn-channel" onclick="switchStreamMatch('real', this)">👑 ريال مدريد × فالنسيا (21:00)</button>
@@ -659,26 +609,19 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
 <script>
 // ========================================================
 // 🔗 روابط AdBlueMedia المباشرة (CPA Smart Routing)
-// تم دمج رابط اللوكر الخاص بك لجميع الأجهزة وسيرفر VIP
 // ========================================================
 const CPA_ANDROID_URL = "https://unlock-file.com/?4f8ef8c";
 const CPA_IOS_URL     = "https://unlock-file.com/?4f8ef8c";
 const CPA_PC_URL      = "https://unlock-file.com/?4f8ef8c";
 const CPA_VIP_URL     = "https://unlock-file.com/?4f8ef8c";
 
-// دالة الكشف الذكي عن نوع جهاز الزائر
 function detectUserDevice() {
   const ua = navigator.userAgent || navigator.vendor || window.opera;
-  if (/android/i.test(ua)) {
-    return "android";
-  }
-  if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
-    return "ios";
-  }
+  if (/android/i.test(ua)) return "android";
+  if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) return "ios";
   return "pc";
 }
 
-// توجيه الزائر للعرض المناسب لجهازه
 function getTargetCpaOffer() {
   const device = detectUserDevice();
   if (device === "android") return CPA_ANDROID_URL;
@@ -686,7 +629,6 @@ function getTargetCpaOffer() {
   return CPA_PC_URL;
 }
 
-// الضغط على سيرفر VIP الذهبي
 function handleVipServerClick() {
   window.open(CPA_VIP_URL, "_blank", "noopener,noreferrer");
 }
@@ -818,19 +760,18 @@ function getName(team) {
   return team?.name || (language === "ar" ? "فريق غير معروف" : "Équipe inconnue");
 }
 
+// تعديل التوقيت ليطابق توقيت الجزائر بدون إنقاص ساعة
 function formatTime(match) {
   if (!match?.utcDate) return "—";
   const date = new Date(match.utcDate);
   if (Number.isNaN(date.getTime())) return "—";
-
-  const adjustedTime = new Date(date.getTime() - (60 * 60 * 1000));
 
   return new Intl.DateTimeFormat(language === "ar" ? "ar-DZ" : "fr-FR", {
     timeZone: "Africa/Algiers",
     hour: "2-digit",
     minute: "2-digit",
     hour12: false
-  }).format(adjustedTime);
+  }).format(date);
 }
 
 function statusLabel(status) {
@@ -839,8 +780,8 @@ function statusLabel(status) {
     TIMED: ["مبرمجة", "Programmée"],
     IN_PLAY: ["مباشر", "En direct"],
     LIVE: ["مباشر", "En direct"],
-    "1H": ["مباشر (1)", "Direct (1)"],
-    "2H": ["مباشر (2)", "Direct (2)"],
+    "1H": ["مباشر", "En direct"],
+    "2H": ["مباشر", "En direct"],
     PAUSED: ["استراحة", "Mi-temps"],
     HT: ["استراحة", "Mi-temps"],
     HALF_TIME: ["استراحة", "Mi-temps"],
@@ -854,76 +795,35 @@ function statusLabel(status) {
   return (labels[status] || ["—", "—"])[language === "ar" ? 0 : 1];
 }
 
+// دالة الحالة بدون الدوائر مع إخفاء الشارة عند انتهاء المباراة
 function renderMatchStatus(match) {
   const rawStatus = String(match.status || "").toUpperCase().trim();
   const ar = language === "ar";
-  const circumference = 25.1;
 
   const isLiveExplicit = ["IN_PLAY", "LIVE", "1H", "2H", "IN-PLAY", "PLAYING"].includes(rawStatus);
   const isPauseExplicit = ["PAUSED", "HT", "HALF_TIME", "HALFTIME"].includes(rawStatus);
   const isFinishedExplicit = ["FINISHED", "FT", "FULL_TIME", "AET", "PEN"].includes(rawStatus);
 
-  let diffMins = -999;
-  if (match.utcDate) {
-    const startMs = new Date(match.utcDate).getTime() - (60 * 60 * 1000);
-    diffMins = Math.floor((Date.now() - startMs) / 60000);
+  // إذا انتهت المباراة: تترك النتيجة فقط وتختفي الشارة
+  if (isFinishedExplicit) {
+    return "";
   }
 
-  const isHalfTime = isPauseExplicit || (!isFinishedExplicit && diffMins >= 45 && diffMins <= 60);
-  const isLive = !isHalfTime && !isFinishedExplicit && (
-    isLiveExplicit || 
-    (diffMins >= 0 && diffMins <= 118)
-  );
-
-  if (isHalfTime) {
-    const strokeOffset = circumference * 0.5;
-    return `
-      <div class="live-badge-wrapper paused">
-        <div class="circle-timer">
-          <svg>
-            <circle class="circle-bg" cx="7" cy="7" r="4"></circle>
-            <circle class="circle-bar" cx="7" cy="7" r="4" 
-              stroke-dasharray="${circumference}" 
-              stroke-dashoffset="${strokeOffset}">
-            </circle>
-          </svg>
-        </div>
-        <span class="live-badge-text">${ar ? 'استراحة' : 'HT'}</span>
-      </div>
-    `;
+  // في حالة الاستراحة
+  if (isPauseExplicit) {
+    return `<span class="status">${ar ? "استراحة" : "Mi-temps"}</span>`;
   }
 
-  if (isLive) {
-    let min = parseInt(match.minute, 10);
-    if (isNaN(min) || min < 1) {
-      if (diffMins > 0) {
-        min = diffMins > 60 ? diffMins - 15 : Math.min(diffMins, 45);
-      }
-    }
-
-    const currentMin = Math.min(min || 1, 90);
-    const currentHalfMinute = currentMin > 45 ? Math.min(currentMin - 45, 45) : currentMin;
-    const percentLeft = Math.max(0, (45 - currentHalfMinute) / 45);
-    const strokeOffset = circumference * (1 - percentLeft);
-
+  // في حالة البث المباشر: نص مباشر خفيف وأنيق بدون دوائر
+  if (isLiveExplicit) {
     return `
       <div class="live-badge-wrapper">
-        <div class="circle-timer">
-          <svg>
-            <circle class="circle-bg" cx="7" cy="7" r="4"></circle>
-            <circle class="circle-bar" cx="7" cy="7" r="4" 
-              stroke-dasharray="${circumference}" 
-              stroke-dashoffset="${strokeOffset}">
-            </circle>
-          </svg>
-        </div>
-        <span class="live-badge-text">${ar ? 'مباشر' : 'Live'} • ${currentMin}'</span>
+        <span class="live-badge-text">🔴 ${ar ? "مباشر" : "Direct"}</span>
       </div>
     `;
   }
 
-  const isFinished = isFinishedExplicit || diffMins > 120;
-  return `<span class="status ${isFinished ? 'finished' : ''}">${escapeHTML(statusLabel(rawStatus || (isFinished ? "FINISHED" : "SCHEDULED")))}</span>`;
+  return `<span class="status">${escapeHTML(statusLabel(rawStatus || "SCHEDULED"))}</span>`;
 }
 
 function getLeagueInfo(match) {
@@ -1197,7 +1097,6 @@ function filterMatches() {
   renderMatches();
 }
 
-// تحديث نصوص بنر التطبيق الذكي حسب نوع الجهاز واللغة
 function updateSmartBanner() {
   const device = detectUserDevice();
   const ar = language === "ar";
@@ -1284,7 +1183,6 @@ function toggleLanguage() {
   $("refreshBtn").textContent = ar ? "تحديث" : "Actualiser";
 }
 
-// ربط بنر التحميل الذكي بحدث النقر
 document.addEventListener("DOMContentLoaded", function() {
   updateSmartBanner();
 
