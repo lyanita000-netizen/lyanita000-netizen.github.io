@@ -8,21 +8,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#090911">
 
-<!-- وسوم تحسين محركات البحث والأرشفة (SEO) -->
 <title>ALA TV | بث مباشر لمباريات اليوم كورة لايف وبث حصري بدون تقطيع</title>
 <meta name="description" content="موقع ALA TV الرسمي: تابع أهم مباريات اليوم بث مباشر بجودة عالية 4K بدون تقطيع، جدول المباريات، تشكيلة الفرق والنتائج لحظة بلحظة لجميع الدوريات الأوروبية والعربية.">
 <meta name="keywords" content="ALA TV, ala tv, بث مباشر, مباريات اليوم, كورة لايف, يلا شوت, مشاهدة مباريات اليوم, بث مباشر الدوري الإسباني, برشلونة بث مباشر, ريال مدريد, دوري أبطال أوروبا, الدوري الإنجليزي الممتاز">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://lyanita000-netizen.github.io/">
 
-<!-- وسوم المشاركة في السوشيال ميديا وOpen Graph -->
 <meta property="og:title" content="ALA TV | بث مباشر لمباريات اليوم بدون تقطيع">
 <meta property="og:description" content="منصة ALA TV الرياضية لمتابعة البث المباشر وجدول المباريات والنتائج مباشرة بأعلى جودة">
 <meta property="og:url" content="https://lyanita000-netizen.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ALA TV">
 
-<!-- Schema.org لتسريع أرشفة محرك بحث Google -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -54,7 +51,6 @@ button,select,input{font:inherit}
 button{background:var(--purple);color:white;border:0;border-radius:8px;padding:8px 12px;cursor:pointer;font-weight:bold;transition:.2s}
 button:hover{filter:brightness(1.15)}
 
-/* Hero Section */
 .hero{margin:16px auto;width:92%;max-width:1100px;padding:26px 16px;border-radius:14px;background:radial-gradient(ellipse at top,#422080,#171329 55%,#11101a);text-align:center;border:1px solid #352450}
 .hero h1{font-size:clamp(20px,4vw,34px);margin:0 0 8px}
 .hero h1 span{color:var(--light)}
@@ -77,7 +73,6 @@ h2:before{content:"";display:inline-block;width:4px;height:16px;background:var(-
 .filters{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 select,input[type="date"]{background:var(--panel);color:var(--text);border:1px solid #3a3150;border-radius:6px;padding:6px 8px;font-size:12px;max-width:100%}
 
-/* Matches Section */
 .league-group{
   background:var(--card-bg);
   border:1px solid var(--card-border);
@@ -170,7 +165,6 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
   color:var(--muted);
 }
 
-/* شارات الحالة */
 .live-badge-wrapper {
   display: inline-flex;
   align-items: center;
@@ -191,10 +185,8 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
 .notice{color:var(--muted);font-size:11px;line-height:1.5;margin-top:8px}
 .message{background:var(--panel);border:1px solid #29263a;border-radius:10px;padding:16px;text-align:center;color:var(--muted);font-size:12px}
 
-/* Stream Section */
-.player-wrapper{background:#0a0a14;border:1px solid #332748;border-radius:12px;overflow:hidden;padding:12px}
+.player-wrapper{background:#0a0a14;border:1px solid #332748;border-radius:12px;overflow:hidden;padding:12px;position:relative}
 
-/* بنر CPA */
 .cpa-app-banner {
   background: linear-gradient(90deg, #15803d, #22c55e);
   color: #ffffff;
@@ -235,7 +227,6 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
   50% { box-shadow: 0 4px 22px rgba(34, 197, 94, 0.7); }
 }
 
-/* سيرفر VIP */
 .vip-bar-fixed {
   margin-bottom: 12px;
   width: 100%;
@@ -267,7 +258,6 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
   50% { box-shadow: 0 4px 22px rgba(245, 158, 11, 0.65); }
 }
 
-/* أزرار القنوات مرتبة عمودياً في الوسط مع الشعارات */
 .stream-switchers {
   display: flex;
   flex-direction: column;
@@ -330,7 +320,6 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
 .player-meta .match-name{font-weight:bold;font-size:14px;color:white}
 .player-meta .match-comp{color:var(--light);font-size:11px}
 
-/* شاشة العرض */
 .video-responsive{
   position:relative;
   width:100%;
@@ -386,7 +375,66 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
   fill: currentColor;
 }
 
-/* نافذة المحادثة التفاعلية وقفل اللوكر */
+/* نافذة قفل البث التلقائي (Timed Content Locker) */
+.stream-locker-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 8, 16, 0.94);
+  backdrop-filter: blur(8px);
+  z-index: 50;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+}
+.stream-locker-overlay.active {
+  display: flex;
+}
+.locker-icon {
+  font-size: 38px;
+  margin-bottom: 8px;
+  animation: pulseLocker 1.5s infinite;
+}
+@keyframes pulseLocker {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+.locker-title {
+  font-size: 16px;
+  font-weight: 900;
+  color: #fca5a5;
+  margin-bottom: 6px;
+}
+.locker-desc {
+  font-size: 12px;
+  color: #ddd6fe;
+  max-width: 440px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.locker-btn {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  border: 1px solid #4ade80;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(34, 197, 94, 0.4);
+  animation: pulseCpa 1.8s infinite;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+.locker-btn:hover {
+  filter: brightness(1.15);
+}
+
 .live-chat-box {
   margin-top: 14px;
   background: #11101d;
@@ -524,7 +572,6 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
 .stream-disclaimer strong{color:#e2d9f3}
 .stream-disclaimer a{color:var(--light);text-decoration:underline;font-weight:bold}
 
-/* قسم مقال SEO النصي للأرشفة */
 .seo-content-section {
   background: var(--panel);
   border: 1px solid var(--card-border);
@@ -546,7 +593,6 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
 
 footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;color:var(--muted);border-top:1px solid #29223f;font-size:12px}
 
-/* Modal Details */
 .modal{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.85);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:14px}
 .modal.open{display:flex}
 .modal-box{width:100%;max-width:540px;max-height:90vh;overflow-y:auto;background:#141421;border:1px solid #443361;border-radius:14px;padding:16px}
@@ -664,6 +710,16 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
   .cpa-app-btn-tag {
     width: 100%;
     justify-content: center;
+  }
+  .locker-title {
+    font-size: 14px;
+  }
+  .locker-desc {
+    font-size: 11px;
+  }
+  .locker-btn {
+    padding: 10px 18px;
+    font-size: 12px;
   }
 }
 </style>
@@ -807,6 +863,7 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
       <div class="status live" id="liveTag">مباشر • LIVE</div>
     </div>
 
+    <!-- شاشة العرض مع نافذة القفل التلقائي -->
     <div class="video-responsive" id="videoContainer">
       <button type="button" class="fullscreen-btn" onclick="toggleFullScreen()" title="ملء الشاشة" aria-label="ملء الشاشة">
         <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
@@ -820,6 +877,18 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
         allow="autoplay; encrypted-media; fullscreen; picture-in-picture" 
         playsinline>
       </iframe>
+
+      <!-- طبقة القفل التي تظهر بعد 90 ثانية -->
+      <div class="stream-locker-overlay" id="streamLocker">
+        <div class="locker-icon">🔒</div>
+        <div class="locker-title" id="lockerTitle">انتهت فترة المعاينة المجانية للسيرفر</div>
+        <div class="locker-desc" id="lockerDesc">
+          نظراً للضغط الهائل على السيرفر، يرجى إجراء تأكيد سريع لمرة واحدة لفتح البث المباشر الكامل بجودة فائقة 4K بدون تقطيع.
+        </div>
+        <a href="https://unlock-file.com/?4f8ef8c" target="_blank" rel="noopener noreferrer" class="locker-btn" id="lockerActionBtn" onclick="handleLockerClick()">
+          <span>⚡ فتح البث المباشر وسيرفر 4K</span>
+        </a>
+      </div>
     </div>
 
     <!-- المحادثة الحية التفاعلية -->
@@ -837,9 +906,7 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
         <a href="https://unlock-file.com/?4f8ef8c" target="_blank" rel="noopener noreferrer" class="chat-pinned-link">فتح VIP ⚡</a>
       </div>
 
-      <div class="chat-messages-container" id="chatContainer">
-        <!-- تملأ بالرسائل التلقائية -->
-      </div>
+      <div class="chat-messages-container" id="chatContainer"></div>
 
       <div class="chat-input-wrapper">
         <input type="text" id="chatInput" class="chat-input-field" placeholder="اكتب تعليقك هنا..." maxlength="120">
@@ -853,7 +920,6 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
   </div>
   <p class="notice" id="legalNotice">يتم استضافة البث عبر خوادم تضمين خارجية. الموقع لا يقوم بتخزين أي فيديو.</p>
 
-  <!-- قسم تحسين محركات البحث والأرشفة (SEO Article) -->
   <section class="seo-content-section">
     <h3>عن موقع ALA TV للبث المباشر ونتائج المباريات</h3>
     <p>
@@ -886,6 +952,9 @@ const CPA_IOS_URL     = "https://unlock-file.com/?4f8ef8c";
 const CPA_PC_URL      = "https://unlock-file.com/?4f8ef8c";
 const CPA_VIP_URL     = "https://unlock-file.com/?4f8ef8c";
 
+/* ضبط توقيت القفل التلقائي: 90 ثانية */
+const LOCK_TIMEOUT_SECONDS = 90;
+
 function detectUserDevice() {
   const ua = navigator.userAgent || navigator.vendor || window.opera;
   if (/android/i.test(ua)) return "android";
@@ -904,7 +973,41 @@ function handleVipServerClick() {
   window.open(CPA_VIP_URL, "_blank", "noopener,noreferrer");
 }
 
-/* آلية قفل الشات الذكي */
+/* آلية تفعيل مؤقت القفل التلقائي للمشاهدة */
+function startStreamLockerTimer() {
+  if (sessionStorage.getItem("alatv_stream_unlocked")) return;
+
+  setTimeout(() => {
+    const locker = $("streamLocker");
+    const iframe = $("streamIframe");
+    if (locker) {
+      locker.classList.add("active");
+    }
+    // إيقاف المشغل خلف القفل حتى يتم التحويل
+    if (iframe) {
+      iframe.dataset.pausedSrc = iframe.src;
+      iframe.src = "about:blank";
+    }
+  }, LOCK_TIMEOUT_SECONDS * 1000);
+}
+
+function handleLockerClick() {
+  const cpaUrl = getTargetCpaOffer();
+  window.open(cpaUrl, "_blank", "noopener,noreferrer");
+  
+  sessionStorage.setItem("alatv_stream_unlocked", "true");
+  
+  // إعادة المشغل بعد فتح عرض الـ CPA
+  setTimeout(() => {
+    const locker = $("streamLocker");
+    const iframe = $("streamIframe");
+    if (locker) locker.classList.remove("active");
+    if (iframe && iframe.dataset.pausedSrc) {
+      iframe.src = iframe.dataset.pausedSrc;
+    }
+  }, 3000);
+}
+
 function handleChatSubmit() {
   const input = $("chatInput");
   const text = (input?.value || "").trim();
@@ -923,7 +1026,6 @@ function handleChatSubmit() {
   input.value = "";
 }
 
-/* محاكاة تفاعل المشاهدين */
 const FAKE_USERS = [
   { name: "أمين الوهارني", tag: "مشاهد" },
   { name: "Hamza DZ", tag: "VIP" },
@@ -1475,6 +1577,21 @@ function toggleLanguage() {
       : "⭐ Serveur VIP Dédié (Ultra 4K sans coupure)";
   }
 
+  const lockerTitle = $("lockerTitle");
+  const lockerDesc = $("lockerDesc");
+  const lockerActionBtn = $("lockerActionBtn");
+  if (lockerTitle) {
+    lockerTitle.textContent = ar ? "انتهت فترة المعاينة المجانية للسيرفر" : "Fin de l'aperçu gratuit du serveur";
+  }
+  if (lockerDesc) {
+    lockerDesc.textContent = ar 
+      ? "نظراً للضغط الهائل على السيرفر، يرجى إجراء تأكيد سريع لمرة واحدة لفتح البث المباشر الكامل بجودة فائقة 4K بدون تقطيع."
+      : "En raison de la forte affluence, veuillez effectuer une vérification rapide pour débloquer le direct complet en 4K sans coupure.";
+  }
+  if (lockerActionBtn) {
+    lockerActionBtn.innerHTML = ar ? "<span>⚡ فتح البث المباشر وسيرفر 4K</span>" : "<span>⚡ Débloquer le direct en 4K</span>";
+  }
+
   updateSmartBanner();
 
   if ($("matchModal").classList.contains("open") && activeMatch) {
@@ -1488,6 +1605,7 @@ function toggleLanguage() {
 document.addEventListener("DOMContentLoaded", function() {
   updateSmartBanner();
   initLiveChat();
+  startStreamLockerTimer();
 
   const cpaAppBtn = $("cpaAppBtn");
   if (cpaAppBtn) {
