@@ -241,7 +241,7 @@ select,input[type="date"]{background:var(--panel);color:var(--text);border:1px s
   50% { box-shadow: 0 4px 22px rgba(245, 158, 11, 0.65); }
 }
 
-/* شريط القنوات المنظف (3 مباريات فقط) */
+/* شريط القنوات المنظف (3 مباريات نشطة فقط) */
 .stream-switchers {
   display: flex;
   gap: 8px;
@@ -509,7 +509,7 @@ footer{margin-top:30px;background:#11101c;padding:16px 5%;text-align:center;colo
       <input type="date" id="matchDate" aria-label="تاريخ المباريات">
       <select id="leagueFilter" aria-label="فلترة المباريات">
         <option value="all">كل المباريات</option>
-        <option value="cl">أبطال أوروبا</option>
+        <option value="cl">أبطال أوروبا وإفريقيا</option>
         <option value="pl">الدوري الإنجليزي</option>
         <option value="la_liga">الدوري الإسباني</option>
         <option value="serie_a">الدوري الإيطالي</option>
@@ -627,7 +627,6 @@ let language = "ar";
 let allMatches = [];
 let activeMatch = null;
 
-/* قنوات ومباريات اليوم الحالية فقط */
 const STREAMS = {
   usma: {
     title: "🇩🇿 اتحاد العاصمة × ماميلودي صنداونز",
@@ -647,7 +646,7 @@ const STREAMS = {
 };
 
 const LEAGUE_PRIORITIES = [
-  { key: "cl", rank: 1, words: ["champions", "ابطال", "أبطال", "uefa"] },
+  { key: "cl", rank: 1, words: ["champions", "ابطال", "أبطال", "uefa", "caf", "افريقيا", "إفريقيا"] },
   { key: "pl", rank: 2, words: ["premier", "انجليز", "إنجليز", "انكليز", "إنكليز", "الممتاز", "england"] },
   { key: "la_liga", rank: 3, words: ["la liga", "laliga", "primera", "اسبان", "إسبان", "spain"] },
   { key: "serie_a", rank: 4, words: ["serie a", "ايطال", "إيطال", "italy"] },
@@ -717,49 +716,19 @@ function formatTime(match) {
   }).format(date);
 }
 
-function statusLabel(status) {
-  const labels = {
-    SCHEDULED: ["لم تبدأ", "À venir"],
-    TIMED: ["مبرمجة", "Programmée"],
-    IN_PLAY: ["مباشر", "En direct"],
-    LIVE: ["مباشر", "En direct"],
-    "1H": ["مباشر", "En direct"],
-    "2H": ["مباشر", "En direct"],
-    PAUSED: ["استراحة", "Mi-temps"],
-    HT: ["استراحة", "Mi-temps"],
-    HALF_TIME: ["استراحة", "Mi-temps"],
-    FINISHED: ["انتهت", "Terminée"],
-    FT: ["انتهت", "Terminée"],
-    POSTPONED: ["مؤجلة", "Reportée"],
-    SUSPENDED: ["متوقفة", "Suspendue"],
-    CANCELLED: ["أُلغيت", "Annulée"],
-    AWARDED: ["معتمدة", "Homologué"]
-  };
-  return (labels[status] || ["—", "—"])[language === "ar" ? 0 : 1];
-}
-
 function renderMatchStatus(match) {
   const rawStatus = String(match.status || "").toUpperCase().trim();
   const ar = language === "ar";
 
-  const score = match.score?.fullTime;
-  const hasScore = score?.home != null && score?.away != null;
+  const isFinished = ["FINISHED", "FT", "FULL_TIME", "AET", "PEN", "ENDED"].some(s => rawStatus.includes(s));
+  const isPaused = ["PAUSED", "HT", "HALF_TIME", "HALFTIME", "BREAK"].some(s => rawStatus.includes(s));
+  const isLive = ["IN_PLAY", "LIVE", "1H", "2H", "IN-PLAY", "PLAYING"].some(s => rawStatus.includes(s));
 
-  let diffMins = -999;
-  if (match.utcDate) {
-    const startMs = new Date(match.utcDate).getTime();
-    diffMins = Math.floor((Date.now() - startMs) / 60000);
+  if (isFinished) {
+    return `<span class="status" style="background:#262135;color:#94a3b8;">${ar ? "انتهت" : "Terminée"}</span>`;
   }
 
-  const isFinishedExplicit = ["FINISHED", "FT", "FULL_TIME", "AET", "PEN", "ENDED"].some(s => rawStatus.includes(s));
-  const isPauseExplicit = ["PAUSED", "HT", "HALF_TIME", "HALFTIME", "BREAK"].some(s => rawStatus.includes(s));
-  const isLiveExplicit = ["IN_PLAY", "LIVE", "1H", "2H", "IN-PLAY", "PLAYING"].some(s => rawStatus.includes(s));
-
-  if (isFinishedExplicit || diffMins > 125) {
-    return "";
-  }
-
-  if (isPauseExplicit || (diffMins >= 45 && diffMins <= 62)) {
+  if (isPaused) {
     return `
       <div class="live-badge-wrapper" style="background: rgba(245, 158, 11, 0.16); border-color: rgba(245, 158, 11, 0.5);">
         <span class="live-badge-text" style="color: #fcd34d;">⏸️ ${ar ? "استراحة" : "Mi-temps"}</span>
@@ -767,7 +736,7 @@ function renderMatchStatus(match) {
     `;
   }
 
-  if (isLiveExplicit || (diffMins >= 0 && diffMins <= 125) || hasScore) {
+  if (isLive) {
     return `
       <div class="live-badge-wrapper">
         <span class="live-badge-text">🔴 ${ar ? "مباشر" : "Direct"}</span>
@@ -824,7 +793,7 @@ function renderMatches() {
   if (!filteredMatches.length) {
     list.innerHTML = `<div class="message">${
       allMatches.length
-        ? (language === "ar" ? "لا توجد مباريات في هذا التصنيف حالياً." : "Aucun match dans cette catégorie.")
+        ? (language === "ar" ? "لا توجد مباريات في هذا التصنيف حالياً. اختر (كل المباريات)." : "Aucun match dans cette catégorie.")
         : (language === "ar" ? "لا توجد مباريات متاحة لهذا التاريخ." : "Aucun match.")
     }</div>`;
     return;
@@ -968,7 +937,7 @@ async function openMatchDetails(match) {
         `<span class="channel">${escapeHTML(name)}</span>`
       ).join("")}</div>`;
     } else {
-      $("modalChannels").textContent = language === "ar" ? "سيتم التحديد قبل اللقاء" : "Non renseigné";
+      $("modalChannels").textContent = language === "ar" ? "beIN SPORTS" : "beIN SPORTS";
     }
 
     const homePlayers = fullData.lineups?.home?.players || [];
@@ -1115,7 +1084,7 @@ function toggleLanguage() {
     : '⚠️ <strong>Avertissement :</strong> Le site <strong>ALA TV</strong> n\'héberge aucun flux sur ses serveurs. Pour toute suppression de contenu, veuillez <a href="mailto:contact@alatv.live?subject=DMCA%20Notice">nous contacter</a>.';
 
   $("leagueFilter").innerHTML = ar
-    ? '<option value="all">كل المباريات</option><option value="cl">أبطال أوروبا</option><option value="pl">الدوري الإنجليزي</option><option value="la_liga">الدوري الإسباني</option><option value="serie_a">الدوري الإيطالي</option><option value="ligue_1">الدوري الفرنسي</option>'
+    ? '<option value="all">كل المباريات</option><option value="cl">أبطال أوروبا وإفريقيا</option><option value="pl">الدوري الإنجليزي</option><option value="la_liga">الدوري الإسباني</option><option value="serie_a">الدوري الإيطالي</option><option value="ligue_1">الدوري الفرنسي</option>'
     : '<option value="all">Tous les matchs</option><option value="cl">Ligue des Champions</option><option value="pl">Premier League</option><option value="la_liga">La Liga</option><option value="serie_a">Serie A</option><option value="ligue_1">Ligue 1</option>';
 
   const vipBtn = $("btnVipServer");
