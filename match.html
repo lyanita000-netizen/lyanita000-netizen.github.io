@@ -5,8 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ALA TV — البث المباشر للمباراة</title>
 
-  <!-- كود Monetag OnClick Popunder -->
+  <!-- إعلان Monetag Popunder -->
   <script id="monetag-popunder">(function(s){s.dataset.zone='12201455',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+  <!-- إعلان Monetag Vignette الانتقالي -->
+  <script>(function(s){s.dataset.zone='12224250',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
   <style>
     :root {
@@ -64,7 +67,6 @@
       padding: 0 14px;
     }
 
-    /* رأس تفاصيل المباراة */
     .match-header {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -110,7 +112,6 @@
       color: var(--primary);
     }
 
-    /* أزرار السيرفرات الربحية الذكية */
     .servers-panel {
       background: #141226;
       border: 1px solid var(--border);
@@ -146,7 +147,6 @@
       color: #000;
     }
 
-    /* شاشة مشغل البث المباشر */
     .player-wrap {
       position: relative;
       width: 100%;
@@ -163,7 +163,6 @@
       border: 0;
     }
 
-    /* أزرار مساعدة أسفل المشغل */
     .player-actions {
       display: flex;
       justify-content: space-between;
@@ -198,7 +197,6 @@
 
   <div class="container">
 
-    <!-- معلومات المباراة -->
     <div class="match-header">
       <div class="badge-live">🔴 سيرفر بث شغال 100%</div>
       <div class="teams-box">
@@ -214,7 +212,6 @@
       </div>
     </div>
 
-    <!-- لوحة السيرفرات التفاعلية المرتبطة بالـ SmartLink -->
     <div class="servers-panel">
       <button class="server-btn active" onclick="switchServer(1, 'https://example.com/embed1')">⚡ سيرفر أساسي (HD)</button>
       <button class="server-btn" onclick="switchServer(2, 'https://example.com/embed2')">🌐 سيرفر متوسط (SD)</button>
@@ -222,7 +219,6 @@
       <button class="server-btn" onclick="refreshStream()">🔄 تحديث البث والصوت</button>
     </div>
 
-    <!-- نافذة البث المباشر -->
     <div class="player-wrap">
       <iframe id="stream-frame" src="about:blank" allowfullscreen allow="autoplay"></iframe>
     </div>
@@ -236,10 +232,8 @@
   </div>
 
   <script>
-    // رابط الـ Direct Link الخاص بك من Monetag
     const DIRECT_LINK = "https://uplcm.com/4/12224226";
 
-    // 1. فتح الرابط الربحي في تبويب جديد دون مقاطعة المشاهدة
     function triggerSmartAction(type) {
       window.open(DIRECT_LINK, '_blank');
       if (type === 'reload') {
@@ -249,7 +243,6 @@
     }
 
     function switchServer(serverNum, embedUrl) {
-      // فتح الـ Direct Link كلما غير الزائر السيرفر
       window.open(DIRECT_LINK, '_blank');
       document.querySelectorAll('.server-btn').forEach(b => b.classList.remove('active'));
       event.currentTarget.classList.add('active');
@@ -257,7 +250,6 @@
     }
 
     function openVipServer() {
-      // نقرة ذات عائد عالي جداً لزر السيرفر VIP
       window.open(DIRECT_LINK, '_blank');
     }
 
@@ -267,22 +259,22 @@
       frame.src = frame.src;
     }
 
-    // 2. نظام الإنعاش التلقائي للإعلانات (Ad Refresh) كل 3 دقائق
-    // يضاعف عدد الظهور 15 مرة طوال مدة متابعة المباراة في الخلفية
+    // تنشيط الإعلانات تلقائياً كل 3 دقائق طالما البث مفتوح
     setInterval(() => {
       try {
-        const oldScript = document.getElementById('monetag-popunder');
-        if (oldScript) oldScript.remove();
+        const pop = document.createElement('script');
+        pop.dataset.zone = '12201455';
+        pop.src = 'https://al5sm.com/tag.min.js?cb=' + Date.now();
+        document.body.appendChild(pop);
 
-        const newScript = document.createElement('script');
-        newScript.id = 'monetag-popunder';
-        newScript.dataset.zone = '12201455';
-        newScript.src = 'https://al5sm.com/tag.min.js?refresh=' + Date.now();
-        document.body.appendChild(newScript);
+        const vig = document.createElement('script');
+        vig.dataset.zone = '12224250';
+        vig.src = 'https://n6wxm.com/vignette.min.js?cb=' + Date.now();
+        document.body.appendChild(vig);
       } catch (err) {
         console.error("Ad refresh tick", err);
       }
-    }, 180000); // 180,000 ميلي ثانية = 3 دقائق
+    }, 180000);
   </script>
 
 </body>
