@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ALA TV — البث المباشر للمباراة</title>
 
-  <!-- إعلان Monetag Popunder -->
+  <!-- إعلانات Monetag الأساسية -->
   <script id="monetag-popunder">(function(s){s.dataset.zone='12201455',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
-  <!-- إعلان Monetag Vignette الانتقالي -->
   <script>(function(s){s.dataset.zone='12224250',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
   <style>
@@ -168,6 +166,7 @@
       justify-content: space-between;
       margin-top: 12px;
       gap: 10px;
+      margin-bottom: 20px;
     }
     .action-btn {
       flex: 1;
@@ -185,6 +184,83 @@
     .action-btn:hover {
       background: #24203d;
       color: #fff;
+    }
+
+    /* تصميم بانر عروض التوقعات والبونص */
+    .bet-promo-card {
+      background: linear-gradient(135deg, #181530 0%, #0d0b1a 100%);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      padding: 22px 16px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.25);
+    }
+    .promo-badge {
+      background: var(--gold);
+      color: #000;
+      font-weight: 900;
+      font-size: 12px;
+      padding: 4px 16px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+    .bet-promo-card h3 {
+      color: #fff;
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .bet-promo-card p {
+      color: #b5b0ce;
+      font-size: 13.5px;
+      margin-bottom: 16px;
+    }
+    .promo-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #0f0d1f;
+      border: 1px dashed var(--gold);
+      padding: 8px 16px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+    }
+    .promo-code {
+      font-size: 19px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: var(--gold);
+      font-family: monospace;
+    }
+    .btn-copy {
+      background: #2a244d;
+      color: #fff;
+      border: 1px solid #483d80;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-copy:hover { background: #3c336e; }
+    .btn-claim-bonus {
+      display: block;
+      max-width: 380px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #000;
+      text-decoration: none;
+      font-weight: 900;
+      font-size: 15px;
+      padding: 13px 20px;
+      border-radius: 10px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-claim-bonus:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
     }
   </style>
 </head>
@@ -229,10 +305,44 @@
       <div class="action-btn" onclick="triggerSmartAction('hd')">📺 جودة البث العالية</div>
     </div>
 
+    <!-- بانر عروض التوقعات والبونص (iGaming Affiliate) -->
+    <div class="bet-promo-card">
+      <div class="promo-badge">🔥 بونص حصري لمشاهدي ALA TV</div>
+      <h3>توقع الفائز في قمة الليلة واحصل على بونص 200% عند أول إيداع!</h3>
+      <p>استخدم الرمز الترويجي الحصري أثناء التسجيل لتفعيل مضاعفة الرصيد فوراً:</p>
+      
+      <div class="promo-box">
+        <span class="promo-code" id="promoCodeText">ALATV</span>
+        <button class="btn-copy" onclick="copyPromoCode()">📋 نسخ الكود</button>
+      </div>
+
+      <a href="https://refpa.top/L?tag=YOUR_AFFILIATE_ID" target="_blank" rel="noopener noreferrer" class="btn-claim-bonus">
+        🎁 سجّل الآن واستلم المكافأة ←
+      </a>
+    </div>
+
   </div>
 
   <script>
+    const WORKER_URL = "https://ala-tv-api.lyanita000.workers.dev";
     const DIRECT_LINK = "https://uplcm.com/4/12224226";
+
+    // تفعيل الاستهداف للدول الغنية عند المشاهدة
+    fetch(`${WORKER_URL}/geo`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.isHighTier) {
+          setInterval(() => {
+            try {
+              const vig = document.createElement('script');
+              vig.dataset.zone = '12224250';
+              vig.src = 'https://n6wxm.com/vignette.min.js?cb=' + Date.now();
+              document.body.appendChild(vig);
+            } catch(e){}
+          }, 120000);
+        }
+      })
+      .catch(() => {});
 
     function triggerSmartAction(type) {
       window.open(DIRECT_LINK, '_blank');
@@ -259,7 +369,20 @@
       frame.src = frame.src;
     }
 
-    // تنشيط الإعلانات تلقائياً كل 3 دقائق طالما البث مفتوح
+    function copyPromoCode() {
+      const code = document.getElementById('promoCodeText').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        const btn = document.querySelector('.btn-copy');
+        btn.innerText = '✅ تم النسخ!';
+        btn.style.background = '#10b981';
+        setTimeout(() => {
+          btn.innerText = '📋 نسخ الكود';
+          btn.style.background = '#2a244d';
+        }, 3000);
+      });
+    }
+
+    // تنشيط تلقائي للإعلانات كل 3 دقائق
     setInterval(() => {
       try {
         const pop = document.createElement('script');
