@@ -3,207 +3,287 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>بث مباشر مباراة برشلونة وأتلتيكو مدريد | ALA TV</title>
+  <title>ALA TV — البث المباشر للمباراة</title>
+
+  <!-- كود Monetag OnClick Popunder -->
+  <script id="monetag-popunder">(function(s){s.dataset.zone='12201455',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
   <style>
     :root {
-      --bg: #090813;
-      --card-bg: #141226;
-      --border: #282347;
+      --bg: #07060f;
+      --card-bg: #121021;
+      --border: #262140;
       --primary: #8b5cf6;
+      --primary-hover: #7c3aed;
+      --accent: #ef4444;
       --gold: #f59e0b;
       --text: #ffffff;
-      --muted: #a39eb8;
+      --muted: #9490ad;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background-color: var(--bg);
       color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      padding: 12px 10px 40px;
-    }
-    .container {
-      max-width: 850px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .nav-bar {
-      margin-bottom: 4px;
-    }
-    .btn-back {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: bold;
+      padding-bottom: 60px;
     }
 
-    /* 1. الصورة الكبيرة للمباراة */
-    .match-poster {
-      width: 100%;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-    .match-poster img {
-      width: 100%;
-      height: auto;
-      display: block;
-      max-height: 340px;
-      object-fit: cover;
-    }
-
-    /* 2. صندوق الوصف وتفاصيل اللقاء */
-    .match-details-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px;
-      font-size: 13px;
-      line-height: 1.8;
-    }
-    .match-details-card h2 {
-      font-size: 16px;
-      color: #c4b5fd;
-      margin-bottom: 12px;
+    .navbar {
+      background: rgba(11, 10, 22, 0.95);
       border-bottom: 1px solid var(--border);
-      padding-bottom: 6px;
-    }
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px 12px;
-      margin-bottom: 12px;
-    }
-    .info-item span { color: var(--muted); }
-    .info-item strong { color: #fff; }
-    .match-desc {
-      color: #d1cde0;
-      border-top: 1px dashed var(--border);
-      padding-top: 10px;
-    }
-
-    /* 3. أزرار السيرفرات */
-    .servers-bar {
+      padding: 12px 24px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
     }
-    .btn-srv {
-      flex: 1;
-      min-width: 110px;
-      background: #1b1833;
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
+    .btn-home {
+      background: #1e1b38;
       border: 1px solid var(--border);
       color: #fff;
-      padding: 10px;
+      text-decoration: none;
+      padding: 6px 14px;
       border-radius: 8px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 14px;
+    }
+
+    /* رأس تفاصيل المباراة */
+    .match-header {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 14px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .badge-live {
+      background: var(--accent);
+      color: #fff;
       font-size: 12px;
       font-weight: bold;
-      text-align: center;
-      cursor: pointer;
-      text-decoration: none;
+      padding: 4px 14px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 12px;
     }
-    .btn-srv.active {
+    .teams-box {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .team-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      width: 35%;
+    }
+    .team-item img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+    }
+    .team-item span {
+      font-size: 15px;
+      font-weight: bold;
+    }
+    .vs-box {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--primary);
+    }
+
+    /* أزرار السيرفرات الربحية الذكية */
+    .servers-panel {
+      background: #141226;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .server-btn {
+      background: #201b3b;
+      color: #fff;
+      border: 1px solid #3b3363;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .server-btn:hover, .server-btn.active {
       background: var(--primary);
       border-color: #a78bfa;
     }
-    .btn-srv.vip {
-      background: linear-gradient(90deg, #d97706, #f59e0b);
+    .server-btn.vip {
+      background: linear-gradient(135deg, #d97706, #f59e0b);
+      border: 0;
       color: #000;
-      border-color: #fbbf24;
     }
 
-    /* 4. شاشة المشغل */
+    /* شاشة مشغل البث المباشر */
     .player-wrap {
+      position: relative;
       width: 100%;
       background: #000;
-      border-radius: 14px;
-      border: 1px solid var(--border);
+      border-radius: 16px;
       overflow: hidden;
-      position: relative;
-      padding-top: 56.25%; /* نسبة 16:9 */
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      aspect-ratio: 16 / 9;
     }
     .player-wrap iframe {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       border: 0;
     }
 
-    /* 5. شات البث المباشر */
-    .chat-wrap {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-    }
-    .chat-header {
-      padding: 10px 14px;
-      font-size: 13px;
-      font-weight: bold;
-      background: #1b1833;
-      border-bottom: 1px solid var(--border);
+    /* أزرار مساعدة أسفل المشغل */
+    .player-actions {
       display: flex;
       justify-content: space-between;
+      margin-top: 12px;
+      gap: 10px;
     }
-    .chat-wrap iframe {
-      width: 100%;
-      height: 350px;
-      border: 0;
-      display: block;
+    .action-btn {
+      flex: 1;
+      background: #161426;
+      border: 1px solid var(--border);
+      color: #b3aed0;
+      padding: 10px 0;
+      text-align: center;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .action-btn:hover {
+      background: #24203d;
+      color: #fff;
     }
   </style>
 </head>
 <body>
 
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">ALA TV</a>
+    <a href="index.html" class="btn-home">← العودة للرئيسية</a>
+  </nav>
+
   <div class="container">
 
-    <div class="nav-bar">
-      <a href="index.html" class="btn-back">← العودة لجدول المباريات</a>
-    </div>
-
-    <!-- 1. صورة بوستر المباراة الكبيرة -->
-    <div class="match-poster">
-      <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=80" alt="بوستر برشلونة وأتلتيكو مدريد">
-    </div>
-
-    <!-- 2. بطاقة وتفاصيل ووصف المباراة -->
-    <div class="match-details-card">
-      <h2>بطاقة وتفاصيل القمة</h2>
-      <div class="info-grid">
-        <div class="info-item"><span>🏆 البطولة:</span> <strong>الدوري الإسباني</strong></div>
-        <div class="info-item"><span>📺 القناة:</span> <strong>beIN Sports 1 HD</strong></div>
-        <div class="info-item"><span>🎙️ المعلق:</span> <strong>حفيظ دراجي</strong></div>
-        <div class="info-item"><span>⏰ التوقيت:</span> <strong>21:00 بتوقيت الجزائر</strong></div>
-      </div>
-      <div class="match-desc">
-        مشاهدة البث المباشر لقمة الجولة في الدوري الإسباني بين برشلونة وأتلتيكو مدريد. مواجهة حاسمة يسعى فيها الطرفان لخطف النقاط الثلاث في صراع القمة بجودة عالية ومتعددة تناسب جميع سرعات الإنترنت.
+    <!-- معلومات المباراة -->
+    <div class="match-header">
+      <div class="badge-live">🔴 سيرفر بث شغال 100%</div>
+      <div class="teams-box">
+        <div class="team-item">
+          <img id="home-crest" src="https://crests.football-data.org/79.png" alt="فريق 1">
+          <span id="home-title">الفريق المضيف</span>
+        </div>
+        <div class="vs-box">VS</div>
+        <div class="team-item">
+          <img id="away-crest" src="https://crests.football-data.org/81.png" alt="فريق 2">
+          <span id="away-title">الفريق الضيف</span>
+        </div>
       </div>
     </div>
 
-    <!-- 3. أزرار السيرفرات وزر الـ VIP -->
-    <div class="servers-bar">
-      <div class="btn-srv active">سيرفر أساسي 1</div>
-      <div class="btn-srv">سيرفر احتياطي 2</div>
-      <!-- ضع رابط DirectLink الخاص بـ Monetag مكان الـ # هنا -->
-      <a href="#" class="btn-srv vip">⭐ سيرفر VIP المشفر 4K</a>
+    <!-- لوحة السيرفرات التفاعلية المرتبطة بالـ SmartLink -->
+    <div class="servers-panel">
+      <button class="server-btn active" onclick="switchServer(1, 'https://example.com/embed1')">⚡ سيرفر أساسي (HD)</button>
+      <button class="server-btn" onclick="switchServer(2, 'https://example.com/embed2')">🌐 سيرفر متوسط (SD)</button>
+      <button class="server-btn vip" onclick="openVipServer()">⭐ سيرفر 4K المشفر (VIP)</button>
+      <button class="server-btn" onclick="refreshStream()">🔄 تحديث البث والصوت</button>
     </div>
 
-    <!-- 4. شاشة البث المباشر -->
+    <!-- نافذة البث المباشر -->
     <div class="player-wrap">
-      <iframe src="https://m1.sportfc.net/albaplayer/be-1/" allowfullscreen playsinline></iframe>
+      <iframe id="stream-frame" src="about:blank" allowfullscreen allow="autoplay"></iframe>
     </div>
 
-    <!-- 5. شات البث المباشر -->
-    <div class="chat-wrap">
-      <div class="chat-header">
-        <span>💬 شات المشاهدين المباشر</span>
-        <span style="color: #4ade80; font-size: 11px;">متصل الآن 🟢</span>
-      </div>
-      <!-- يمكنك وضع رابط شات مينيتنيت أو تويتش هنا -->
-      <iframe src="https://www.youtube.com/live_chat?v=5qap5aO4i9A&embed_domain=localhost"></iframe>
+    <div class="player-actions">
+      <div class="action-btn" onclick="triggerSmartAction('reload')">🔁 إعادة تحميل المشغل</div>
+      <div class="action-btn" onclick="triggerSmartAction('report')">⚠️ الإبلاغ عن انقطاع البث</div>
+      <div class="action-btn" onclick="triggerSmartAction('hd')">📺 جودة البث العالية</div>
     </div>
 
   </div>
+
+  <script>
+    // رابط الـ Direct Link الخاص بك من Monetag
+    const DIRECT_LINK = "https://uplcm.com/4/12224226";
+
+    // 1. فتح الرابط الربحي في تبويب جديد دون مقاطعة المشاهدة
+    function triggerSmartAction(type) {
+      window.open(DIRECT_LINK, '_blank');
+      if (type === 'reload') {
+        const frame = document.getElementById('stream-frame');
+        frame.src = frame.src;
+      }
+    }
+
+    function switchServer(serverNum, embedUrl) {
+      // فتح الـ Direct Link كلما غير الزائر السيرفر
+      window.open(DIRECT_LINK, '_blank');
+      document.querySelectorAll('.server-btn').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      document.getElementById('stream-frame').src = embedUrl;
+    }
+
+    function openVipServer() {
+      // نقرة ذات عائد عالي جداً لزر السيرفر VIP
+      window.open(DIRECT_LINK, '_blank');
+    }
+
+    function refreshStream() {
+      window.open(DIRECT_LINK, '_blank');
+      const frame = document.getElementById('stream-frame');
+      frame.src = frame.src;
+    }
+
+    // 2. نظام الإنعاش التلقائي للإعلانات (Ad Refresh) كل 3 دقائق
+    // يضاعف عدد الظهور 15 مرة طوال مدة متابعة المباراة في الخلفية
+    setInterval(() => {
+      try {
+        const oldScript = document.getElementById('monetag-popunder');
+        if (oldScript) oldScript.remove();
+
+        const newScript = document.createElement('script');
+        newScript.id = 'monetag-popunder';
+        newScript.dataset.zone = '12201455';
+        newScript.src = 'https://al5sm.com/tag.min.js?refresh=' + Date.now();
+        document.body.appendChild(newScript);
+      } catch (err) {
+        console.error("Ad refresh tick", err);
+      }
+    }, 180000); // 180,000 ميلي ثانية = 3 دقائق
+  </script>
 
 </body>
 </html>
