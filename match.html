@@ -1,404 +1,334 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ALA TV — البث المباشر للمباراة</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بث مباشر للمباراة | ALATV</title>
+    <!-- خط تجوال العصري -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
-  <!-- إعلانات Monetag الأساسية -->
-  <script id="monetag-popunder">(function(s){s.dataset.zone='12201455',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-  <script>(function(s){s.dataset.zone='12224250',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --accent-blue: #0077b6;
+            --accent-glow: #00b4d8;
+            --bonus-gold: #ffbe0b;
+            --danger-red: #e63946;
+            --btn-green: #10b981;
+            --btn-green-hover: #059669;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+        }
 
-  <style>
-    :root {
-      --bg: #07060f;
-      --card-bg: #121021;
-      --border: #262140;
-      --primary: #8b5cf6;
-      --primary-hover: #7c3aed;
-      --accent: #ef4444;
-      --gold: #f59e0b;
-      --text: #ffffff;
-      --muted: #9490ad;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      padding-bottom: 60px;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    .navbar {
-      background: rgba(11, 10, 22, 0.95);
-      border-bottom: 1px solid var(--border);
-      padding: 12px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(10px);
-    }
-    .nav-logo {
-      font-size: 20px;
-      font-weight: 900;
-      color: #fff;
-      letter-spacing: 1px;
-      text-decoration: none;
-    }
-    .btn-home {
-      background: #1e1b38;
-      border: 1px solid var(--border);
-      color: #fff;
-      text-decoration: none;
-      padding: 6px 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: bold;
-    }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Tajawal', system-ui, -apple-system, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+        }
 
-    .container {
-      max-width: 900px;
-      margin: 20px auto;
-      padding: 0 14px;
-    }
+        .header {
+            width: 100%;
+            max-width: 950px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0 20px 0;
+        }
 
-    .match-header {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px 14px;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .badge-live {
-      background: var(--accent);
-      color: #fff;
-      font-size: 12px;
-      font-weight: bold;
-      padding: 4px 14px;
-      border-radius: 20px;
-      display: inline-block;
-      margin-bottom: 12px;
-    }
-    .teams-box {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-    }
-    .team-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      width: 35%;
-    }
-    .team-item img {
-      width: 60px;
-      height: 60px;
-      object-fit: contain;
-    }
-    .team-item span {
-      font-size: 15px;
-      font-weight: bold;
-    }
-    .vs-box {
-      font-size: 20px;
-      font-weight: 900;
-      color: var(--primary);
-    }
+        .logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 1px;
+        }
 
-    .servers-panel {
-      background: #141226;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
-      margin-bottom: 16px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-    }
-    .server-btn {
-      background: #201b3b;
-      color: #fff;
-      border: 1px solid #3b3363;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: bold;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
-    }
-    .server-btn:hover, .server-btn.active {
-      background: var(--primary);
-      border-color: #a78bfa;
-    }
-    .server-btn.vip {
-      background: linear-gradient(135deg, #d97706, #f59e0b);
-      border: 0;
-      color: #000;
-    }
+        .logo span {
+            color: var(--accent-glow);
+        }
 
-    .player-wrap {
-      position: relative;
-      width: 100%;
-      background: #000;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      aspect-ratio: 16 / 9;
-    }
-    .player-wrap iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
+        .live-tag {
+            background-color: var(--danger-red);
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            animation: pulse-red 1.5s infinite;
+        }
 
-    .player-actions {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 12px;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    .action-btn {
-      flex: 1;
-      background: #161426;
-      border: 1px solid var(--border);
-      color: #b3aed0;
-      padding: 10px 0;
-      text-align: center;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .action-btn:hover {
-      background: #24203d;
-      color: #fff;
-    }
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            border-radius: 50%;
+        }
 
-    /* تصميم بانر عروض التوقعات والبونص */
-    .bet-promo-card {
-      background: linear-gradient(135deg, #181530 0%, #0d0b1a 100%);
-      border: 2px solid var(--gold);
-      border-radius: 16px;
-      padding: 22px 16px;
-      text-align: center;
-      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.25);
-    }
-    .promo-badge {
-      background: var(--gold);
-      color: #000;
-      font-weight: 900;
-      font-size: 12px;
-      padding: 4px 16px;
-      border-radius: 20px;
-      display: inline-block;
-      margin-bottom: 12px;
-    }
-    .bet-promo-card h3 {
-      color: #fff;
-      font-size: 18px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-    .bet-promo-card p {
-      color: #b5b0ce;
-      font-size: 13.5px;
-      margin-bottom: 16px;
-    }
-    .promo-box {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: #0f0d1f;
-      border: 1px dashed var(--gold);
-      padding: 8px 16px;
-      border-radius: 10px;
-      margin-bottom: 18px;
-    }
-    .promo-code {
-      font-size: 19px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      color: var(--gold);
-      font-family: monospace;
-    }
-    .btn-copy {
-      background: #2a244d;
-      color: #fff;
-      border: 1px solid #483d80;
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .btn-copy:hover { background: #3c336e; }
-    .btn-claim-bonus {
-      display: block;
-      max-width: 380px;
-      margin: 0 auto;
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      color: #000;
-      text-decoration: none;
-      font-weight: 900;
-      font-size: 15px;
-      padding: 13px 20px;
-      border-radius: 10px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .btn-claim-bonus:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
-    }
-  </style>
+        /* حاوية مشغل الفيديو */
+        .player-container {
+            width: 100%;
+            max-width: 950px;
+            background: #000;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            position: relative;
+            aspect-ratio: 16 / 9;
+        }
+
+        .player-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* بانر العرض الترويجي المستطيل أسفل الشاشة */
+        .xbet-banner {
+            width: 100%;
+            max-width: 950px;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #091931 0%, #0d284f 50%, #091931 100%);
+            border: 2px solid #0077b6;
+            border-radius: 14px;
+            padding: 24px 20px;
+            position: relative;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 180, 216, 0.15);
+            overflow: hidden;
+        }
+
+        /* شارة التنبيه المغرية */
+        .banner-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--danger-red);
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 5px 14px;
+            border-radius: 30px;
+            margin-bottom: 12px;
+        }
+
+        .banner-content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+        }
+
+        .banner-title {
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 1.4;
+        }
+
+        .banner-title .gold-text {
+            color: var(--bonus-gold);
+            text-shadow: 0 0 10px rgba(255, 190, 11, 0.4);
+        }
+
+        .banner-desc {
+            font-size: 14px;
+            color: #d1d5db;
+            line-height: 1.6;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        /* شريط البروموكود والزر */
+        .interactive-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .promo-pill {
+            display: flex;
+            align-items: center;
+            background: #050d1a;
+            border: 1.5px dashed var(--accent-glow);
+            border-radius: 10px;
+            padding: 4px 6px 4px 14px;
+            gap: 10px;
+        }
+
+        .promo-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .code-box {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--bonus-gold);
+            letter-spacing: 2px;
+            background: rgba(255, 190, 11, 0.1);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .btn-copy {
+            background: var(--accent-blue);
+            color: #fff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .btn-copy:hover {
+            background: var(--accent-glow);
+        }
+
+        /* زر التسجيل الكبير */
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 800;
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(16, 185, 129, 0.6);
+        }
+
+        .banner-footer-note {
+            font-size: 11px;
+            color: #6b7280;
+            margin-top: 10px;
+        }
+
+        /* حركات بصرية */
+        @keyframes pulse-red {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* التجاوب مع شاشات الهواتف */
+        @media (max-width: 768px) {
+            .banner-title {
+                font-size: 18px;
+            }
+            .interactive-section {
+                flex-direction: column;
+                width: 100%;
+            }
+            .promo-pill {
+                width: 100%;
+                justify-content: space-between;
+                padding: 6px 10px;
+            }
+            .btn-cta {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <nav class="navbar">
-    <a href="index.html" class="nav-logo">ALA TV</a>
-    <a href="index.html" class="btn-home">← العودة للرئيسية</a>
-  </nav>
-
-  <div class="container">
-
-    <div class="match-header">
-      <div class="badge-live">🔴 سيرفر بث شغال 100%</div>
-      <div class="teams-box">
-        <div class="team-item">
-          <img id="home-crest" src="https://crests.football-data.org/79.png" alt="فريق 1">
-          <span id="home-title">الفريق المضيف</span>
+    <!-- شريط الرأس -->
+    <header class="header">
+        <div class="logo">ALA<span>TV</span></div>
+        <div class="live-tag">
+            <span class="live-dot"></span>
+            مباشر الآن
         </div>
-        <div class="vs-box">VS</div>
-        <div class="team-item">
-          <img id="away-crest" src="https://crests.football-data.org/81.png" alt="فريق 2">
-          <span id="away-title">الفريق الضيف</span>
+    </header>
+
+    <!-- مشغل البث المباشر للمباراة -->
+    <main class="player-container">
+        <!-- ضع رابط بث قناتك أو المشغل في خاصية src أدناه -->
+        <iframe src="about:blank" title="مشغل المباراة المباشر" allowfullscreen></iframe>
+    </main>
+
+    <!-- بانر إعلاني مستطيل واحترافي لـ 1xBet -->
+    <section class="xbet-banner">
+        <div class="banner-badge">🔥 بونص ترحيبي مضاعف لمتابعي البث</div>
+
+        <div class="banner-content">
+            <h2 class="banner-title">
+                ضاعف رصيدك الأول حتى <span class="gold-text">200% مجاناً</span> مع تطبيق 1xBet!
+            </h2>
+            
+            <p class="banner-desc">
+                سجّل الآن في التطبيق الرسمي واستفد من أكبر مكافأة مالية عند الإيداع، مع إمكانية متابعة البث التلفزيوني الحصري لجميع مباريات الدوريات الكبرى وإحصائيات المواجهة لحظة بلحظة.
+            </p>
+
+            <div class="interactive-section">
+                <!-- خانة البروموكود المخصص مع زر النسخ السريع -->
+                <div class="promo-pill">
+                    <span class="promo-label">كود المكافأة:</span>
+                    <!-- اترك الكود هنا أو غيره فور استلامه من الإدارة -->
+                    <span id="promoCodeText" class="code-box">------</span>
+                    <button type="button" class="btn-copy" onclick="copyPromoCode()">
+                        <span id="copyBtnStatus">نسخ الكود</span>
+                    </button>
+                </div>
+
+                <!-- زر التسجيل وتفعيل البونص -->
+                <!-- استبدل رابط 1xbet.com برابط إحالتك بمجرد قبوله -->
+                <a href="https://1xbet.com" target="_blank" rel="noopener noreferrer" id="affiliateBtn" class="btn-cta">
+                    ⚡ سجّل الآن واحصل على المكافأة
+                </a>
+            </div>
+
+            <p class="banner-footer-note">* يتم تفعيل مضاعفة الرصيد فور إدخال الكود الترويجي أثناء التسجيل.</p>
         </div>
-      </div>
-    </div>
+    </section>
 
-    <div class="servers-panel">
-      <button class="server-btn active" onclick="switchServer(1, 'https://example.com/embed1')">⚡ سيرفر أساسي (HD)</button>
-      <button class="server-btn" onclick="switchServer(2, 'https://example.com/embed2')">🌐 سيرفر متوسط (SD)</button>
-      <button class="server-btn vip" onclick="openVipServer()">⭐ سيرفر 4K المشفر (VIP)</button>
-      <button class="server-btn" onclick="refreshStream()">🔄 تحديث البث والصوت</button>
-    </div>
+    <!-- سكريبت نسخ البروموكود السريع -->
+    <script>
+        function copyPromoCode() {
+            const promo = document.getElementById("promoCodeText").innerText.trim();
+            const btnStatus = document.getElementById("copyBtnStatus");
 
-    <div class="player-wrap">
-      <iframe id="stream-frame" src="about:blank" allowfullscreen allow="autoplay"></iframe>
-    </div>
+            if (promo === "------" || promo === "") {
+                alert("سيتم إضافة البروموكود فور تفعيل العرض خلال ساعات!");
+                return;
+            }
 
-    <div class="player-actions">
-      <div class="action-btn" onclick="triggerSmartAction('reload')">🔁 إعادة تحميل المشغل</div>
-      <div class="action-btn" onclick="triggerSmartAction('report')">⚠️ الإبلاغ عن انقطاع البث</div>
-      <div class="action-btn" onclick="triggerSmartAction('hd')">📺 جودة البث العالية</div>
-    </div>
-
-    <!-- بانر عروض التوقعات والبونص (iGaming Affiliate) -->
-    <div class="bet-promo-card">
-      <div class="promo-badge">🔥 بونص حصري لمشاهدي ALA TV</div>
-      <h3>توقع الفائز في قمة الليلة واحصل على بونص 200% عند أول إيداع!</h3>
-      <p>استخدم الرمز الترويجي الحصري أثناء التسجيل لتفعيل مضاعفة الرصيد فوراً:</p>
-      
-      <div class="promo-box">
-        <span class="promo-code" id="promoCodeText">ALATV</span>
-        <button class="btn-copy" onclick="copyPromoCode()">📋 نسخ الكود</button>
-      </div>
-
-      <a href="https://refpa.top/L?tag=YOUR_AFFILIATE_ID" target="_blank" rel="noopener noreferrer" class="btn-claim-bonus">
-        🎁 سجّل الآن واستلم المكافأة ←
-      </a>
-    </div>
-
-  </div>
-
-  <script>
-    const WORKER_URL = "https://ala-tv-api.lyanita000.workers.dev";
-    const DIRECT_LINK = "https://uplcm.com/4/12224226";
-
-    // تفعيل الاستهداف للدول الغنية عند المشاهدة
-    fetch(`${WORKER_URL}/geo`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.isHighTier) {
-          setInterval(() => {
-            try {
-              const vig = document.createElement('script');
-              vig.dataset.zone = '12224250';
-              vig.src = 'https://n6wxm.com/vignette.min.js?cb=' + Date.now();
-              document.body.appendChild(vig);
-            } catch(e){}
-          }, 120000);
+            navigator.clipboard.writeText(promo).then(() => {
+                btnStatus.innerText = "تم النسخ ✓";
+                setTimeout(() => {
+                    btnStatus.innerText = "نسخ الكود";
+                }, 2000);
+            });
         }
-      })
-      .catch(() => {});
-
-    function triggerSmartAction(type) {
-      window.open(DIRECT_LINK, '_blank');
-      if (type === 'reload') {
-        const frame = document.getElementById('stream-frame');
-        frame.src = frame.src;
-      }
-    }
-
-    function switchServer(serverNum, embedUrl) {
-      window.open(DIRECT_LINK, '_blank');
-      document.querySelectorAll('.server-btn').forEach(b => b.classList.remove('active'));
-      event.currentTarget.classList.add('active');
-      document.getElementById('stream-frame').src = embedUrl;
-    }
-
-    function openVipServer() {
-      window.open(DIRECT_LINK, '_blank');
-    }
-
-    function refreshStream() {
-      window.open(DIRECT_LINK, '_blank');
-      const frame = document.getElementById('stream-frame');
-      frame.src = frame.src;
-    }
-
-    function copyPromoCode() {
-      const code = document.getElementById('promoCodeText').innerText;
-      navigator.clipboard.writeText(code).then(() => {
-        const btn = document.querySelector('.btn-copy');
-        btn.innerText = '✅ تم النسخ!';
-        btn.style.background = '#10b981';
-        setTimeout(() => {
-          btn.innerText = '📋 نسخ الكود';
-          btn.style.background = '#2a244d';
-        }, 3000);
-      });
-    }
-
-    // تنشيط تلقائي للإعلانات كل 3 دقائق
-    setInterval(() => {
-      try {
-        const pop = document.createElement('script');
-        pop.dataset.zone = '12201455';
-        pop.src = 'https://al5sm.com/tag.min.js?cb=' + Date.now();
-        document.body.appendChild(pop);
-
-        const vig = document.createElement('script');
-        vig.dataset.zone = '12224250';
-        vig.src = 'https://n6wxm.com/vignette.min.js?cb=' + Date.now();
-        document.body.appendChild(vig);
-      } catch (err) {
-        console.error("Ad refresh tick", err);
-      }
-    }, 180000);
-  </script>
-
+    </script>
 </body>
 </html>
