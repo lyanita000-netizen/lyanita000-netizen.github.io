@@ -148,7 +148,9 @@
       box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
     }
 
-    .tab-pane { display: none; }
+    .tab-pane {
+      display: none;
+    }
     .tab-pane.active {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -234,7 +236,7 @@
     .btn-watch:hover { background: var(--primary-hover); }
     .btn-watch.ended { background: #24203d; color: #a39eb8; }
 
-    .no-matches {
+    .loading-box {
       text-align: center;
       padding: 40px 10px;
       color: var(--muted);
@@ -286,12 +288,14 @@
       </a>
     </section>
 
+    <!-- أزرار الأيام الثلاثة -->
     <div class="day-tabs" id="schedule">
       <button class="tab-btn" onclick="openDay('yesterday', this)">مباريات الأمس</button>
       <button class="tab-btn active" onclick="openDay('today', this)">مباريات اليوم</button>
       <button class="tab-btn" onclick="openDay('tomorrow', this)">مباريات الغد</button>
     </div>
 
+    <!-- حاويات العرض -->
     <main id="yesterday" class="tab-pane"></main>
     <main id="today" class="tab-pane active"></main>
     <main id="tomorrow" class="tab-pane"></main>
@@ -299,106 +303,99 @@
   </div>
 
   <script>
-    // جلب ملف المباريات matches.json وتوزيعها تلقائياً
-    async function loadMatches() {
+    // رابط الـ Worker الخاص بك
+    const WORKER_URL = "https://ala-tv-api.lyanita000.workers.dev";
+
+    // حساب التاريخ بتوقيت الجزائر
+    function getAlgeriaDate(offset = 0) {
+      const d = new Date();
+      d.setDate(d.getDate() + offset);
+      const parts = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Africa/Algiers",
+        year: "numeric", month: "2-digit", day: "2-digit"
+      }).formatToParts(d);
+      const part = t => parts.find(i => i.type === t)?.value;
+      return `${part("year")}-${part("month")}-${part("day")}`;
+    }
+
+    // جلب مباريات اليوم المختار وعرضها
+    async function loadMatches(dayType, offset) {
+      const container = document.getElementById(dayType);
+      container.innerHTML = '<div class="loading-box">جاري تحميل المباريات... ⏳</div>';
+
+      const targetDate = getAlgeriaDate(offset);
       try {
-        const response = await fetch('matches.json?t=' + Date.now());
-        const matchesData = await response.json();
-        renderMatches(matchesData);
+        const res = await fetch(`${WORKER_URL}/fixtures?date=${targetDate}`);
+        const matches = await res.json();
+
+        if (!Array.isArray(matches) || matches.length === 0) {
+          container.innerHTML = '<div class="loading-box">لا توجد مباريات مسجلة لهذا اليوم.</div>';
+          return;
+        }
+
+        container.innerHTML = '';
+        matches.forEach(m => {
+          let badge = '';
+          let mid = '';
+          let btnText = 'مشاهدة البث المباشر ←';
+          let btnClass = 'btn-watch';
+
+          const matchTime = new Date(m.utcDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          const hasScore = m.score && m.score.fullTime && m.score.fullTime.home !== null;
+          const scoreText = hasScore ? `${m.score.fullTime.home} - ${m.score.fullTime.away}` : "";
+
+          if (m.status === 'FINISHED') {
+            badge = '<div class="badge-status badge-ended">انتهت المباراة</div>';
+            mid = `<span class="match-time">${scoreText || 'نهاية اللقاء'}</span>`;
+            btnText = 'ملخص وتفاصيل اللقاء ←';
+            btnClass = 'btn-watch ended';
+          } else if (m.status === 'IN_PLAY' || m.status === 'PAUSED') {
+            badge = '<div class="badge-status badge-live">🔴 مباشر الآن</div>';
+            mid = `<span class="vs-text">VS</span><span class="match-time">${scoreText || 'مباشر'}</span>`;
+          } else {
+            badge = `<div class="badge-status badge-upcoming">⏰ ${matchTime}</div>`;
+            mid = `<span class="vs-text">VS</span><span class="match-time">${matchTime}</span>`;
+            btnText = 'تفاصيل وموعد البث ←';
+          }
+
+          container.innerHTML += `
+            <div class="match-card">
+              ${badge}
+              <div class="teams-grid">
+                <div class="team">
+                  <img src="${m.homeTeam.crest || 'https://crests.football-data.org/79.png'}" alt="${m.homeTeam.name}">
+                  <span>${m.homeTeam.name}</span>
+                </div>
+                <div class="match-mid">${mid}</div>
+                <div class="team">
+                  <img src="${m.awayTeam.crest || 'https://crests.football-data.org/81.png'}" alt="${m.awayTeam.name}">
+                  <span>${m.awayTeam.name}</span>
+                </div>
+              </div>
+              <div class="league-info">🏆 ${m.competition.name}</div>
+              <a href="match.html?id=${m.id}" class="${btnClass}">${btnText}</a>
+            </div>
+          `;
+        });
       } catch (err) {
-        console.error("فشل تحميل المباريات:", err);
+        container.innerHTML = '<div class="loading-box">فشل في الاتصال، يرجى المحاولة لاحقاً.</div>';
       }
     }
 
-    function renderMatches(matchesData) {
-      const now = new Date();
-      const yesterdayContainer = document.getElementById('yesterday');
-      const todayContainer = document.getElementById('today');
-      const tomorrowContainer = document.getElementById('tomorrow');
-
-      yesterdayContainer.innerHTML = '';
-      todayContainer.innerHTML = '';
-      tomorrowContainer.innerHTML = '';
-
-      matchesData.forEach(match => {
-        const matchTime = new Date(match.matchDate);
-        const diffMs = matchTime - now;
-        const diffHours = diffMs / (1000 * 60 * 60);
-
-        const isToday = matchTime.toDateString() === now.toDateString();
-        const yesterdayDate = new Date(now);
-        yesterdayDate.setDate(now.getDate() - 1);
-        const isYesterday = matchTime.toDateString() === yesterdayDate.toDateString();
-        
-        const tomorrowDate = new Date(now);
-        tomorrowDate.setDate(now.getDate() + 1);
-        const isTomorrow = matchTime.toDateString() === tomorrowDate.toDateString();
-
-        let badgeHtml = '';
-        let buttonText = 'مشاهدة البث المباشر ←';
-        let buttonClass = 'btn-watch';
-        let midHtml = '';
-
-        if (diffHours < -2.2 || isYesterday) {
-          badgeHtml = '<div class="badge-status badge-ended">انتهت المباراة</div>';
-          buttonText = 'تفاصيل وملخص المباراة ←';
-          buttonClass = 'btn-watch ended';
-          midHtml = `<span class="match-time">${match.result || 'انتهت'}</span>`;
-        } else if (diffHours <= 0 && diffHours >= -2.2) {
-          badgeHtml = '<div class="badge-status badge-live">🔴 مباشر الآن</div>';
-          buttonText = 'مشاهدة البث المباشر ←';
-          midHtml = `<span class="vs-text">VS</span><span class="match-time">مباشر</span>`;
-        } else {
-          const hours = String(matchTime.getHours()).padStart(2, '0');
-          const minutes = String(matchTime.getMinutes()).padStart(2, '0');
-          badgeHtml = `<div class="badge-status badge-upcoming">⏰ ${hours}:${minutes}</div>`;
-          buttonText = 'تفاصيل وموعد البث ←';
-          midHtml = `<span class="vs-text">VS</span><span class="match-time">${hours}:${minutes}</span>`;
-        }
-
-        const card = `
-          <div class="match-card">
-            ${badgeHtml}
-            <div class="teams-grid">
-              <div class="team">
-                <img src="${match.homeLogo}" alt="${match.homeTeam}">
-                <span>${match.homeTeam}</span>
-              </div>
-              <div class="match-mid">
-                ${midHtml}
-              </div>
-              <div class="team">
-                <img src="${match.awayLogo}" alt="${match.awayTeam}">
-                <span>${match.awayTeam}</span>
-              </div>
-            </div>
-            <div class="league-info">${match.league}</div>
-            <a href="${match.link}" class="${buttonClass}">${buttonText}</a>
-          </div>
-        `;
-
-        if (isYesterday || diffHours < -2.2) {
-          yesterdayContainer.innerHTML += card;
-        } else if (isToday) {
-          todayContainer.innerHTML += card;
-        } else if (isTomorrow || diffHours > 0) {
-          tomorrowContainer.innerHTML += card;
-        }
-      });
-
-      if (!yesterdayContainer.innerHTML) yesterdayContainer.innerHTML = '<div class="no-matches">لا توجد مباريات مسجلة للأمس.</div>';
-      if (!todayContainer.innerHTML) todayContainer.innerHTML = '<div class="no-matches">لا توجد مباريات متبقية لليوم.</div>';
-      if (!tomorrowContainer.innerHTML) tomorrowContainer.innerHTML = '<div class="no-matches">لا توجد مباريات مسجلة للغد بعد.</div>';
-    }
-
-    function openDay(dayId, btn) {
+    function openDay(dayType, btn) {
       document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-      document.getElementById(dayId).classList.add('active');
+
+      document.getElementById(dayType).classList.add('active');
       btn.classList.add('active');
+
+      if (dayType === 'yesterday') loadMatches('yesterday', -1);
+      if (dayType === 'today') loadMatches('today', 0);
+      if (dayType === 'tomorrow') loadMatches('tomorrow', 1);
     }
 
-    loadMatches();
+    // جلب مباريات اليوم تلقائياً فور فتح الموقع
+    loadMatches('today', 0);
   </script>
 
 </body>
