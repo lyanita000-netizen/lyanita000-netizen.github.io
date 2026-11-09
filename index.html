@@ -3,17 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ALA TV — بث مباشر لمباريات اليوم</title>
+  <title>ALA TV — عالم كرة القدم وبث المباريات</title>
   <style>
     :root {
-      --bg: #0b0a16;
-      --card-bg: #141226;
-      --border: #282347;
+      --bg: #07060f;
+      --card-bg: #121021;
+      --border: #262140;
       --primary: #8b5cf6;
+      --primary-hover: #7c3aed;
       --accent: #ef4444;
-      --telegram: #0088cc;
-      --android: #16a34a;
-      --ios: #334155;
       --text: #ffffff;
       --muted: #9490ad;
     }
@@ -22,33 +20,96 @@
       background-color: var(--bg);
       color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      padding: 16px 14px 60px;
+      padding-bottom: 60px;
     }
 
-    /* رأس الصفحة */
-    .header {
+    /* الشريط العلوي الكامل (Navbar) */
+    .navbar {
+      background: rgba(11, 10, 22, 0.95);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: #fff;
+    }
+    .btn-lang {
+      background: var(--primary);
+      color: #fff;
+      border: 0;
+      padding: 6px 16px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-lang:hover {
+      background: var(--primary-hover);
+    }
+
+    .main-wrap {
+      max-width: 950px;
+      margin: 20px auto 0;
+      padding: 0 14px;
+    }
+
+    /* لافتة الترحيب العريضة */
+    .hero-banner {
+      background: linear-gradient(180deg, #1d173b 0%, #121024 100%);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px 20px;
       text-align: center;
       margin-bottom: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.35);
     }
-    .header h1 {
-      font-size: 28px;
-      color: var(--primary);
-      margin-bottom: 4px;
+    .hero-banner h1 {
+      font-size: 26px;
       font-weight: 900;
-      letter-spacing: 1px;
+      color: #fff;
+      margin-bottom: 8px;
     }
-    .header p {
+    .hero-banner p {
       font-size: 13px;
-      color: var(--muted);
+      color: #b5b0ce;
+      max-width: 550px;
+      margin: 0 auto;
+      line-height: 1.6;
     }
 
-    /* شريط أزرار التيليغرام والتطبيقات */
+    /* شريط الأزرار الثلاثة (تيليغرام وتطبيقات) */
     .action-banners {
-      max-width: 900px;
-      margin: 0 auto 24px;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 10px;
+      margin-bottom: 24px;
     }
     .action-btn {
       display: flex;
@@ -83,28 +144,22 @@
 
     /* شبكة المباريات المتجاوبة */
     .matches-container {
-      max-width: 900px;
-      margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 18px;
     }
-
-    /* بطاقة المباراة */
     .match-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 18px 14px;
       text-align: center;
-      position: relative;
       box-shadow: 0 6px 20px rgba(0,0,0,0.3);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
     .badge-status {
-      display: inline-block;
       font-size: 11px;
       font-weight: bold;
       padding: 4px 14px;
@@ -139,7 +194,6 @@
       width: 55px;
       height: 55px;
       object-fit: contain;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
     }
     .team span {
       font-size: 14px;
@@ -180,81 +234,102 @@
       transition: background 0.2s;
     }
     .btn-watch:hover {
-      background: #7c3aed;
+      background: var(--primary-hover);
     }
 
     @keyframes pulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.6; }
     }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .navbar { padding: 12px 16px; }
+      .hero-banner h1 { font-size: 21px; }
+    }
   </style>
 </head>
 <body>
 
-  <header class="header">
-    <h1>ALA TV</h1>
-    <p>بث مباشر لجميع مباريات اليوم بدون تقطيع</p>
-  </header>
+  <!-- شريط التنقل العلوي -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">ALA TV</a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">الرئيسية</a></li>
+      <li><a href="#matches">المباريات</a></li>
+      <li><a href="match.html">البث المباشر</a></li>
+    </ul>
+    <a href="#" class="btn-lang">Français</a>
+  </nav>
 
-  <!-- أزرار التيليغرام والتطبيقات بروابطك الفعلية -->
-  <section class="action-banners">
-    <a href="https://t.me/ALATV_LIVE_STREAM" target="_blank" rel="noopener noreferrer" class="action-btn btn-tg">
-      <span>📢 انضم لقناة التيليغرام</span>
-    </a>
-    <a href="https://play.google.com/store/apps/details?id=com.walid.kooralive" target="_blank" rel="noopener noreferrer" class="action-btn btn-android">
-      <span>🤖 تطبيق كورة لايف (Android)</span>
-    </a>
-    <a href="https://apps.apple.com/app/id6805597332" target="_blank" rel="noopener noreferrer" class="action-btn btn-ios">
-      <span>🍏 تطبيق المشاهدة (iOS / iPhone)</span>
-    </a>
-  </section>
+  <div class="main-wrap">
 
-  <!-- شبكة كروت المباريات -->
-  <main class="matches-container">
+    <!-- لافتة الترحيب الرئيسية -->
+    <header class="hero-banner">
+      <h1>عالم كرة القدم مع ALA TV</h1>
+      <p>تابع مباريات كرة القدم ومواعيدها ونتائجها وشاهد البث المباشر في مكان واحد بدون تقطيع وبأعلى جودة.</p>
+    </header>
 
-    <!-- كرت مباراة 1 -->
-    <div class="match-card">
-      <div class="badge-status badge-live">🔴 مباشر الآن</div>
-      <div class="teams-grid">
-        <div class="team">
-          <img src="https://crests.football-data.org/79.png" alt="أتلتيكو مدريد">
-          <span>أتلتيكو مدريد</span>
+    <!-- روابط السوشيال والتطبيقات -->
+    <section class="action-banners">
+      <a href="https://t.me/ALATV_LIVE_STREAM" target="_blank" rel="noopener noreferrer" class="action-btn btn-tg">
+        <span>📢 انضم لقناة التيليغرام</span>
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.walid.kooralive" target="_blank" rel="noopener noreferrer" class="action-btn btn-android">
+        <span>🤖 تطبيق كورة لايف (Android)</span>
+      </a>
+      <a href="https://apps.apple.com/app/id6805597332" target="_blank" rel="noopener noreferrer" class="action-btn btn-ios">
+        <span>🍏 تطبيق المشاهدة (iOS)</span>
+      </a>
+    </section>
+
+    <!-- شبكة مباريات اليوم -->
+    <main class="matches-container" id="matches">
+
+      <!-- كرت مباراة 1 -->
+      <div class="match-card">
+        <div class="badge-status badge-live">🔴 مباشر الآن</div>
+        <div class="teams-grid">
+          <div class="team">
+            <img src="https://crests.football-data.org/79.png" alt="أتلتيكو مدريد">
+            <span>أتلتيكو مدريد</span>
+          </div>
+          <div class="match-mid">
+            <span class="vs-text">VS</span>
+            <span class="match-time">21:00</span>
+          </div>
+          <div class="team">
+            <img src="https://crests.football-data.org/81.png" alt="برشلونة">
+            <span>برشلونة</span>
+          </div>
         </div>
-        <div class="match-mid">
-          <span class="vs-text">VS</span>
-          <span class="match-time">21:00</span>
-        </div>
-        <div class="team">
-          <img src="https://crests.football-data.org/81.png" alt="برشلونة">
-          <span>برشلونة</span>
-        </div>
+        <div class="league-info">🏆 الدوري الإسباني — الجولة 28</div>
+        <a href="match.html" class="btn-watch">مشاهدة البث المباشر ←</a>
       </div>
-      <div class="league-info">🏆 الدوري الإسباني — الجولة 28</div>
-      <a href="match.html" class="btn-watch">مشاهدة البث المباشر ←</a>
-    </div>
 
-    <!-- كرت مباراة 2 -->
-    <div class="match-card">
-      <div class="badge-status badge-upcoming">⏰ لم تبدأ بعد</div>
-      <div class="teams-grid">
-        <div class="team">
-          <img src="https://crests.football-data.org/108.png" alt="إنتر ميلان">
-          <span>إنتر ميلان</span>
+      <!-- كرت مباراة 2 -->
+      <div class="match-card">
+        <div class="badge-status badge-upcoming">⏰ لم تبدأ بعد</div>
+        <div class="teams-grid">
+          <div class="team">
+            <img src="https://crests.football-data.org/108.png" alt="إنتر ميلان">
+            <span>إنتر ميلان</span>
+          </div>
+          <div class="match-mid">
+            <span class="vs-text">VS</span>
+            <span class="match-time">18:30</span>
+          </div>
+          <div class="team">
+            <img src="https://crests.football-data.org/586.png" alt="تورينو">
+            <span>تورينو</span>
+          </div>
         </div>
-        <div class="match-mid">
-          <span class="vs-text">VS</span>
-          <span class="match-time">18:30</span>
-        </div>
-        <div class="team">
-          <img src="https://crests.football-data.org/586.png" alt="تورينو">
-          <span>تورينو</span>
-        </div>
+        <div class="league-info">🏆 الدوري الإيطالي — الجولة 26</div>
+        <a href="match.html" class="btn-watch">تفاصيل وموعد البث ←</a>
       </div>
-      <div class="league-info">🏆 الدوري الإيطالي — الجولة 26</div>
-      <a href="match.html" class="btn-watch">تفاصيل وموعد البث ←</a>
-    </div>
 
-  </main>
+    </main>
+  </div>
 
 </body>
 </html>
