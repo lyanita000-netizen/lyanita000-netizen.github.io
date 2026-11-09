@@ -79,7 +79,7 @@
             border-radius: 50%;
         }
 
-        /* شريط اختيار السيرفرات */
+        /* أزرار السيرفرات */
         .server-controls {
             width: 100%;
             max-width: 1000px;
@@ -130,7 +130,7 @@
             box-shadow: 0 6px 20px rgba(255, 215, 0, 0.45);
         }
 
-        /* تخطيط المشغل والدردشة */
+        /* منطقة المشغل والدردشة */
         .main-stage {
             width: 100%;
             max-width: 1000px;
@@ -154,7 +154,7 @@
             border: none;
         }
 
-        /* صندوق الشات المباشر */
+        /* صندوق الشات */
         .chat-container {
             background: #111827;
             border: 1px solid #1f2937;
@@ -242,7 +242,7 @@
             font-family: inherit;
         }
 
-        /* بانر إعلان 1xBet المستطيل */
+        /* بانر عرض 1xBet */
         .xbet-banner {
             width: 100%;
             max-width: 1000px;
@@ -393,7 +393,7 @@
 </head>
 <body>
 
-    <!-- الهيدر -->
+    <!-- رأس الصفحة -->
     <header class="header">
         <div class="logo">ALA<span>TV</span></div>
         <div class="live-tag">
@@ -402,7 +402,7 @@
         </div>
     </header>
 
-    <!-- أزرار التبديل بين السيرفر المجاني والـ VIP -->
+    <!-- أزرار التبديل بين السيرفرات -->
     <div class="server-controls">
         <button type="button" class="btn-server btn-free-server active" id="btnFree" onclick="switchServer('free')">
             📺 سيرفر مجاني (SD/HD)
@@ -412,14 +412,14 @@
         </button>
     </div>
 
-    <!-- المشغل وشات المشاهدين -->
+    <!-- المشغل والدردشة -->
     <div class="main-stage">
-        <!-- شاشة المشغل -->
+        <!-- مشغل الفيديو المباشر -->
         <div class="player-container">
             <iframe id="mainPlayer" src="about:blank" title="مشغل المباراة" allowfullscreen></iframe>
         </div>
 
-        <!-- صندوق دردشة المشاهدين -->
+        <!-- صندوق الدردشة -->
         <div class="chat-container">
             <div class="chat-header">
                 <span>💬 شات المشاهدين</span>
@@ -441,7 +441,7 @@
         </div>
     </div>
 
-    <!-- الإشهار والبانر المغري لـ 1xBet -->
+    <!-- البانر الإعلاني 1xBet -->
     <section class="xbet-banner">
         <div class="banner-badge">🔥 بونص ترحيبي مضاعف لمتابعي البث</div>
 
@@ -455,7 +455,7 @@
             </p>
 
             <div class="interactive-section">
-                <!-- خانة كود البروموكود -->
+                <!-- خانة البروموكود -->
                 <div class="promo-pill">
                     <span class="promo-label">كود المكافأة:</span>
                     <span id="promoCodeText" class="code-box">------</span>
@@ -474,15 +474,13 @@
         </div>
     </section>
 
-    <!-- الأكواد البرمجية للوظائف والتحكم -->
+    <!-- وظائف الصفحة الداخلية -->
     <script>
-        // روابط قنوات البث
         const servers = {
-            free: "about:blank", // رابط سيرفر البث المجاني
-            vip: "about:blank"   // رابط سيرفر البث VIP
+            free: "about:blank",
+            vip: "about:blank"
         };
 
-        // تبديل السيرفر
         function switchServer(type) {
             const player = document.getElementById("mainPlayer");
             const btnFree = document.getElementById("btnFree");
@@ -499,7 +497,6 @@
             }
         }
 
-        // نسخ كود البروموكود
         function copyPromoCode() {
             const promo = document.getElementById("promoCodeText").innerText.trim();
             const btnStatus = document.getElementById("copyBtnStatus");
@@ -517,7 +514,6 @@
             });
         }
 
-        // إرسال التعليق في الشات
         function sendComment(e) {
             e.preventDefault();
             const nameInput = document.getElementById("userName");
@@ -540,33 +536,38 @@
         }
     </script>
 
-    <!-- سكريبت الإعلان المنبثق (Popunder) مع مهلة 10 دقائق -->
+    <!-- نظام إدارة إعلانات Monetag الموقوتة (10 دقائق بين كل ظهور) -->
     <script>
     (function() {
-        const COOLDOWN_MINUTES = 10;
-        const STORAGE_KEY = 'monetag_popunder_last_shown';
+        const COOLDOWN_MS = 10 * 60 * 1000; // 10 دقائق
 
-        function shouldShowAd() {
-            const lastShown = localStorage.getItem(STORAGE_KEY);
-            if (!lastShown) return true;
-            
-            const diffMs = Date.now() - parseInt(lastShown, 10);
-            return diffMs > COOLDOWN_MINUTES * 60 * 1000;
+        // فحص المؤقت في ذاكرة التخزين
+        function canShow(key) {
+            const last = localStorage.getItem(key);
+            if (!last) return true;
+            return (Date.now() - parseInt(last, 10)) > COOLDOWN_MS;
         }
 
-        function injectPopunder() {
-            if (!shouldShowAd()) return;
-
-            localStorage.setItem(STORAGE_KEY, Date.now().toString());
-
-            const s = document.createElement('script');
-            s.dataset.zone = '12201455';
-            s.src = 'https://al5sm.com/tag.min.js';
-            (document.body || document.documentElement).appendChild(s);
+        // 1. إعلان Vignette Banner (Zone 12224250)
+        const VIGNETTE_KEY = 'monetag_vignette_time';
+        if (canShow(VIGNETTE_KEY)) {
+            localStorage.setItem(VIGNETTE_KEY, Date.now().toString());
+            const vScript = document.createElement('script');
+            vScript.dataset.zone = '12224250';
+            vScript.src = 'https://n6wxm.com/vignette.min.js';
+            (document.body || document.documentElement).appendChild(vScript);
         }
 
-        document.addEventListener('click', function onFirstClick() {
-            injectPopunder();
+        // 2. إعلان Popunder / OnClick (Zone 12201455)
+        const POPUNDER_KEY = 'monetag_popunder_time';
+        document.addEventListener('click', function triggerPopunder() {
+            if (canShow(POPUNDER_KEY)) {
+                localStorage.setItem(POPUNDER_KEY, Date.now().toString());
+                const pScript = document.createElement('script');
+                pScript.dataset.zone = '12201455';
+                pScript.src = 'https://al5sm.com/tag.min.js';
+                (document.body || document.documentElement).appendChild(pScript);
+            }
         }, { once: true });
     })();
     </script>
