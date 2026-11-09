@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ALA TV — البث المباشر للمباراة</title>
+  <title>ALA TV — عالم كرة القدم وبث المباريات</title>
 
   <!-- إعلان Monetag Popunder -->
-  <script id="monetag-popunder">(function(s){s.dataset.zone='12201455',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+  <script>(function(s){s.dataset.zone='12201455',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
   <!-- إعلان Monetag Vignette الانتقالي -->
   <script>(function(s){s.dataset.zone='12224250',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
@@ -19,7 +19,6 @@
       --primary: #8b5cf6;
       --primary-hover: #7c3aed;
       --accent: #ef4444;
-      --gold: #f59e0b;
       --text: #ffffff;
       --muted: #9490ad;
     }
@@ -50,141 +49,213 @@
       letter-spacing: 1px;
       text-decoration: none;
     }
-    .btn-home {
-      background: #1e1b38;
-      border: 1px solid var(--border);
-      color: #fff;
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
       text-decoration: none;
-      padding: 6px 14px;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .btn-lang {
+      background: var(--primary);
+      color: #fff;
+      border: 0;
+      padding: 6px 16px;
       border-radius: 8px;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: bold;
+      text-decoration: none;
     }
 
-    .container {
-      max-width: 900px;
-      margin: 20px auto;
+    .main-wrap {
+      max-width: 950px;
+      margin: 20px auto 0;
       padding: 0 14px;
     }
 
-    .match-header {
+    .hero-banner {
+      background: linear-gradient(180deg, #1d173b 0%, #121024 100%);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+    }
+    .hero-banner h1 {
+      font-size: 26px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .hero-banner p {
+      font-size: 13px;
+      color: #b5b0ce;
+      max-width: 550px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .action-banners {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: bold;
+      color: #fff;
+      transition: transform 0.2s;
+    }
+    .action-btn:hover { transform: translateY(-2px); }
+    .btn-tg { background: linear-gradient(135deg, #0088cc, #00aaff); }
+    .btn-android { background: linear-gradient(135deg, #15803d, #22c55e); }
+    .btn-ios { background: linear-gradient(135deg, #1e293b, #475569); border: 1px solid #475569; }
+
+    .day-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+    .tab-btn {
+      background: #17142a;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 10px 22px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .tab-btn:hover { border-color: var(--primary); color: #fff; }
+    .tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: #a78bfa;
+      box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
+    }
+
+    .tab-pane {
+      display: none;
+    }
+    .tab-pane.active {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 18px;
+    }
+
+    .match-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 20px 14px;
+      padding: 18px 14px;
       text-align: center;
-      margin-bottom: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .badge-status {
+      font-size: 11px;
+      font-weight: bold;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin: 0 auto 14px;
+      width: fit-content;
     }
     .badge-live {
       background: var(--accent);
       color: #fff;
-      font-size: 12px;
-      font-weight: bold;
-      padding: 4px 14px;
-      border-radius: 20px;
-      display: inline-block;
-      margin-bottom: 12px;
+      animation: pulse 1.8s infinite;
     }
-    .teams-box {
+    .badge-upcoming {
+      background: #2a254d;
+      color: #c4b5fd;
+      border: 1px solid #433b73;
+    }
+    .badge-ended {
+      background: #334155;
+      color: #cbd5e1;
+      border: 1px solid #475569;
+    }
+    .teams-grid {
       display: flex;
       justify-content: space-around;
       align-items: center;
+      margin-bottom: 14px;
     }
-    .team-item {
+    .team {
+      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
-      width: 35%;
+      gap: 8px;
     }
-    .team-item img {
-      width: 60px;
-      height: 60px;
+    .team img {
+      width: 55px;
+      height: 55px;
       object-fit: contain;
     }
-    .team-item span {
-      font-size: 15px;
-      font-weight: bold;
-    }
-    .vs-box {
-      font-size: 20px;
-      font-weight: 900;
-      color: var(--primary);
-    }
-
-    .servers-panel {
-      background: #141226;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
-      margin-bottom: 16px;
+    .team span { font-size: 14px; font-weight: 700; }
+    .match-mid {
+      min-width: 80px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-    }
-    .server-btn {
-      background: #201b3b;
-      color: #fff;
-      border: 1px solid #3b3363;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: bold;
-      cursor: pointer;
-      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
+      gap: 4px;
     }
-    .server-btn:hover, .server-btn.active {
+    .vs-text { font-size: 15px; font-weight: 900; color: var(--muted); }
+    .match-time { font-size: 17px; font-weight: 900; color: #fff; }
+    .league-info { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+    .btn-watch {
+      display: block;
+      width: 100%;
       background: var(--primary);
-      border-color: #a78bfa;
-    }
-    .server-btn.vip {
-      background: linear-gradient(135deg, #d97706, #f59e0b);
-      border: 0;
-      color: #000;
-    }
-
-    .player-wrap {
-      position: relative;
-      width: 100%;
-      background: #000;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      aspect-ratio: 16 / 9;
-    }
-    .player-wrap iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    .player-actions {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 12px;
-      gap: 10px;
-    }
-    .action-btn {
-      flex: 1;
-      background: #161426;
-      border: 1px solid var(--border);
-      color: #b3aed0;
-      padding: 10px 0;
-      text-align: center;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .action-btn:hover {
-      background: #24203d;
       color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      padding: 11px 0;
+      border-radius: 10px;
+      transition: background 0.2s;
+    }
+    .btn-watch:hover { background: var(--primary-hover); }
+    .btn-watch.ended { background: #24203d; color: #a39eb8; }
+
+    .loading-box {
+      text-align: center;
+      padding: 40px 10px;
+      color: var(--muted);
+      font-size: 14px;
+      grid-column: 1 / -1;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .navbar { padding: 12px 16px; }
+      .hero-banner h1 { font-size: 21px; }
+      .day-tabs { gap: 6px; }
+      .tab-btn { padding: 9px 14px; font-size: 12px; }
     }
   </style>
 </head>
@@ -192,87 +263,155 @@
 
   <nav class="navbar">
     <a href="index.html" class="nav-logo">ALA TV</a>
-    <a href="index.html" class="btn-home">← العودة للرئيسية</a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">الرئيسية</a></li>
+      <li><a href="#schedule">المباريات</a></li>
+      <li><a href="match.html">البث المباشر</a></li>
+    </ul>
+    <a href="#" class="btn-lang">Français</a>
   </nav>
 
-  <div class="container">
+  <div class="main-wrap">
 
-    <div class="match-header">
-      <div class="badge-live">🔴 سيرفر بث شغال 100%</div>
-      <div class="teams-box">
-        <div class="team-item">
-          <img id="home-crest" src="https://crests.football-data.org/79.png" alt="فريق 1">
-          <span id="home-title">الفريق المضيف</span>
-        </div>
-        <div class="vs-box">VS</div>
-        <div class="team-item">
-          <img id="away-crest" src="https://crests.football-data.org/81.png" alt="فريق 2">
-          <span id="away-title">الفريق الضيف</span>
-        </div>
-      </div>
+    <header class="hero-banner">
+      <h1>عالم كرة القدم مع ALA TV</h1>
+      <p>تابع مباريات كرة القدم ومواعيدها ونتائجها وشاهد البث المباشر في مكان واحد بدون تقطيع وبأعلى جودة.</p>
+    </header>
+
+    <section class="action-banners">
+      <a href="https://t.me/ALATV_LIVE_STREAM" target="_blank" rel="noopener noreferrer" class="action-btn btn-tg">
+        <span>📢 انضم لقناة التيليغرام</span>
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.walid.kooralive" target="_blank" rel="noopener noreferrer" class="action-btn btn-android">
+        <span>🤖 تطبيق كورة لايف (Android)</span>
+      </a>
+      <a href="https://apps.apple.com/app/id6805597332" target="_blank" rel="noopener noreferrer" class="action-btn btn-ios">
+        <span>🍏 تطبيق المشاهدة (iOS)</span>
+      </a>
+    </section>
+
+    <div class="day-tabs" id="schedule">
+      <button class="tab-btn" onclick="openDay('yesterday', this)">مباريات الأمس</button>
+      <button class="tab-btn active" onclick="openDay('today', this)">مباريات اليوم</button>
+      <button class="tab-btn" onclick="openDay('tomorrow', this)">مباريات الغد</button>
     </div>
 
-    <div class="servers-panel">
-      <button class="server-btn active" onclick="switchServer(1, 'https://example.com/embed1')">⚡ سيرفر أساسي (HD)</button>
-      <button class="server-btn" onclick="switchServer(2, 'https://example.com/embed2')">🌐 سيرفر متوسط (SD)</button>
-      <button class="server-btn vip" onclick="openVipServer()">⭐ سيرفر 4K المشفر (VIP)</button>
-      <button class="server-btn" onclick="refreshStream()">🔄 تحديث البث والصوت</button>
-    </div>
-
-    <div class="player-wrap">
-      <iframe id="stream-frame" src="about:blank" allowfullscreen allow="autoplay"></iframe>
-    </div>
-
-    <div class="player-actions">
-      <div class="action-btn" onclick="triggerSmartAction('reload')">🔁 إعادة تحميل المشغل</div>
-      <div class="action-btn" onclick="triggerSmartAction('report')">⚠️ الإبلاغ عن انقطاع البث</div>
-      <div class="action-btn" onclick="triggerSmartAction('hd')">📺 جودة البث العالية</div>
-    </div>
+    <main id="yesterday" class="tab-pane"></main>
+    <main id="today" class="tab-pane active"></main>
+    <main id="tomorrow" class="tab-pane"></main>
 
   </div>
 
   <script>
-    const DIRECT_LINK = "https://uplcm.com/4/12224226";
+    const WORKER_URL = "https://ala-tv-api.lyanita000.workers.dev";
+    let currentActiveTab = 'today';
+    let currentOffset = 0;
 
-    function triggerSmartAction(type) {
-      window.open(DIRECT_LINK, '_blank');
-      if (type === 'reload') {
-        const frame = document.getElementById('stream-frame');
-        frame.src = frame.src;
+    function getAlgeriaDate(offset = 0) {
+      const d = new Date();
+      d.setDate(d.getDate() + offset);
+      const parts = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Africa/Algiers",
+        year: "numeric", month: "2-digit", day: "2-digit"
+      }).formatToParts(d);
+      const part = t => parts.find(i => i.type === t)?.value;
+      return `${part("year")}-${part("month")}-${part("day")}`;
+    }
+
+    async function loadMatches(dayType, offset, isAutoRefresh = false) {
+      const container = document.getElementById(dayType);
+      if (!isAutoRefresh) {
+        container.innerHTML = '<div class="loading-box">جاري تحميل المباريات... ⏳</div>';
+      }
+
+      const targetDate = getAlgeriaDate(offset);
+      try {
+        const res = await fetch(`${WORKER_URL}/fixtures?date=${targetDate}`);
+        const matches = await res.json();
+
+        if (!Array.isArray(matches) || matches.length === 0) {
+          if (!isAutoRefresh) container.innerHTML = '<div class="loading-box">لا توجد مباريات مسجلة لهذا اليوم.</div>';
+          return;
+        }
+
+        container.innerHTML = '';
+        matches.forEach(m => {
+          let badge = '';
+          let mid = '';
+          let btnText = 'مشاهدة البث المباشر ←';
+          let btnClass = 'btn-watch';
+
+          const matchTime = new Date(m.utcDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          const hasScore = m.score && m.score.fullTime && m.score.fullTime.home !== null;
+          const scoreText = hasScore ? `${m.score.fullTime.home} - ${m.score.fullTime.away}` : "";
+
+          if (m.status === 'FINISHED') {
+            badge = '<div class="badge-status badge-ended">انتهت المباراة</div>';
+            mid = `<span class="match-time">${scoreText || 'نهاية اللقاء'}</span>`;
+            btnText = 'ملخص وتفاصيل اللقاء ←';
+            btnClass = 'btn-watch ended';
+          } else if (m.status === 'IN_PLAY' || m.status === 'PAUSED') {
+            badge = '<div class="badge-status badge-live">🔴 مباشر الآن</div>';
+            mid = `<span class="vs-text">VS</span><span class="match-time">${scoreText || 'مباشر'}</span>`;
+          } else {
+            badge = `<div class="badge-status badge-upcoming">⏰ ${matchTime}</div>`;
+            mid = `<span class="vs-text">VS</span><span class="match-time">${matchTime}</span>`;
+            btnText = 'تفاصيل وموعد البث ←';
+          }
+
+          container.innerHTML += `
+            <div class="match-card">
+              ${badge}
+              <div class="teams-grid">
+                <div class="team">
+                  <img src="${m.homeTeam.crest || 'https://crests.football-data.org/79.png'}" alt="${m.homeTeam.name}">
+                  <span>${m.homeTeam.name}</span>
+                </div>
+                <div class="match-mid">${mid}</div>
+                <div class="team">
+                  <img src="${m.awayTeam.crest || 'https://crests.football-data.org/81.png'}" alt="${m.awayTeam.name}">
+                  <span>${m.awayTeam.name}</span>
+                </div>
+              </div>
+              <div class="league-info">🏆 ${m.competition.name}</div>
+              <a href="match.html?id=${m.id}" class="${btnClass}">${btnText}</a>
+            </div>
+          `;
+        });
+      } catch (err) {
+        if (!isAutoRefresh) container.innerHTML = '<div class="loading-box">فشل في الاتصال، يرجى المحاولة لاحقاً.</div>';
       }
     }
 
-    function switchServer(serverNum, embedUrl) {
-      window.open(DIRECT_LINK, '_blank');
-      document.querySelectorAll('.server-btn').forEach(b => b.classList.remove('active'));
-      event.currentTarget.classList.add('active');
-      document.getElementById('stream-frame').src = embedUrl;
+    function openDay(dayType, btn) {
+      currentActiveTab = dayType;
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+      document.getElementById(dayType).classList.add('active');
+      btn.classList.add('active');
+
+      if (dayType === 'yesterday') { currentOffset = -1; loadMatches('yesterday', -1); }
+      if (dayType === 'today') { currentOffset = 0; loadMatches('today', 0); }
+      if (dayType === 'tomorrow') { currentOffset = 1; loadMatches('tomorrow', 1); }
     }
 
-    function openVipServer() {
-      window.open(DIRECT_LINK, '_blank');
-    }
+    // تشغيل أولي
+    loadMatches('today', 0);
 
-    function refreshStream() {
-      window.open(DIRECT_LINK, '_blank');
-      const frame = document.getElementById('stream-frame');
-      frame.src = frame.src;
-    }
+    // تحديث صامت للمباريات والنتائج الحية كل دقيقة
+    setInterval(() => {
+      loadMatches(currentActiveTab, currentOffset, true);
+    }, 60000);
 
-    // تنشيط الإعلانات تلقائياً كل 3 دقائق لمضاعفة مرات الظهور
+    // إنعاش إعلاني صامت كل 3 دقائق لزيادة المشاهدات
     setInterval(() => {
       try {
-        const oldScript = document.getElementById('monetag-popunder');
-        if (oldScript) oldScript.remove();
-
-        const newScript = document.createElement('script');
-        newScript.id = 'monetag-popunder';
-        newScript.dataset.zone = '12201455';
-        newScript.src = 'https://al5sm.com/tag.min.js?refresh=' + Date.now();
-        document.body.appendChild(newScript);
-      } catch (err) {
-        console.error("Ad refresh tick", err);
-      }
+        const s = document.createElement('script');
+        s.dataset.zone = '12201455';
+        s.src = 'https://al5sm.com/tag.min.js?cb=' + Date.now();
+        document.body.appendChild(s);
+      } catch (e) {}
     }, 180000);
   </script>
 
