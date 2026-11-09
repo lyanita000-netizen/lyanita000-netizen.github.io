@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALATV | جدول المباريات والبث المباشر</title>
+    <title>ALATV | مباريات اليوم والبث المباشر</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -140,23 +140,10 @@
             opacity: 0.95;
         }
 
-        .btn-telegram {
-            background: #0088cc;
-            color: #fff;
-        }
+        .btn-telegram { background: #0088cc; color: #fff; }
+        .btn-android { background: #10b981; color: #fff; }
+        .btn-ios { background: #1f2937; color: #d1d5db; border: 1px solid #374151; }
 
-        .btn-android {
-            background: #10b981;
-            color: #fff;
-        }
-
-        .btn-ios {
-            background: #1f2937;
-            color: #d1d5db;
-            border: 1px solid #374151;
-        }
-
-        /* تبويبات الأيام التفاعلية */
         .tabs-row {
             display: flex;
             gap: 10px;
@@ -184,13 +171,9 @@
             box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
         }
 
-        .tab-content {
+        .matches-grid {
             width: 100%;
             max-width: 950px;
-            display: none;
-        }
-
-        .tab-content.active {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 18px;
@@ -238,22 +221,15 @@
             text-align: center;
         }
 
-        /* حاوية الشعار الدائرية لتفادي الفراغات المكسورة */
-        .team-badge-circle {
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            background: #1e293b;
-            border: 2px solid #334155;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        .team-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
         }
 
         .team-name {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 800;
             line-height: 1.3;
         }
@@ -301,16 +277,20 @@
             background: var(--btn-purple-hover);
         }
 
+        .loading-box {
+            grid-column: span 2;
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-size: 16px;
+            font-weight: 700;
+        }
+
         @media (max-width: 768px) {
-            .channel-links {
-                grid-template-columns: 1fr;
-            }
-            .tab-content.active {
-                grid-template-columns: 1fr;
-            }
-            .nav-links {
-                display: none;
-            }
+            .channel-links { grid-template-columns: 1fr; }
+            .matches-grid { grid-template-columns: 1fr; }
+            .loading-box { grid-column: span 1; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
@@ -319,7 +299,7 @@
     <nav class="navbar">
         <a href="#" class="lang-badge">Français</a>
         <div class="nav-links">
-            <a href="match.html?id=2">البث المباشر</a>
+            <a href="match.html">البث المباشر</a>
             <a href="#">المباريات</a>
             <a href="#" class="active">الرئيسية</a>
         </div>
@@ -337,181 +317,117 @@
         <a href="#" class="btn-link btn-ios">🍏 تطبيق المشاهدة (iOS)</a>
     </div>
 
-    <!-- أزرار تبديل الأيام -->
+    <!-- أزرار الأيام -->
     <div class="tabs-row">
-        <button class="tab-btn" onclick="switchDay('yesterday', this)">مباريات الأمس</button>
-        <button class="tab-btn active" onclick="switchDay('today', this)">مباريات اليوم</button>
-        <button class="tab-btn" onclick="switchDay('tomorrow', this)">مباريات الغد</button>
+        <button class="tab-btn" onclick="fetchMatchesByDay(-1, this)">مباريات الأمس</button>
+        <button class="tab-btn active" onclick="fetchMatchesByDay(0, this)">مباريات اليوم</button>
+        <button class="tab-btn" onclick="fetchMatchesByDay(1, this)">مباريات الغد</button>
     </div>
 
-    <!-- 1. جدول مباريات الأمس -->
-    <main id="tab-yesterday" class="tab-content">
-        <div class="match-card">
-            <div class="match-badge-time">انتهت المبارة</div>
-            <div class="teams-row">
-                <div class="team">
-                    <div class="team-badge-circle">🔴</div>
-                    <span class="team-name">أرسنال</span>
-                </div>
-                <div class="vs-block">
-                    <span class="vs-text">2 - 1</span>
-                    <span class="vs-time">نتيجة نهائية</span>
-                </div>
-                <div class="team">
-                    <div class="team-badge-circle">🔵</div>
-                    <span class="team-name">تشيلسي</span>
-                </div>
-            </div>
-            <div class="match-league">🏆 الدوري الإنجليزي الممتاز</div>
-            <a href="#" class="btn-match-details" style="background: #374151;">ملخص وأهداف المباراة ←</a>
-        </div>
-
-        <div class="match-card">
-            <div class="match-badge-time">انتهت المبارة</div>
-            <div class="teams-row">
-                <div class="team">
-                    <div class="team-badge-circle">🟡</div>
-                    <span class="team-name">فياريال</span>
-                </div>
-                <div class="vs-block">
-                    <span class="vs-text">1 - 3</span>
-                    <span class="vs-time">نتيجة نهائية</span>
-                </div>
-                <div class="team">
-                    <div class="team-badge-circle">⚪</div>
-                    <span class="team-name">أتلتيكو مدريد</span>
-                </div>
-            </div>
-            <div class="match-league">🏆 الدوري الإسباني</div>
-            <a href="#" class="btn-match-details" style="background: #374151;">ملخص وأهداف المباراة ←</a>
-        </div>
+    <!-- شبكة عرض المباريات التلقائية -->
+    <main id="matchesGrid" class="matches-grid">
+        <div class="loading-box">⏳ جاري جلب المباريات المباشرة وتحديث البيانات...</div>
     </main>
 
-    <!-- 2. جدول مباريات اليوم (المحدد افتراضياً) -->
-    <main id="tab-today" class="tab-content active">
-        <!-- مباراة 1 -->
-        <div class="match-card">
-            <div class="match-badge-time">⏰ 01:30 م</div>
-            <div class="teams-row">
-                <div class="team">
-                    <div class="team-badge-circle">🟡</div>
-                    <span class="team-name">وادي دجلة</span>
-                </div>
-                <div class="vs-block">
-                    <span class="vs-text">VS</span>
-                    <span class="vs-time">01:30 م</span>
-                </div>
-                <div class="team">
-                    <div class="team-badge-circle">🔵</div>
-                    <span class="team-name">منية سمنود</span>
-                </div>
-            </div>
-            <div class="match-league">🏆 كأس مصر</div>
-            <a href="match.html?id=1" class="btn-match-details">تفاصيل وموعد البث ←</a>
-        </div>
-
-        <!-- مباراة 2: الكلاسيكو -->
-        <div class="match-card">
-            <div class="match-badge-time">⏰ 09:00 م</div>
-            <div class="teams-row">
-                <div class="team">
-                    <div class="team-badge-circle">⚪</div>
-                    <span class="team-name">ريال مدريد</span>
-                </div>
-                <div class="vs-block">
-                    <span class="vs-text">VS</span>
-                    <span class="vs-time">09:00 م</span>
-                </div>
-                <div class="team">
-                    <div class="team-badge-circle">🔴</div>
-                    <span class="team-name">برشلونة</span>
-                </div>
-            </div>
-            <div class="match-league">🏆 الدوري الإسباني (الكلاسيكو)</div>
-            <a href="match.html?id=2" class="btn-match-details">تفاصيل وموعد البث ←</a>
-        </div>
-
-        <!-- مباراة 3 -->
-        <div class="match-card">
-            <div class="match-badge-time">⏰ 08:30 م</div>
-            <div class="teams-row">
-                <div class="team">
-                    <div class="team-badge-circle">🟢</div>
-                    <span class="team-name">بليموث باركواي</span>
-                </div>
-                <div class="vs-block">
-                    <span class="vs-text">VS</span>
-                    <span class="vs-time">08:30 م</span>
-                </div>
-                <div class="team">
-                    <div class="team-badge-circle">🔵</div>
-                    <span class="team-name">بيركهامستيد</span>
-                </div>
-            </div>
-            <div class="match-league">🏆 كأس الاتحاد الإنجليزي</div>
-            <a href="match.html?id=3" class="btn-match-details">تفاصيل وموعد البث ←</a>
-        </div>
-    </main>
-
-    <!-- 3. جدول مباريات الغد -->
-    <main id="tab-tomorrow" class="tab-content">
-        <div class="match-card">
-            <div class="match-badge-time">⏰ 08:45 م</div>
-            <div class="teams-row">
-                <div class="team">
-                    <div class="team-badge-circle">🔵</div>
-                    <span class="team-name">مانشستر سيتي</span>
-                </div>
-                <div class="vs-block">
-                    <span class="vs-text">VS</span>
-                    <span class="vs-time">08:45 م</span>
-                </div>
-                <div class="team">
-                    <div class="team-badge-circle">🔴</div>
-                    <span class="team-name">ليفربول</span>
-                </div>
-            </div>
-            <div class="match-league">🏆 قمة الدوري الإنجليزي الممتاز</div>
-            <a href="#" class="btn-match-details">تفاصيل وموعد البث ←</a>
-        </div>
-
-        <div class="match-card">
-            <div class="match-badge-time">⏰ 09:00 م</div>
-            <div class="teams-row">
-                <div class="team">
-                    <div class="team-badge-circle">🔴</div>
-                    <span class="team-name">بايرن ميونخ</span>
-                </div>
-                <div class="vs-block">
-                    <span class="vs-text">VS</span>
-                    <span class="vs-time">09:00 م</span>
-                </div>
-                <div class="team">
-                    <div class="team-badge-circle">🟡</div>
-                    <span class="team-name">بوروسيا دورتموند</span>
-                </div>
-            </div>
-            <div class="match-league">🏆 الدوري الألماني (الكلاسيكر)</div>
-            <a href="#" class="btn-match-details">تفاصيل وموعد البث ←</a>
-        </div>
-    </main>
-
-    <!-- جافاسكريبت للتبديل السريع بين تبويبات الأيام -->
+    <!-- جافاسكريبت: الربط التلقائي بـ Score API والترجمة الفورية -->
     <script>
-        function switchDay(day, btn) {
-            // إخفاء كل الجداول
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            // إزالة التحديد عن كل الأزرار
-            document.querySelectorAll('.tab-btn').forEach(b => {
-                b.classList.remove('active');
-            });
+        // قاموس تعريب أسماء الأندية الشائعة
+        const teamTranslations = {
+            "Real Madrid": "ريال مدريد", "Barcelona": "برشلونة", "Liverpool": "ليفربول",
+            "Manchester City": "مانشستر سيتي", "Manchester United": "مانشستر يونايتد",
+            "Arsenal": "أرسنال", "Chelsea": "تشيلسي", "Bayern Munich": "بايرن ميونخ",
+            "Borussia Dortmund": "بوروسيا دورتموند", "Paris Saint Germain": "باريس سان جيرمان",
+            "Juventus": "يوفنتوس", "AC Milan": "ميلان", "Inter": "إنتر ميلان",
+            "Atletico Madrid": "أتلتيكو مدريد", "Al Ahly": "الأهلي", "Zamalek": "الزمالك",
+            "Wadi Degla": "وادي دجلة", "Minyat Samanoud": "منية سمنود", "Plymouth Parkway": "بليموث باركواي",
+            "Berkhamsted": "بيركهامستيد"
+        };
 
-            // تفعيل التبويب والزر المختار
-            document.getElementById('tab-' + day).classList.add('active');
-            btn.classList.add('active');
+        function translateTeam(name) {
+            for (const [en, ar] of Object.entries(teamTranslations)) {
+                if (name.toLowerCase().includes(en.toLowerCase())) return ar;
+            }
+            return name;
         }
+
+        // تنسيق التاريخ بصيغة YYYY-MM-DD
+        function getDateString(offsetDays) {
+            const d = new Date();
+            d.setDate(d.getDate() + offsetDays);
+            return d.toISOString().split('T')[0];
+        }
+
+        // تحويل وقت المباراة إلى توقيت محلي بالعربية
+        function formatMatchTime(utcDateStr) {
+            if (!utcDateStr) return "--:--";
+            const date = new Date(utcDateStr);
+            return date.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', hour12: true });
+        }
+
+        // جلب المباريات من API مفتوح ومحدث تلقائياً
+        async function fetchMatchesByDay(offsetDays, btnElement) {
+            const grid = document.getElementById("matchesGrid");
+            grid.innerHTML = '<div class="loading-box">⏳ جاري تحديث المباريات...</div>';
+
+            // تبديل الزر النشط
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            if (btnElement) btnElement.classList.add('active');
+
+            const dateStr = getDateString(offsetDays);
+
+            try {
+                // جلب المباريات من واجهة كرة القدم العالمية
+                const response = await fetch(`https://api.openfoot.org/v1/matches?date=${dateStr}`);
+                const data = await response.json();
+                const matches = data.matches || data.data || [];
+
+                if (!matches || matches.length === 0) {
+                    grid.innerHTML = '<div class="loading-box">لا توجد مباريات مسجلة لهذا اليوم.</div>';
+                    return;
+                }
+
+                grid.innerHTML = '';
+                matches.forEach(m => {
+                    const homeTeam = translateTeam(m.homeTeam?.name || m.team_home || "الفريق الأول");
+                    const awayTeam = translateTeam(m.awayTeam?.name || m.team_away || "الفريق الثاني");
+                    const homeLogo = m.homeTeam?.logo || m.homeTeam?.crest || "https://placehold.co/48x48?text=FC";
+                    const awayLogo = m.awayTeam?.logo || m.awayTeam?.crest || "https://placehold.co/48x48?text=FC";
+                    const time = formatMatchTime(m.utcDate || m.datetime || m.time);
+                    const league = m.competition?.name || m.league_name || "🏆 مباراة مباشرة";
+                    const matchId = m.id || Math.floor(Math.random() * 1000);
+
+                    const card = `
+                        <div class="match-card">
+                            <div class="match-badge-time">⏰ ${time}</div>
+                            <div class="teams-row">
+                                <div class="team">
+                                    <img src="${homeLogo}" alt="${homeTeam}" class="team-logo" onerror="this.src='https://placehold.co/48x48?text=FC'">
+                                    <span class="team-name">${homeTeam}</span>
+                                </div>
+                                <div class="vs-block">
+                                    <span class="vs-text">VS</span>
+                                    <span class="vs-time">${time}</span>
+                                </div>
+                                <div class="team">
+                                    <img src="${awayLogo}" alt="${awayTeam}" class="team-logo" onerror="this.src='https://placehold.co/48x48?text=FC'">
+                                    <span class="team-name">${awayTeam}</span>
+                                </div>
+                            </div>
+                            <div class="match-league">${league}</div>
+                            <a href="match.html?id=${matchId}&team1=${encodeURIComponent(homeTeam)}&team2=${encodeURIComponent(awayTeam)}&time=${encodeURIComponent(time)}&league=${encodeURIComponent(league)}" class="btn-match-details">تفاصيل وموعد البث ←</a>
+                        </div>
+                    `;
+                    grid.innerHTML += card;
+                });
+            } catch (err) {
+                grid.innerHTML = '<div class="loading-box">⚠️ تعذر تحميل المباريات مباشرة، يرجى إعادة المحاولة لاحقاً.</div>';
+            }
+        }
+
+        // بدء الجلب التلقائي لليوم عند فتح الصفحة
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchMatchesByDay(0, document.querySelectorAll('.tab-btn')[1]);
+        });
     </script>
 
     <!-- نظام إعلانات Monetag الموقوتة بـ 10 دقائق -->
