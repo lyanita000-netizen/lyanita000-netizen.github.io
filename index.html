@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALATV | عالم كرة القدم - جدول المباريات والبث المباشر</title>
+    <title>ALATV | جدول المباريات والبث المباشر</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -40,7 +40,6 @@
             padding: 15px 20px 40px 20px;
         }
 
-        /* شريط التنقل العلوي */
         .navbar {
             width: 100%;
             max-width: 950px;
@@ -90,7 +89,6 @@
             text-decoration: none;
         }
 
-        /* صندوق الترحيب */
         .hero-banner {
             width: 100%;
             max-width: 950px;
@@ -114,7 +112,6 @@
             font-size: 14px;
         }
 
-        /* أزرار التيليغرام والتطبيقات */
         .channel-links {
             width: 100%;
             max-width: 950px;
@@ -159,7 +156,7 @@
             border: 1px solid #374151;
         }
 
-        /* تبويبات الأيام */
+        /* تبويبات الأيام التفاعلية */
         .tabs-row {
             display: flex;
             gap: 10px;
@@ -171,11 +168,11 @@
             background: #161e2e;
             border: 1px solid #283548;
             color: var(--text-muted);
-            padding: 8px 20px;
+            padding: 9px 22px;
             border-radius: 8px;
             font-family: inherit;
-            font-size: 13px;
-            font-weight: 700;
+            font-size: 14px;
+            font-weight: 800;
             cursor: pointer;
             transition: all 0.2s;
         }
@@ -184,12 +181,16 @@
             background: #6366f1;
             color: #fff;
             border-color: #6366f1;
+            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
         }
 
-        /* شبكة بطاقات المباريات */
-        .matches-grid {
+        .tab-content {
             width: 100%;
             max-width: 950px;
+            display: none;
+        }
+
+        .tab-content.active {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 18px;
@@ -233,19 +234,27 @@
             flex-direction: column;
             align-items: center;
             gap: 8px;
-            width: 100px;
+            width: 110px;
             text-align: center;
         }
 
-        .team-logo {
-            width: 48px;
-            height: 48px;
-            object-fit: contain;
+        /* حاوية الشعار الدائرية لتفادي الفراغات المكسورة */
+        .team-badge-circle {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: #1e293b;
+            border: 2px solid #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         .team-name {
-            font-size: 13px;
-            font-weight: 700;
+            font-size: 14px;
+            font-weight: 800;
             line-height: 1.3;
         }
 
@@ -296,7 +305,7 @@
             .channel-links {
                 grid-template-columns: 1fr;
             }
-            .matches-grid {
+            .tab-content.active {
                 grid-template-columns: 1fr;
             }
             .nav-links {
@@ -307,67 +316,106 @@
 </head>
 <body>
 
-    <!-- القائمة العلوية -->
     <nav class="navbar">
         <a href="#" class="lang-badge">Français</a>
         <div class="nav-links">
-            <a href="match.html?id=1">البث المباشر</a>
+            <a href="match.html?id=2">البث المباشر</a>
             <a href="#">المباريات</a>
             <a href="#" class="active">الرئيسية</a>
         </div>
         <a href="index.html" class="logo">ALA <span>TV</span></a>
     </nav>
 
-    <!-- صندوق الترحيب -->
     <section class="hero-banner">
         <h1>عالم كرة القدم مع ALA TV</h1>
         <p>تابع مباريات كرة القدم ومواعيدها ونتائجها وشاهد البث المباشر في مكان واحد بدون تقطيع وبأعلى جودة.</p>
     </section>
 
-    <!-- أزرار التيليغرام والتطبيقات -->
     <div class="channel-links">
         <a href="https://t.me" target="_blank" rel="noopener noreferrer" class="btn-link btn-telegram">📢 انضم لقناة التيليغرام</a>
         <a href="#" class="btn-link btn-android">📱 تطبيق كورة لايف (Android)</a>
         <a href="#" class="btn-link btn-ios">🍏 تطبيق المشاهدة (iOS)</a>
     </div>
 
-    <!-- تبويبات الأيام -->
+    <!-- أزرار تبديل الأيام -->
     <div class="tabs-row">
-        <button class="tab-btn">مباريات الأمس</button>
-        <button class="tab-btn active">مباريات اليوم</button>
-        <button class="tab-btn">مباريات الغد</button>
+        <button class="tab-btn" onclick="switchDay('yesterday', this)">مباريات الأمس</button>
+        <button class="tab-btn active" onclick="switchDay('today', this)">مباريات اليوم</button>
+        <button class="tab-btn" onclick="switchDay('tomorrow', this)">مباريات الغد</button>
     </div>
 
-    <!-- شبكة جدول المباريات -->
-    <main class="matches-grid">
+    <!-- 1. جدول مباريات الأمس -->
+    <main id="tab-yesterday" class="tab-content">
+        <div class="match-card">
+            <div class="match-badge-time">انتهت المبارة</div>
+            <div class="teams-row">
+                <div class="team">
+                    <div class="team-badge-circle">🔴</div>
+                    <span class="team-name">أرسنال</span>
+                </div>
+                <div class="vs-block">
+                    <span class="vs-text">2 - 1</span>
+                    <span class="vs-time">نتيجة نهائية</span>
+                </div>
+                <div class="team">
+                    <div class="team-badge-circle">🔵</div>
+                    <span class="team-name">تشيلسي</span>
+                </div>
+            </div>
+            <div class="match-league">🏆 الدوري الإنجليزي الممتاز</div>
+            <a href="#" class="btn-match-details" style="background: #374151;">ملخص وأهداف المباراة ←</a>
+        </div>
 
-        <!-- مباراة 1: وادي دجلة ضد منية سمنود (مرتبطة بـ id=1) -->
+        <div class="match-card">
+            <div class="match-badge-time">انتهت المبارة</div>
+            <div class="teams-row">
+                <div class="team">
+                    <div class="team-badge-circle">🟡</div>
+                    <span class="team-name">فياريال</span>
+                </div>
+                <div class="vs-block">
+                    <span class="vs-text">1 - 3</span>
+                    <span class="vs-time">نتيجة نهائية</span>
+                </div>
+                <div class="team">
+                    <div class="team-badge-circle">⚪</div>
+                    <span class="team-name">أتلتيكو مدريد</span>
+                </div>
+            </div>
+            <div class="match-league">🏆 الدوري الإسباني</div>
+            <a href="#" class="btn-match-details" style="background: #374151;">ملخص وأهداف المباراة ←</a>
+        </div>
+    </main>
+
+    <!-- 2. جدول مباريات اليوم (المحدد افتراضياً) -->
+    <main id="tab-today" class="tab-content active">
+        <!-- مباراة 1 -->
         <div class="match-card">
             <div class="match-badge-time">⏰ 01:30 م</div>
             <div class="teams-row">
                 <div class="team">
-                    <img src="https://via.placeholder.com/48" alt="Wadi Degla" class="team-logo">
-                    <span class="team-name">Wadi Degla SC</span>
+                    <div class="team-badge-circle">🟡</div>
+                    <span class="team-name">وادي دجلة</span>
                 </div>
                 <div class="vs-block">
                     <span class="vs-text">VS</span>
                     <span class="vs-time">01:30 م</span>
                 </div>
                 <div class="team">
-                    <img src="https://via.placeholder.com/48" alt="M S Minyat" class="team-logo">
-                    <span class="team-name">M S Minyat Samanod</span>
+                    <div class="team-badge-circle">🔵</div>
+                    <span class="team-name">منية سمنود</span>
                 </div>
             </div>
             <div class="match-league">🏆 كأس مصر</div>
             <a href="match.html?id=1" class="btn-match-details">تفاصيل وموعد البث ←</a>
         </div>
 
-        <!-- مباراة 2: ريال مدريد ضد برشلونة (مرتبطة بـ id=2) -->
+        <!-- مباراة 2: الكلاسيكو -->
         <div class="match-card">
             <div class="match-badge-time">⏰ 09:00 م</div>
             <div class="teams-row">
                 <div class="team">
-                    <img src="https://via.placeholder.com/48" alt="ريال مدريد" class="team-logo">
+                    <div class="team-badge-circle">⚪</div>
                     <span class="team-name">ريال مدريد</span>
                 </div>
                 <div class="vs-block">
@@ -375,7 +423,7 @@
                     <span class="vs-time">09:00 م</span>
                 </div>
                 <div class="team">
-                    <img src="https://via.placeholder.com/48" alt="برشلونة" class="team-logo">
+                    <div class="team-badge-circle">🔴</div>
                     <span class="team-name">برشلونة</span>
                 </div>
             </div>
@@ -383,33 +431,93 @@
             <a href="match.html?id=2" class="btn-match-details">تفاصيل وموعد البث ←</a>
         </div>
 
-        <!-- مباراة 3: بليموث ضد بيركهامستيد (مرتبطة بـ id=3) -->
+        <!-- مباراة 3 -->
         <div class="match-card">
             <div class="match-badge-time">⏰ 08:30 م</div>
             <div class="teams-row">
                 <div class="team">
-                    <img src="https://via.placeholder.com/48" alt="Plymouth" class="team-logo">
-                    <span class="team-name">Plymouth Parkway</span>
+                    <div class="team-badge-circle">🟢</div>
+                    <span class="team-name">بليموث باركواي</span>
                 </div>
                 <div class="vs-block">
                     <span class="vs-text">VS</span>
                     <span class="vs-time">08:30 م</span>
                 </div>
                 <div class="team">
-                    <img src="https://via.placeholder.com/48" alt="Berkhamsted" class="team-logo">
-                    <span class="team-name">Berkhamsted FC</span>
+                    <div class="team-badge-circle">🔵</div>
+                    <span class="team-name">بيركهامستيد</span>
                 </div>
             </div>
             <div class="match-league">🏆 كأس الاتحاد الإنجليزي</div>
             <a href="match.html?id=3" class="btn-match-details">تفاصيل وموعد البث ←</a>
         </div>
-
     </main>
 
-    <!-- نظام إدارة إعلانات Monetag الموقوتة بـ 10 دقائق (مشتركة مع صفحة البث) -->
+    <!-- 3. جدول مباريات الغد -->
+    <main id="tab-tomorrow" class="tab-content">
+        <div class="match-card">
+            <div class="match-badge-time">⏰ 08:45 م</div>
+            <div class="teams-row">
+                <div class="team">
+                    <div class="team-badge-circle">🔵</div>
+                    <span class="team-name">مانشستر سيتي</span>
+                </div>
+                <div class="vs-block">
+                    <span class="vs-text">VS</span>
+                    <span class="vs-time">08:45 م</span>
+                </div>
+                <div class="team">
+                    <div class="team-badge-circle">🔴</div>
+                    <span class="team-name">ليفربول</span>
+                </div>
+            </div>
+            <div class="match-league">🏆 قمة الدوري الإنجليزي الممتاز</div>
+            <a href="#" class="btn-match-details">تفاصيل وموعد البث ←</a>
+        </div>
+
+        <div class="match-card">
+            <div class="match-badge-time">⏰ 09:00 م</div>
+            <div class="teams-row">
+                <div class="team">
+                    <div class="team-badge-circle">🔴</div>
+                    <span class="team-name">بايرن ميونخ</span>
+                </div>
+                <div class="vs-block">
+                    <span class="vs-text">VS</span>
+                    <span class="vs-time">09:00 م</span>
+                </div>
+                <div class="team">
+                    <div class="team-badge-circle">🟡</div>
+                    <span class="team-name">بوروسيا دورتموند</span>
+                </div>
+            </div>
+            <div class="match-league">🏆 الدوري الألماني (الكلاسيكر)</div>
+            <a href="#" class="btn-match-details">تفاصيل وموعد البث ←</a>
+        </div>
+    </main>
+
+    <!-- جافاسكريبت للتبديل السريع بين تبويبات الأيام -->
+    <script>
+        function switchDay(day, btn) {
+            // إخفاء كل الجداول
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // إزالة التحديد عن كل الأزرار
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('active');
+            });
+
+            // تفعيل التبويب والزر المختار
+            document.getElementById('tab-' + day).classList.add('active');
+            btn.classList.add('active');
+        }
+    </script>
+
+    <!-- نظام إعلانات Monetag الموقوتة بـ 10 دقائق -->
     <script>
     (function() {
-        const COOLDOWN_MS = 10 * 60 * 1000; // 10 دقائق كاملة
+        const COOLDOWN_MS = 10 * 60 * 1000;
 
         function canShow(key) {
             const last = localStorage.getItem(key);
@@ -417,7 +525,7 @@
             return (Date.now() - parseInt(last, 10)) > COOLDOWN_MS;
         }
 
-        // 1. إشعار الـ Vignette الخفيف (Cheerful tag)
+        // 1. إعلان Vignette Banner (Zone 12224250)
         const VIGNETTE_KEY = 'monetag_vignette_time';
         if (canShow(VIGNETTE_KEY)) {
             localStorage.setItem(VIGNETTE_KEY, Date.now().toString());
@@ -427,7 +535,7 @@
             (document.body || document.documentElement).appendChild(vScript);
         }
 
-        // 2. إعلان Popunder عند النقر (Fair tag)
+        // 2. إعلان Popunder (Zone 12201455)
         const POPUNDER_KEY = 'monetag_popunder_time';
         document.addEventListener('click', function triggerPopunder() {
             if (canShow(POPUNDER_KEY)) {
