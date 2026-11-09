@@ -23,7 +23,7 @@
       padding-bottom: 60px;
     }
 
-    /* الشريط العلوي الكامل (Navbar) */
+    /* شريط التنقل العلوي */
     .navbar {
       background: rgba(11, 10, 22, 0.95);
       border-bottom: 1px solid var(--border);
@@ -55,9 +55,7 @@
       font-weight: 600;
       transition: color 0.2s;
     }
-    .nav-links a:hover, .nav-links a.active {
-      color: #fff;
-    }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
     .btn-lang {
       background: var(--primary);
       color: #fff;
@@ -66,12 +64,7 @@
       border-radius: 8px;
       font-size: 12.5px;
       font-weight: bold;
-      cursor: pointer;
       text-decoration: none;
-      transition: background 0.2s;
-    }
-    .btn-lang:hover {
-      background: var(--primary-hover);
     }
 
     .main-wrap {
@@ -80,7 +73,7 @@
       padding: 0 14px;
     }
 
-    /* لافتة الترحيب العريضة */
+    /* البانر الترحيبي */
     .hero-banner {
       background: linear-gradient(180deg, #1d173b 0%, #121024 100%);
       border: 1px solid var(--border);
@@ -104,7 +97,7 @@
       line-height: 1.6;
     }
 
-    /* شريط أزرار التيليغرام والتطبيقات */
+    /* أزرار السوشيال والتطبيق */
     .action-banners {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -122,27 +115,14 @@
       font-size: 13px;
       font-weight: bold;
       color: #fff;
-      transition: transform 0.2s, opacity 0.2s;
+      transition: transform 0.2s;
     }
-    .action-btn:hover {
-      transform: translateY(-2px);
-      opacity: 0.95;
-    }
-    .btn-tg {
-      background: linear-gradient(135deg, #0088cc, #00aaff);
-      box-shadow: 0 4px 15px rgba(0, 136, 204, 0.25);
-    }
-    .btn-android {
-      background: linear-gradient(135deg, #15803d, #22c55e);
-      box-shadow: 0 4px 15px rgba(34, 197, 94, 0.25);
-    }
-    .btn-ios {
-      background: linear-gradient(135deg, #1e293b, #475569);
-      box-shadow: 0 4px 15px rgba(71, 85, 105, 0.25);
-      border: 1px solid #475569;
-    }
+    .action-btn:hover { transform: translateY(-2px); }
+    .btn-tg { background: linear-gradient(135deg, #0088cc, #00aaff); }
+    .btn-android { background: linear-gradient(135deg, #15803d, #22c55e); }
+    .btn-ios { background: linear-gradient(135deg, #1e293b, #475569); border: 1px solid #475569; }
 
-    /* أزرار التبديل بين الأيام (أمس / اليوم / الغد) */
+    /* تبويبات الأيام */
     .day-tabs {
       display: flex;
       justify-content: center;
@@ -160,10 +140,7 @@
       cursor: pointer;
       transition: all 0.2s ease;
     }
-    .tab-btn:hover {
-      border-color: var(--primary);
-      color: #fff;
-    }
+    .tab-btn:hover { border-color: var(--primary); color: #fff; }
     .tab-btn.active {
       background: var(--primary);
       color: #fff;
@@ -171,17 +148,14 @@
       box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
     }
 
-    /* الحاويات ومجموعات البطاقات */
-    .tab-pane {
-      display: none;
-    }
+    .tab-pane { display: none; }
     .tab-pane.active {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 18px;
     }
 
-    /* بطاقة المباراة */
+    /* بطاقات المباريات */
     .match-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -234,10 +208,7 @@
       height: 55px;
       object-fit: contain;
     }
-    .team span {
-      font-size: 14px;
-      font-weight: 700;
-    }
+    .team span { font-size: 14px; font-weight: 700; }
     .match-mid {
       min-width: 80px;
       display: flex;
@@ -245,21 +216,9 @@
       align-items: center;
       gap: 4px;
     }
-    .vs-text {
-      font-size: 15px;
-      font-weight: 900;
-      color: var(--muted);
-    }
-    .match-time {
-      font-size: 17px;
-      font-weight: 900;
-      color: #fff;
-    }
-    .league-info {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 14px;
-    }
+    .vs-text { font-size: 15px; font-weight: 900; color: var(--muted); }
+    .match-time { font-size: 17px; font-weight: 900; color: #fff; }
+    .league-info { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
     .btn-watch {
       display: block;
       width: 100%;
@@ -272,19 +231,21 @@
       border-radius: 10px;
       transition: background 0.2s;
     }
-    .btn-watch:hover {
-      background: var(--primary-hover);
-    }
-    .btn-watch.ended {
-      background: #24203d;
-      color: #a39eb8;
+    .btn-watch:hover { background: var(--primary-hover); }
+    .btn-watch.ended { background: #24203d; color: #a39eb8; }
+
+    .no-matches {
+      text-align: center;
+      padding: 40px 10px;
+      color: var(--muted);
+      font-size: 14px;
+      grid-column: 1 / -1;
     }
 
     @keyframes pulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.6; }
     }
-
     @media (max-width: 600px) {
       .nav-links { display: none; }
       .navbar { padding: 12px 16px; }
@@ -296,7 +257,6 @@
 </head>
 <body>
 
-  <!-- شريط التنقل العلوي -->
   <nav class="navbar">
     <a href="index.html" class="nav-logo">ALA TV</a>
     <ul class="nav-links">
@@ -309,13 +269,11 @@
 
   <div class="main-wrap">
 
-    <!-- لافتة الترحيب -->
     <header class="hero-banner">
       <h1>عالم كرة القدم مع ALA TV</h1>
       <p>تابع مباريات كرة القدم ومواعيدها ونتائجها وشاهد البث المباشر في مكان واحد بدون تقطيع وبأعلى جودة.</p>
     </header>
 
-    <!-- روابط السوشيال والتطبيقات -->
     <section class="action-banners">
       <a href="https://t.me/ALATV_LIVE_STREAM" target="_blank" rel="noopener noreferrer" class="action-btn btn-tg">
         <span>📢 انضم لقناة التيليغرام</span>
@@ -328,113 +286,119 @@
       </a>
     </section>
 
-    <!-- أزرار اختيار اليوم -->
     <div class="day-tabs" id="schedule">
       <button class="tab-btn" onclick="openDay('yesterday', this)">مباريات الأمس</button>
       <button class="tab-btn active" onclick="openDay('today', this)">مباريات اليوم</button>
       <button class="tab-btn" onclick="openDay('tomorrow', this)">مباريات الغد</button>
     </div>
 
-    <!-- 1. قسم مباريات الأمس -->
-    <main id="yesterday" class="tab-pane">
-      <div class="match-card">
-        <div class="badge-status badge-ended">انتهت المبارة</div>
-        <div class="teams-grid">
-          <div class="team">
-            <img src="https://crests.football-data.org/86.png" alt="ريال مدريد">
-            <span>ريال مدريد</span>
-          </div>
-          <div class="match-mid">
-            <span class="match-time">2 - 1</span>
-          </div>
-          <div class="team">
-            <img src="https://crests.football-data.org/559.png" alt="إشبيلية">
-            <span>إشبيلية</span>
-          </div>
-        </div>
-        <div class="league-info">🏆 الدوري الإسباني</div>
-        <a href="match.html" class="btn-watch ended">ملخص وأهداف المباراة ←</a>
-      </div>
-    </main>
-
-    <!-- 2. قسم مباريات اليوم (الافتراضي) -->
-    <main id="today" class="tab-pane active">
-      <div class="match-card">
-        <div class="badge-status badge-live">🔴 مباشر الآن</div>
-        <div class="teams-grid">
-          <div class="team">
-            <img src="https://crests.football-data.org/79.png" alt="أتلتيكو مدريد">
-            <span>أتلتيكو مدريد</span>
-          </div>
-          <div class="match-mid">
-            <span class="vs-text">VS</span>
-            <span class="match-time">21:00</span>
-          </div>
-          <div class="team">
-            <img src="https://crests.football-data.org/81.png" alt="برشلونة">
-            <span>برشلونة</span>
-          </div>
-        </div>
-        <div class="league-info">🏆 الدوري الإسباني — الجولة 28</div>
-        <a href="match.html" class="btn-watch">مشاهدة البث المباشر ←</a>
-      </div>
-
-      <div class="match-card">
-        <div class="badge-status badge-upcoming">⏰ لم تبدأ بعد</div>
-        <div class="teams-grid">
-          <div class="team">
-            <img src="https://crests.football-data.org/108.png" alt="إنتر ميلان">
-            <span>إنتر ميلان</span>
-          </div>
-          <div class="match-mid">
-            <span class="vs-text">VS</span>
-            <span class="match-time">18:30</span>
-          </div>
-          <div class="team">
-            <img src="https://crests.football-data.org/586.png" alt="تورينو">
-            <span>تورينو</span>
-          </div>
-        </div>
-        <div class="league-info">🏆 الدوري الإيطالي — الجولة 26</div>
-        <a href="match.html" class="btn-watch">تفاصيل وموعد البث ←</a>
-      </div>
-    </main>
-
-    <!-- 3. قسم مباريات الغد -->
-    <main id="tomorrow" class="tab-pane">
-      <div class="match-card">
-        <div class="badge-status badge-upcoming">⏰ غداً</div>
-        <div class="teams-grid">
-          <div class="team">
-            <img src="https://crests.football-data.org/65.png" alt="مانشستر سيتي">
-            <span>مانشستر سيتي</span>
-          </div>
-          <div class="match-mid">
-            <span class="vs-text">VS</span>
-            <span class="match-time">20:00</span>
-          </div>
-          <div class="team">
-            <img src="https://crests.football-data.org/57.png" alt="أرسنال">
-            <span>أرسنال</span>
-          </div>
-        </div>
-        <div class="league-info">🏆 الدوري الإنجليزي الممتاز</div>
-        <a href="match.html" class="btn-watch">تفاصيل وموعد البث ←</a>
-      </div>
-    </main>
+    <main id="yesterday" class="tab-pane"></main>
+    <main id="today" class="tab-pane active"></main>
+    <main id="tomorrow" class="tab-pane"></main>
 
   </div>
 
   <script>
+    // جلب ملف المباريات matches.json وتوزيعها تلقائياً
+    async function loadMatches() {
+      try {
+        const response = await fetch('matches.json?t=' + Date.now());
+        const matchesData = await response.json();
+        renderMatches(matchesData);
+      } catch (err) {
+        console.error("فشل تحميل المباريات:", err);
+      }
+    }
+
+    function renderMatches(matchesData) {
+      const now = new Date();
+      const yesterdayContainer = document.getElementById('yesterday');
+      const todayContainer = document.getElementById('today');
+      const tomorrowContainer = document.getElementById('tomorrow');
+
+      yesterdayContainer.innerHTML = '';
+      todayContainer.innerHTML = '';
+      tomorrowContainer.innerHTML = '';
+
+      matchesData.forEach(match => {
+        const matchTime = new Date(match.matchDate);
+        const diffMs = matchTime - now;
+        const diffHours = diffMs / (1000 * 60 * 60);
+
+        const isToday = matchTime.toDateString() === now.toDateString();
+        const yesterdayDate = new Date(now);
+        yesterdayDate.setDate(now.getDate() - 1);
+        const isYesterday = matchTime.toDateString() === yesterdayDate.toDateString();
+        
+        const tomorrowDate = new Date(now);
+        tomorrowDate.setDate(now.getDate() + 1);
+        const isTomorrow = matchTime.toDateString() === tomorrowDate.toDateString();
+
+        let badgeHtml = '';
+        let buttonText = 'مشاهدة البث المباشر ←';
+        let buttonClass = 'btn-watch';
+        let midHtml = '';
+
+        if (diffHours < -2.2 || isYesterday) {
+          badgeHtml = '<div class="badge-status badge-ended">انتهت المباراة</div>';
+          buttonText = 'تفاصيل وملخص المباراة ←';
+          buttonClass = 'btn-watch ended';
+          midHtml = `<span class="match-time">${match.result || 'انتهت'}</span>`;
+        } else if (diffHours <= 0 && diffHours >= -2.2) {
+          badgeHtml = '<div class="badge-status badge-live">🔴 مباشر الآن</div>';
+          buttonText = 'مشاهدة البث المباشر ←';
+          midHtml = `<span class="vs-text">VS</span><span class="match-time">مباشر</span>`;
+        } else {
+          const hours = String(matchTime.getHours()).padStart(2, '0');
+          const minutes = String(matchTime.getMinutes()).padStart(2, '0');
+          badgeHtml = `<div class="badge-status badge-upcoming">⏰ ${hours}:${minutes}</div>`;
+          buttonText = 'تفاصيل وموعد البث ←';
+          midHtml = `<span class="vs-text">VS</span><span class="match-time">${hours}:${minutes}</span>`;
+        }
+
+        const card = `
+          <div class="match-card">
+            ${badgeHtml}
+            <div class="teams-grid">
+              <div class="team">
+                <img src="${match.homeLogo}" alt="${match.homeTeam}">
+                <span>${match.homeTeam}</span>
+              </div>
+              <div class="match-mid">
+                ${midHtml}
+              </div>
+              <div class="team">
+                <img src="${match.awayLogo}" alt="${match.awayTeam}">
+                <span>${match.awayTeam}</span>
+              </div>
+            </div>
+            <div class="league-info">${match.league}</div>
+            <a href="${match.link}" class="${buttonClass}">${buttonText}</a>
+          </div>
+        `;
+
+        if (isYesterday || diffHours < -2.2) {
+          yesterdayContainer.innerHTML += card;
+        } else if (isToday) {
+          todayContainer.innerHTML += card;
+        } else if (isTomorrow || diffHours > 0) {
+          tomorrowContainer.innerHTML += card;
+        }
+      });
+
+      if (!yesterdayContainer.innerHTML) yesterdayContainer.innerHTML = '<div class="no-matches">لا توجد مباريات مسجلة للأمس.</div>';
+      if (!todayContainer.innerHTML) todayContainer.innerHTML = '<div class="no-matches">لا توجد مباريات متبقية لليوم.</div>';
+      if (!tomorrowContainer.innerHTML) tomorrowContainer.innerHTML = '<div class="no-matches">لا توجد مباريات مسجلة للغد بعد.</div>';
+    }
+
     function openDay(dayId, btn) {
-      // إخفاء كل أقسام الأيام
       document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
-      // إلغاء تفعيل كل الأزرار
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-      // إظهار القسم المطلوب وتفعيل زره
       document.getElementById(dayId).classList.add('active');
       btn.classList.add('active');
     }
+
+    loadMatches();
   </script>
 
 </body>
