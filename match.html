@@ -412,7 +412,7 @@
         </button>
     </div>
 
-    <!-- المشغل وشات المشاهدين جنباً إلى جنب -->
+    <!-- المشغل وشات المشاهدين -->
     <div class="main-stage">
         <!-- شاشة المشغل -->
         <div class="player-container">
@@ -474,9 +474,9 @@
         </div>
     </section>
 
-    <!-- الأكواد البرمجية للتحكم -->
+    <!-- الأكواد البرمجية للوظائف والتحكم -->
     <script>
-        // روابط البث (ضع روابط السيرفرين هنا)
+        // روابط قنوات البث
         const servers = {
             free: "about:blank", // رابط سيرفر البث المجاني
             vip: "about:blank"   // رابط سيرفر البث VIP
@@ -538,6 +538,37 @@
 
             msgInput.value = "";
         }
+    </script>
+
+    <!-- سكريبت الإعلان المنبثق (Popunder) مع مهلة 10 دقائق -->
+    <script>
+    (function() {
+        const COOLDOWN_MINUTES = 10;
+        const STORAGE_KEY = 'monetag_popunder_last_shown';
+
+        function shouldShowAd() {
+            const lastShown = localStorage.getItem(STORAGE_KEY);
+            if (!lastShown) return true;
+            
+            const diffMs = Date.now() - parseInt(lastShown, 10);
+            return diffMs > COOLDOWN_MINUTES * 60 * 1000;
+        }
+
+        function injectPopunder() {
+            if (!shouldShowAd()) return;
+
+            localStorage.setItem(STORAGE_KEY, Date.now().toString());
+
+            const s = document.createElement('script');
+            s.dataset.zone = '12201455';
+            s.src = 'https://al5sm.com/tag.min.js';
+            (document.body || document.documentElement).appendChild(s);
+        }
+
+        document.addEventListener('click', function onFirstClick() {
+            injectPopunder();
+        }, { once: true });
+    })();
     </script>
 </body>
 </html>
