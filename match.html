@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بث مباشر للمباراة | ALATV</title>
-    <!-- خط تجوال العصري -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -18,7 +17,7 @@
             --bonus-gold: #ffbe0b;
             --danger-red: #e63946;
             --btn-green: #10b981;
-            --btn-green-hover: #059669;
+            --vip-gold: linear-gradient(135deg, #ffd700, #ff8c00);
             --text-main: #f9fafb;
             --text-muted: #9ca3af;
         }
@@ -42,15 +41,15 @@
 
         .header {
             width: 100%;
-            max-width: 950px;
+            max-width: 1000px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0 20px 0;
+            padding: 10px 0 16px 0;
         }
 
         .logo {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 900;
             color: #fff;
             letter-spacing: 1px;
@@ -65,7 +64,7 @@
             color: white;
             font-size: 13px;
             font-weight: 700;
-            padding: 4px 12px;
+            padding: 5px 14px;
             border-radius: 20px;
             display: flex;
             align-items: center;
@@ -80,12 +79,69 @@
             border-radius: 50%;
         }
 
-        /* حاوية مشغل الفيديو */
-        .player-container {
+        /* شريط اختيار السيرفرات */
+        .server-controls {
             width: 100%;
-            max-width: 950px;
+            max-width: 1000px;
+            display: flex;
+            gap: 12px;
+            margin-bottom: 14px;
+            justify-content: center;
+        }
+
+        .btn-server {
+            flex: 1;
+            max-width: 250px;
+            padding: 12px 18px;
+            font-size: 15px;
+            font-weight: 800;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.25s ease;
+        }
+
+        .btn-free-server {
+            background: #1f2937;
+            color: #e5e7eb;
+            border: 1px solid #374151;
+        }
+
+        .btn-free-server.active, .btn-free-server:hover {
+            background: var(--accent-blue);
+            color: #fff;
+            border-color: var(--accent-glow);
+            box-shadow: 0 4px 15px rgba(0, 180, 216, 0.3);
+        }
+
+        .btn-vip-server {
+            background: var(--vip-gold);
+            color: #111;
+            box-shadow: 0 4px 15px rgba(255, 190, 11, 0.25);
+        }
+
+        .btn-vip-server.active, .btn-vip-server:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.45);
+        }
+
+        /* تخطيط المشغل والدردشة */
+        .main-stage {
+            width: 100%;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: 2.2fr 1fr;
+            gap: 16px;
+        }
+
+        .player-container {
             background: #000;
-            border-radius: 14px;
+            border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
             position: relative;
@@ -98,21 +154,107 @@
             border: none;
         }
 
-        /* بانر العرض الترويجي المستطيل أسفل الشاشة */
+        /* صندوق الشات المباشر */
+        .chat-container {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            max-height: 480px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+
+        .chat-header {
+            padding: 12px 14px;
+            background: #162032;
+            border-bottom: 1px solid #1f2937;
+            font-size: 14px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .chat-msg {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 8px 10px;
+            border-radius: 8px;
+            border-right: 3px solid var(--accent-glow);
+        }
+
+        .chat-author {
+            font-weight: 800;
+            color: var(--accent-glow);
+            margin-bottom: 3px;
+            display: block;
+        }
+
+        .chat-input-area {
+            padding: 10px;
+            border-top: 1px solid #1f2937;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: #162032;
+        }
+
+        .chat-input-row {
+            display: flex;
+            gap: 6px;
+        }
+
+        .chat-input {
+            width: 100%;
+            background: #0b0f19;
+            border: 1px solid #374151;
+            color: #fff;
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 12px;
+            outline: none;
+        }
+
+        .chat-input:focus {
+            border-color: var(--accent-glow);
+        }
+
+        .btn-send {
+            background: var(--accent-blue);
+            color: #fff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* بانر إعلان 1xBet المستطيل */
         .xbet-banner {
             width: 100%;
-            max-width: 950px;
-            margin-top: 20px;
+            max-width: 1000px;
+            margin-top: 18px;
             background: linear-gradient(135deg, #091931 0%, #0d284f 50%, #091931 100%);
             border: 2px solid #0077b6;
             border-radius: 14px;
-            padding: 24px 20px;
-            position: relative;
+            padding: 22px 20px;
+            text-align: center;
             box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 180, 216, 0.15);
-            overflow: hidden;
         }
 
-        /* شارة التنبيه المغرية */
         .banner-badge {
             display: inline-flex;
             align-items: center;
@@ -126,17 +268,10 @@
             margin-bottom: 12px;
         }
 
-        .banner-content {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            text-align: center;
-        }
-
         .banner-title {
             font-size: 22px;
             font-weight: 900;
-            line-height: 1.4;
+            margin-bottom: 8px;
         }
 
         .banner-title .gold-text {
@@ -148,18 +283,16 @@
             font-size: 14px;
             color: #d1d5db;
             line-height: 1.6;
-            max-width: 760px;
-            margin: 0 auto;
+            max-width: 800px;
+            margin: 0 auto 14px auto;
         }
 
-        /* شريط البروموكود والزر */
         .interactive-section {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
             gap: 15px;
-            margin-top: 10px;
         }
 
         .promo-pill {
@@ -205,7 +338,6 @@
             background: var(--accent-glow);
         }
 
-        /* زر التسجيل الكبير */
         .btn-cta {
             display: inline-flex;
             align-items: center;
@@ -232,17 +364,18 @@
             margin-top: 10px;
         }
 
-        /* حركات بصرية */
         @keyframes pulse-red {
             0% { transform: scale(1); opacity: 1; }
             50% { transform: scale(1.05); opacity: 0.8; }
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* التجاوب مع شاشات الهواتف */
-        @media (max-width: 768px) {
-            .banner-title {
-                font-size: 18px;
+        @media (max-width: 860px) {
+            .main-stage {
+                grid-template-columns: 1fr;
+            }
+            .chat-container {
+                height: 320px;
             }
             .interactive-section {
                 flex-direction: column;
@@ -251,7 +384,6 @@
             .promo-pill {
                 width: 100%;
                 justify-content: space-between;
-                padding: 6px 10px;
             }
             .btn-cta {
                 width: 100%;
@@ -261,7 +393,7 @@
 </head>
 <body>
 
-    <!-- شريط الرأس -->
+    <!-- الهيدر -->
     <header class="header">
         <div class="logo">ALA<span>TV</span></div>
         <div class="live-tag">
@@ -270,13 +402,46 @@
         </div>
     </header>
 
-    <!-- مشغل البث المباشر للمباراة -->
-    <main class="player-container">
-        <!-- ضع رابط بث قناتك أو المشغل في خاصية src أدناه -->
-        <iframe src="about:blank" title="مشغل المباراة المباشر" allowfullscreen></iframe>
-    </main>
+    <!-- أزرار التبديل بين السيرفر المجاني والـ VIP -->
+    <div class="server-controls">
+        <button type="button" class="btn-server btn-free-server active" id="btnFree" onclick="switchServer('free')">
+            📺 سيرفر مجاني (SD/HD)
+        </button>
+        <button type="button" class="btn-server btn-vip-server" id="btnVip" onclick="switchServer('vip')">
+            👑 سيرفر VIP (FHD بدون تقطيع)
+        </button>
+    </div>
 
-    <!-- بانر إعلاني مستطيل واحترافي لـ 1xBet -->
+    <!-- المشغل وشات المشاهدين جنباً إلى جنب -->
+    <div class="main-stage">
+        <!-- شاشة المشغل -->
+        <div class="player-container">
+            <iframe id="mainPlayer" src="about:blank" title="مشغل المباراة" allowfullscreen></iframe>
+        </div>
+
+        <!-- صندوق دردشة المشاهدين -->
+        <div class="chat-container">
+            <div class="chat-header">
+                <span>💬 شات المشاهدين</span>
+                <small style="color: var(--accent-glow);">🟢 متصل</small>
+            </div>
+            <div class="chat-messages" id="chatBox">
+                <div class="chat-msg">
+                    <span class="chat-author">مشرف ALATV</span>
+                    أهلاً بكم في البث المباشر! نتمنى لكم مشاهدة ممتعة.
+                </div>
+            </div>
+            <form class="chat-input-area" onsubmit="sendComment(event)">
+                <input type="text" id="userName" class="chat-input" placeholder="اسمك المستعار..." required>
+                <div class="chat-input-row">
+                    <input type="text" id="userMsg" class="chat-input" placeholder="اكتب تعليقك هنا..." required>
+                    <button type="submit" class="btn-send">إرسال</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- الإشهار والبانر المغري لـ 1xBet -->
     <section class="xbet-banner">
         <div class="banner-badge">🔥 بونص ترحيبي مضاعف لمتابعي البث</div>
 
@@ -290,18 +455,16 @@
             </p>
 
             <div class="interactive-section">
-                <!-- خانة البروموكود المخصص مع زر النسخ السريع -->
+                <!-- خانة كود البروموكود -->
                 <div class="promo-pill">
                     <span class="promo-label">كود المكافأة:</span>
-                    <!-- اترك الكود هنا أو غيره فور استلامه من الإدارة -->
                     <span id="promoCodeText" class="code-box">------</span>
                     <button type="button" class="btn-copy" onclick="copyPromoCode()">
                         <span id="copyBtnStatus">نسخ الكود</span>
                     </button>
                 </div>
 
-                <!-- زر التسجيل وتفعيل البونص -->
-                <!-- استبدل رابط 1xbet.com برابط إحالتك بمجرد قبوله -->
+                <!-- زر التسجيل المباشر -->
                 <a href="https://1xbet.com" target="_blank" rel="noopener noreferrer" id="affiliateBtn" class="btn-cta">
                     ⚡ سجّل الآن واحصل على المكافأة
                 </a>
@@ -311,14 +474,38 @@
         </div>
     </section>
 
-    <!-- سكريبت نسخ البروموكود السريع -->
+    <!-- الأكواد البرمجية للتحكم -->
     <script>
+        // روابط البث (ضع روابط السيرفرين هنا)
+        const servers = {
+            free: "about:blank", // رابط سيرفر البث المجاني
+            vip: "about:blank"   // رابط سيرفر البث VIP
+        };
+
+        // تبديل السيرفر
+        function switchServer(type) {
+            const player = document.getElementById("mainPlayer");
+            const btnFree = document.getElementById("btnFree");
+            const btnVip = document.getElementById("btnVip");
+
+            if (type === 'free') {
+                player.src = servers.free;
+                btnFree.classList.add("active");
+                btnVip.classList.remove("active");
+            } else {
+                player.src = servers.vip;
+                btnVip.classList.add("active");
+                btnFree.classList.remove("active");
+            }
+        }
+
+        // نسخ كود البروموكود
         function copyPromoCode() {
             const promo = document.getElementById("promoCodeText").innerText.trim();
             const btnStatus = document.getElementById("copyBtnStatus");
 
             if (promo === "------" || promo === "") {
-                alert("سيتم إضافة البروموكود فور تفعيل العرض خلال ساعات!");
+                alert("سيتم تفعيل وإضافة البروموكود قريباً!");
                 return;
             }
 
@@ -328,6 +515,28 @@
                     btnStatus.innerText = "نسخ الكود";
                 }, 2000);
             });
+        }
+
+        // إرسال التعليق في الشات
+        function sendComment(e) {
+            e.preventDefault();
+            const nameInput = document.getElementById("userName");
+            const msgInput = document.getElementById("userMsg");
+            const chatBox = document.getElementById("chatBox");
+
+            const name = nameInput.value.trim();
+            const msg = msgInput.value.trim();
+
+            if (!name || !msg) return;
+
+            const msgDiv = document.createElement("div");
+            msgDiv.className = "chat-msg";
+            msgDiv.innerHTML = `<span class="chat-author">${name}</span>${msg}`;
+            
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            msgInput.value = "";
         }
     </script>
 </body>
