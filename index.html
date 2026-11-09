@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ALA TV — عالم كرة القدم وبث المباريات</title>
+
+  <!-- كود إعلانات Monetag OnClick Popunder -->
+  <script>(function(s){s.dataset.zone='12201455',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
   <style>
     :root {
       --bg: #07060f;
@@ -303,10 +307,8 @@
   </div>
 
   <script>
-    // رابط الـ Worker الخاص بك
     const WORKER_URL = "https://ala-tv-api.lyanita000.workers.dev";
 
-    // حساب التاريخ بتوقيت الجزائر
     function getAlgeriaDate(offset = 0) {
       const d = new Date();
       d.setDate(d.getDate() + offset);
@@ -318,7 +320,6 @@
       return `${part("year")}-${part("month")}-${part("day")}`;
     }
 
-    // جلب مباريات اليوم المختار وعرضها
     async function loadMatches(dayType, offset) {
       const container = document.getElementById(dayType);
       container.innerHTML = '<div class="loading-box">جاري تحميل المباريات... ⏳</div>';
@@ -394,7 +395,6 @@
       if (dayType === 'tomorrow') loadMatches('tomorrow', 1);
     }
 
-    // جلب مباريات اليوم تلقائياً فور فتح الموقع
     loadMatches('today', 0);
   </script>
 
