@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALATV | جدول المباريات والبث المباشر</title>
+    <title>ALA TV | جدول المباريات والبث المباشر</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: #121826;
-            --card-border: #1e293b;
-            --accent-blue: #0077b6;
-            --accent-glow: #00b4d8;
-            --btn-purple: #6d28d9;
-            --btn-purple-hover: #5b21b6;
-            --text-main: #f9fafb;
-            --text-muted: #9ca3af;
-            --match-time-bg: #1e1b4b;
+            --bg-color: #070913;
+            --card-bg: #0e1322;
+            --card-border: #1a233a;
+            --accent-blue: #0088ff;
+            --accent-glow: #00d2ff;
+            --btn-purple: #7c3aed;
+            --btn-purple-hover: #6d28d9;
+            --text-main: #ffffff;
+            --text-muted: #8a99ad;
+            --match-time-bg: #141d33;
             --match-time-text: #c7d2fe;
-            --live-red: #ef4444;
+            --live-red: #ff334b;
         }
 
         * {
@@ -51,7 +51,7 @@
         }
 
         .logo {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 900;
             color: #fff;
             letter-spacing: 1px;
@@ -60,6 +60,7 @@
 
         .logo span {
             color: var(--accent-glow);
+            text-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
         }
 
         .nav-links {
@@ -84,18 +85,19 @@
             background: #4f46e5;
             color: #fff;
             padding: 6px 14px;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 13px;
             font-weight: 700;
             text-decoration: none;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
         }
 
         .hero-banner {
             width: 100%;
             max-width: 950px;
-            background: linear-gradient(180deg, #161c2e 0%, #101524 100%);
+            background: linear-gradient(135deg, #10172d 0%, #0a0e1c 100%);
             border: 1px solid var(--card-border);
-            border-radius: 16px;
+            border-radius: 18px;
             padding: 30px 20px;
             text-align: center;
             margin-bottom: 20px;
@@ -111,6 +113,7 @@
         .hero-banner p {
             color: var(--text-muted);
             font-size: 14px;
+            line-height: 1.5;
         }
 
         .channel-links {
@@ -124,7 +127,7 @@
 
         .btn-link {
             padding: 12px 14px;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 14px;
             font-weight: 800;
             text-decoration: none;
@@ -133,17 +136,16 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            transition: transform 0.2s ease, opacity 0.2s;
+            transition: transform 0.2s ease, box-shadow 0.2s;
         }
 
         .btn-link:hover {
             transform: translateY(-2px);
-            opacity: 0.95;
         }
 
-        .btn-telegram { background: #0088cc; color: #fff; }
-        .btn-android { background: #10b981; color: #fff; }
-        .btn-ios { background: #1f2937; color: #d1d5db; border: 1px solid #374151; }
+        .btn-telegram { background: #0088cc; color: #fff; box-shadow: 0 4px 15px rgba(0, 136, 204, 0.3); }
+        .btn-android { background: #10b981; color: #fff; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
+        .btn-ios { background: #12192d; color: #d1d5db; border: 1px solid #22304f; }
 
         .tabs-row {
             display: flex;
@@ -153,11 +155,11 @@
         }
 
         .tab-btn {
-            background: #161e2e;
-            border: 1px solid #283548;
+            background: #0e1322;
+            border: 1px solid var(--card-border);
             color: var(--text-muted);
-            padding: 9px 22px;
-            border-radius: 8px;
+            padding: 10px 24px;
+            border-radius: 10px;
             font-family: inherit;
             font-size: 14px;
             font-weight: 800;
@@ -166,10 +168,10 @@
         }
 
         .tab-btn.active, .tab-btn:hover {
-            background: #6366f1;
+            background: #4f46e5;
             color: #fff;
-            border-color: #6366f1;
-            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+            border-color: #4f46e5;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
         }
 
         .matches-grid {
@@ -183,32 +185,35 @@
         .match-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 14px;
+            border-radius: 16px;
             padding: 18px;
             display: flex;
             flex-direction: column;
             gap: 14px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            transition: border-color 0.2s;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            transition: border-color 0.2s, transform 0.2s;
         }
 
         .match-card:hover {
-            border-color: #3b82f6;
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
         }
 
         .match-badge-time {
             align-self: center;
             background: var(--match-time-bg);
             color: var(--match-time-text);
-            padding: 4px 14px;
+            padding: 5px 16px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: 800;
+            border: 1px solid rgba(0, 210, 255, 0.1);
         }
 
         .match-badge-time.live {
-            background: var(--live-red);
-            color: #fff;
+            background: rgba(255, 51, 75, 0.15);
+            border: 1px solid var(--live-red);
+            color: var(--live-red);
             animation: pulse-red 1.5s infinite;
         }
 
@@ -264,6 +269,7 @@
             text-align: center;
             font-size: 12px;
             color: var(--text-muted);
+            font-weight: 700;
         }
 
         .btn-match-details {
@@ -273,15 +279,17 @@
             color: #fff;
             text-decoration: none;
             text-align: center;
-            padding: 11px;
-            border-radius: 8px;
-            font-size: 13px;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 13.5px;
             font-weight: 800;
-            transition: background 0.2s;
+            transition: background 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
         }
 
         .btn-match-details:hover {
             background: var(--btn-purple-hover);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
         }
 
         .loading-box {
@@ -373,7 +381,6 @@
             const dateStr = getLocalDate(offsetDays);
 
             try {
-                // استدعاء مسار /fixtures من الـ Worker مباشرة
                 const response = await fetch(`${WORKER_URL}/fixtures?date=${dateStr}`);
                 if (!response.ok) throw new Error("Worker Error");
                 
@@ -433,7 +440,6 @@
             }
         }
 
-        // جلب مباريات اليوم تلقائياً عند فتح الصفحة
         document.addEventListener('DOMContentLoaded', () => {
             fetchMatches(0, document.querySelectorAll('.tab-btn')[1]);
         });
@@ -450,7 +456,6 @@
             return (Date.now() - parseInt(last, 10)) > COOLDOWN_MS;
         }
 
-        // 1. إعلان Vignette Banner
         const VIGNETTE_KEY = 'monetag_vignette_time';
         if (canShow(VIGNETTE_KEY)) {
             localStorage.setItem(VIGNETTE_KEY, Date.now().toString());
@@ -460,7 +465,6 @@
             (document.body || document.documentElement).appendChild(vScript);
         }
 
-        // 2. إعلان Popunder عند النقر
         const POPUNDER_KEY = 'monetag_popunder_time';
         document.addEventListener('click', function triggerPopunder() {
             if (canShow(POPUNDER_KEY)) {
