@@ -47,7 +47,6 @@
             gap: 16px;
         }
 
-        /* الهيدر */
         .header {
             display: flex;
             justify-content: space-between;
@@ -86,7 +85,6 @@
             border-radius: 50%;
         }
 
-        /* 1. خانة المباراة المختارة فوق الشاشة */
         .match-info-card {
             background: linear-gradient(180deg, #161c2e 0%, #101524 100%);
             border: 1px solid var(--card-border);
@@ -161,7 +159,6 @@
             color: var(--bonus-gold);
         }
 
-        /* 2. شاشة البث الكبيرة الكاملة */
         .player-container {
             width: 100%;
             background: #000;
@@ -179,7 +176,6 @@
             border: none;
         }
 
-        /* 3. أزرار اختيار السيرفرات تحت الشاشة */
         .server-controls {
             display: flex;
             gap: 12px;
@@ -227,7 +223,6 @@
             box-shadow: 0 6px 20px rgba(255, 215, 0, 0.45);
         }
 
-        /* 4. صندوق الشات تحت المشغل بعرض كامل */
         .chat-container {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -316,7 +311,6 @@
             font-family: inherit;
         }
 
-        /* 5. بانر 1xBet */
         .xbet-banner {
             background: linear-gradient(135deg, #091931 0%, #0d284f 50%, #091931 100%);
             border: 2px solid #0077b6;
@@ -450,7 +444,7 @@
             </div>
         </header>
 
-        <!-- 1. خانة المباراة المختارة (تتغير تلقائياً حسب الرابط) -->
+        <!-- 1. خانة المباراة المختارة -->
         <div class="match-info-card">
             <div class="match-league-header">
                 <span id="leagueName">🏆 بطولة كرة القدم</span>
@@ -472,7 +466,7 @@
             </div>
         </div>
 
-        <!-- 2. شاشة البث الكبيرة الكاملة -->
+        <!-- 2. شاشة البث الكبيرة -->
         <div class="player-container">
             <iframe id="mainPlayer" src="about:blank" title="مشغل المباراة" allowfullscreen></iframe>
         </div>
@@ -487,7 +481,7 @@
             </button>
         </div>
 
-        <!-- 4. صندوق الشات تحت المشغل بعرض كامل -->
+        <!-- 4. صندوق الشات -->
         <div class="chat-container">
             <div class="chat-header">
                 <span>💬 شات المشاهدين المباشر</span>
@@ -506,7 +500,7 @@
             </form>
         </div>
 
-        <!-- 5. بانر 1xBet -->
+        <!-- 5. بانر 1xBet مدمج برابط الإحالة والبرومو كود الصحيح -->
         <section class="xbet-banner">
             <div class="banner-badge">🔥 بونص ترحيبي مضاعف لمتابعي البث</div>
             <div class="banner-content">
@@ -514,17 +508,19 @@
                     ضاعف رصيدك الأول حتى <span class="gold-text">200% مجاناً</span> مع تطبيق 1xBet!
                 </h2>
                 <p class="banner-desc">
-                    سجّل الآن في التطبيق الرسمي واستفد من أكبر مكافأة مالية عند الإيداع، مع إمكانية متابعة البث التلفزيوني الحصري لجميع مباريات الدوريات الكبرى.
+                    سجّل الآن في التطبيق الرسمي واستفد من أكبر مكافأة مالية عند الإيداع باستخدام الكود الخاص بنا، مع متابعة البث الحصري لجميع مباريات الدوريات الكبرى.
                 </p>
                 <div class="interactive-section">
                     <div class="promo-pill">
                         <span class="promo-label">كود المكافأة:</span>
-                        <span id="promoCodeText" class="code-box">------</span>
+                        <!-- كود البرومو الخاص بك -->
+                        <span id="promoCodeText" class="code-box">1x_6161996</span>
                         <button type="button" class="btn-copy" onclick="copyPromoCode()">
                             <span id="copyBtnStatus">نسخ الكود</span>
                         </button>
                     </div>
-                    <a href="https://1xbet.com" target="_blank" rel="noopener noreferrer" class="btn-cta">
+                    <!-- رابط الإحالة الخاص بك -->
+                    <a href="https://refpa-78460.com/L?tag=d_6329886m_1599c_&site=6329886&ad=1599" target="_blank" rel="noopener noreferrer" class="btn-cta">
                         ⚡ سجّل الآن واحصل على المكافأة
                     </a>
                 </div>
@@ -532,91 +528,58 @@
         </section>
     </div>
 
-    <!-- جافاسكريبت: قراءة بيانات المباراة من الرابط والتبديل بين السيرفرات -->
     <script>
-        // قاعدة بيانات المباريات وروابط بث كل مباراة
-        const matchesDatabase = {
-            "1": {
-                team1: "Wadi Degla SC",
-                team1Logo: "https://via.placeholder.com/52",
-                team2: "M S Minyat Samanod",
-                team2Logo: "https://via.placeholder.com/52",
-                time: "01:30 م",
-                league: "🏆 كأس مصر",
-                freeServer: "about:blank", // ضع هنا رابط سيرفر المجاني للمباراة 1
-                vipServer: "about:blank"   // ضع هنا رابط سيرفر VIP للمباراة 1
-            },
-            "2": {
-                team1: "ريال مدريد",
-                team1Logo: "https://via.placeholder.com/52",
-                team2: "برشلونة",
-                team2Logo: "https://via.placeholder.com/52",
-                time: "09:00 م",
-                league: "🏆 الدوري الإسباني (الكلاسيكو)",
-                freeServer: "about:blank", // ضع هنا رابط سيرفر المجاني للمباراة 2
-                vipServer: "about:blank"   // ضع هنا رابط سيرفر VIP للمباراة 2
-            },
-            "3": {
-                team1: "Plymouth Parkway",
-                team1Logo: "https://via.placeholder.com/52",
-                team2: "Berkhamsted FC",
-                team2Logo: "https://via.placeholder.com/52",
-                time: "08:30 م",
-                league: "🏆 كأس الاتحاد الإنجليزي",
-                freeServer: "about:blank",
-                vipServer: "about:blank"
-            }
-        };
-
-        // قراءة الـ ID من الرابط (مثلاً: match.html?id=2)
+        // قراءة بيانات المباراة من رابط URL
         const urlParams = new URLSearchParams(window.location.search);
-        const matchId = urlParams.get('id') || "1"; // الافتراضي هو 1 إذا لم يحدد
-        const currentMatch = matchesDatabase[matchId] || matchesDatabase["1"];
+        
+        const team1 = decodeURIComponent(urlParams.get('team1') || 'الفريق الأول');
+        const team2 = decodeURIComponent(urlParams.get('team2') || 'الفريق الثاني');
+        const logo1 = decodeURIComponent(urlParams.get('logo1') || 'https://via.placeholder.com/52');
+        const logo2 = decodeURIComponent(urlParams.get('logo2') || 'https://via.placeholder.com/52');
+        const time = decodeURIComponent(urlParams.get('time') || '--:--');
+        const league = decodeURIComponent(urlParams.get('league') || '🏆 مباراة مباشرة');
 
-        // ملء بيانات الصفحة ببيانات المباراة المحددة
-        document.getElementById("team1Name").innerText = currentMatch.team1;
-        document.getElementById("team1Logo").src = currentMatch.team1Logo;
-        document.getElementById("team2Name").innerText = currentMatch.team2;
-        document.getElementById("team2Logo").src = currentMatch.team2Logo;
-        document.getElementById("matchTime").innerText = currentMatch.time;
-        document.getElementById("leagueName").innerText = currentMatch.league;
-        document.title = `${currentMatch.team1} ضد ${currentMatch.team2} | بث مباشر ALATV`;
+        // ملء بيانات الواجهة
+        document.getElementById("team1Name").innerText = team1;
+        document.getElementById("team1Logo").src = logo1;
+        document.getElementById("team2Name").innerText = team2;
+        document.getElementById("team2Logo").src = logo2;
+        document.getElementById("matchTime").innerText = time;
+        document.getElementById("leagueName").innerText = league;
+        document.title = `${team1} ضد ${team2} | بث مباشر ALATV`;
 
-        // تشغيل السيرفر المجاني افتراضياً
+        // روابط البث
+        const freeStreamUrl = "about:blank"; 
+        const vipStreamUrl = "about:blank";
+
         const player = document.getElementById("mainPlayer");
-        player.src = currentMatch.freeServer;
+        player.src = freeStreamUrl;
 
-        // دالة تبديل السيرفر
         function switchServer(type) {
             const btnFree = document.getElementById("btnFree");
             const btnVip = document.getElementById("btnVip");
 
             if (type === 'free') {
-                player.src = currentMatch.freeServer;
+                player.src = freeStreamUrl;
                 btnFree.classList.add("active");
                 btnVip.classList.remove("active");
             } else {
-                player.src = currentMatch.vipServer;
+                player.src = vipStreamUrl;
                 btnVip.classList.add("active");
                 btnFree.classList.remove("active");
             }
         }
 
-        // نسخ البروموكود
         function copyPromoCode() {
             const promo = document.getElementById("promoCodeText").innerText.trim();
             const btnStatus = document.getElementById("copyBtnStatus");
-            if (promo === "------" || !promo) {
-                alert("سيتم تفعيل الكود قريباً!");
-                return;
-            }
+            
             navigator.clipboard.writeText(promo).then(() => {
                 btnStatus.innerText = "تم النسخ ✓";
                 setTimeout(() => { btnStatus.innerText = "نسخ الكود"; }, 2000);
             });
         }
 
-        // إرسال التعليق بالشات
         function sendComment(e) {
             e.preventDefault();
             const nameInput = document.getElementById("userName");
@@ -633,41 +596,6 @@
             chatBox.scrollTop = chatBox.scrollHeight;
             msgInput.value = "";
         }
-    </script>
-
-    <!-- إعلانات Monetag الموقوتة بـ 10 دقائق -->
-    <script>
-    (function() {
-        const COOLDOWN_MS = 10 * 60 * 1000;
-
-        function canShow(key) {
-            const last = localStorage.getItem(key);
-            if (!last) return true;
-            return (Date.now() - parseInt(last, 10)) > COOLDOWN_MS;
-        }
-
-        // 1. Vignette Banner
-        const VIGNETTE_KEY = 'monetag_vignette_time';
-        if (canShow(VIGNETTE_KEY)) {
-            localStorage.setItem(VIGNETTE_KEY, Date.now().toString());
-            const vScript = document.createElement('script');
-            vScript.dataset.zone = '12224250';
-            vScript.src = 'https://n6wxm.com/vignette.min.js';
-            (document.body || document.documentElement).appendChild(vScript);
-        }
-
-        // 2. Popunder
-        const POPUNDER_KEY = 'monetag_popunder_time';
-        document.addEventListener('click', function triggerPopunder() {
-            if (canShow(POPUNDER_KEY)) {
-                localStorage.setItem(POPUNDER_KEY, Date.now().toString());
-                const pScript = document.createElement('script');
-                pScript.dataset.zone = '12201455';
-                pScript.src = 'https://al5sm.com/tag.min.js';
-                (document.body || document.documentElement).appendChild(pScript);
-            }
-        }, { once: true });
-    })();
     </script>
 </body>
 </html>
