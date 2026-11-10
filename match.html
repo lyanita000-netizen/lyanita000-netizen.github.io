@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بث مباشر للمباراة | ALATV</title>
+    <title>بث مباشر للمباراة | ALA TV</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: #121826;
-            --card-border: #1e293b;
-            --accent-blue: #0077b6;
-            --accent-glow: #00b4d8;
-            --bonus-gold: #ffbe0b;
-            --danger-red: #e63946;
+            --bg-color: #070913;
+            --card-bg: #0e1322;
+            --card-border: #1a233a;
+            --accent-blue: #0088ff;
+            --accent-glow: #00d2ff;
+            --bonus-gold: #ffc300;
+            --danger-red: #ff334b;
             --vip-gold: linear-gradient(135deg, #ffd700, #ff8c00);
-            --text-main: #f9fafb;
-            --text-muted: #9ca3af;
+            --text-main: #ffffff;
+            --text-muted: #8a99ad;
         }
 
         * {
@@ -44,66 +44,73 @@
             max-width: 950px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 18px;
         }
 
+        /* الهيدر بتصميم فخم */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 0;
+            padding: 10px 5px;
         }
 
         .logo {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 900;
             color: #fff;
             text-decoration: none;
+            letter-spacing: 1px;
         }
 
         .logo span {
             color: var(--accent-glow);
+            text-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
         }
 
         .live-tag {
-            background-color: var(--danger-red);
-            color: white;
+            background: rgba(255, 51, 75, 0.15);
+            border: 1px solid var(--danger-red);
+            color: var(--danger-red);
             font-size: 13px;
-            font-weight: 700;
-            padding: 5px 14px;
-            border-radius: 20px;
+            font-weight: 800;
+            padding: 6px 16px;
+            border-radius: 30px;
             display: flex;
             align-items: center;
-            gap: 6px;
-            animation: pulse-red 1.5s infinite;
+            gap: 8px;
+            box-shadow: 0 0 15px rgba(255, 51, 75, 0.2);
         }
 
         .live-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #fff;
+            width: 9px;
+            height: 9px;
+            background-color: var(--danger-red);
             border-radius: 50%;
+            animation: pulse-dot 1.2s infinite;
         }
 
+        /* بطاقة معلومات المباراة */
         .match-info-card {
-            background: linear-gradient(180deg, #161c2e 0%, #101524 100%);
+            background: linear-gradient(135deg, #10172d 0%, #0a0e1c 100%);
             border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 18px 24px;
+            border-radius: 16px;
+            padding: 20px 24px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            gap: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
         }
 
         .match-league-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 12px;
-            color: var(--text-muted);
-            border-bottom: 1px solid #1e293b;
-            padding-bottom: 8px;
+            font-size: 13px;
+            color: var(--accent-glow);
+            font-weight: 700;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 10px;
         }
 
         .match-teams-box {
@@ -116,19 +123,20 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
-            width: 140px;
+            gap: 10px;
+            width: 150px;
             text-align: center;
         }
 
         .team-box img {
-            width: 52px;
-            height: 52px;
+            width: 58px;
+            height: 58px;
             object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
         }
 
         .team-box span {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 800;
         }
 
@@ -136,38 +144,43 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
         }
 
         .match-center-score .vs-circle {
-            background: #1e293b;
+            background: #141d33;
             color: var(--accent-glow);
             font-size: 14px;
             font-weight: 900;
-            width: 38px;
-            height: 38px;
+            width: 42px;
+            height: 42px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            border: 1px solid #334155;
+            border: 2px solid rgba(0, 210, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.1);
         }
 
         .match-center-score .match-time-text {
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 800;
             color: var(--bonus-gold);
+            background: rgba(255, 195, 0, 0.1);
+            padding: 3px 10px;
+            border-radius: 20px;
         }
 
+        /* شاشة البث */
         .player-container {
             width: 100%;
             background: #000;
-            border-radius: 14px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8);
             position: relative;
             aspect-ratio: 16 / 9;
-            border: 1px solid #1e293b;
+            border: 1px solid var(--card-border);
         }
 
         .player-container iframe {
@@ -176,68 +189,70 @@
             border: none;
         }
 
+        /* أزرار السيرفرات بتصميم عصري */
         .server-controls {
             display: flex;
-            gap: 12px;
+            gap: 14px;
             justify-content: center;
         }
 
         .btn-server {
             flex: 1;
-            max-width: 280px;
-            padding: 12px 18px;
-            font-size: 14px;
+            max-width: 290px;
+            padding: 14px 20px;
+            font-size: 15px;
             font-weight: 800;
-            border-radius: 10px;
+            border-radius: 12px;
             border: none;
             cursor: pointer;
             font-family: inherit;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            transition: all 0.25s ease;
+            gap: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .btn-free-server {
-            background: #1f2937;
-            color: #e5e7eb;
-            border: 1px solid #374151;
+            background: #12192d;
+            color: #d1d5db;
+            border: 1px solid #22304f;
         }
 
         .btn-free-server.active, .btn-free-server:hover {
-            background: var(--accent-blue);
+            background: #0077b6;
             color: #fff;
             border-color: var(--accent-glow);
-            box-shadow: 0 4px 15px rgba(0, 180, 216, 0.3);
+            box-shadow: 0 6px 20px rgba(0, 119, 182, 0.4);
         }
 
         .btn-vip-server {
             background: var(--vip-gold);
-            color: #111;
-            box-shadow: 0 4px 15px rgba(255, 190, 11, 0.25);
+            color: #0b0f19;
+            box-shadow: 0 6px 20px rgba(255, 195, 0, 0.25);
         }
 
         .btn-vip-server.active, .btn-vip-server:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.45);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.45);
         }
 
+        /* صندوق الشات المباشر */
         .chat-container {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 14px;
+            border-radius: 16px;
             display: flex;
             flex-direction: column;
-            height: 320px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            height: 330px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
             overflow: hidden;
         }
 
         .chat-header {
-            padding: 12px 18px;
-            background: #162032;
-            border-bottom: 1px solid #1f2937;
+            padding: 14px 20px;
+            background: #0f162a;
+            border-bottom: 1px solid var(--card-border);
             font-size: 14px;
             font-weight: 800;
             display: flex;
@@ -248,7 +263,7 @@
         .chat-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 14px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -256,40 +271,43 @@
         }
 
         .chat-msg {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 8px 12px;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 9px 14px;
+            border-radius: 10px;
             border-right: 3px solid var(--accent-glow);
+            border-left: 1px solid rgba(255,255,255,0.03);
         }
 
         .chat-author {
             font-weight: 800;
             color: var(--accent-glow);
-            margin-bottom: 3px;
+            margin-bottom: 4px;
             display: block;
         }
 
         .chat-input-area {
-            padding: 12px;
-            border-top: 1px solid #1f2937;
+            padding: 14px;
+            border-top: 1px solid var(--card-border);
             display: flex;
             gap: 10px;
-            background: #162032;
+            background: #0f162a;
         }
 
         .chat-input {
-            background: #0b0f19;
-            border: 1px solid #374151;
+            background: #060913;
+            border: 1px solid #1f2d4d;
             color: #fff;
-            padding: 10px 14px;
-            border-radius: 8px;
+            padding: 11px 16px;
+            border-radius: 10px;
             font-family: inherit;
             font-size: 13px;
             outline: none;
+            transition: border-color 0.2s;
         }
 
         .chat-input:focus {
             border-color: var(--accent-glow);
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.15);
         }
 
         #userName {
@@ -304,51 +322,73 @@
             background: var(--accent-blue);
             color: #fff;
             border: none;
-            padding: 0 20px;
-            border-radius: 8px;
-            font-weight: 700;
+            padding: 0 22px;
+            border-radius: 10px;
+            font-weight: 800;
             cursor: pointer;
             font-family: inherit;
+            transition: background 0.2s;
         }
 
+        .btn-send:hover {
+            background: #0095ff;
+        }
+
+        /* بانر 1xBet المحسّن برابط الإحالة وكود البرومو الخاص بك */
         .xbet-banner {
-            background: linear-gradient(135deg, #091931 0%, #0d284f 50%, #091931 100%);
-            border: 2px solid #0077b6;
-            border-radius: 14px;
-            padding: 22px 20px;
+            background: linear-gradient(135deg, #091530 0%, #060d1f 100%);
+            border: 2px solid rgba(0, 136, 255, 0.4);
+            border-radius: 18px;
+            padding: 24px 22px;
             text-align: center;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 180, 216, 0.15);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 136, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .xbet-banner::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(0, 210, 255, 0.08);
+            border-radius: 50%;
+            filter: blur(20px);
         }
 
         .banner-badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            background: var(--danger-red);
-            color: #ffffff;
+            gap: 8px;
+            background: rgba(255, 51, 75, 0.15);
+            border: 1px solid var(--danger-red);
+            color: #ff6b7b;
             font-size: 12px;
-            font-weight: 800;
-            padding: 5px 14px;
+            font-weight: 900;
+            padding: 6px 16px;
             border-radius: 30px;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .banner-title {
-            font-size: 20px;
+            font-size: 21px;
             font-weight: 900;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            line-height: 1.4;
         }
 
         .banner-title .gold-text {
             color: var(--bonus-gold);
-            text-shadow: 0 0 10px rgba(255, 190, 11, 0.4);
+            text-shadow: 0 0 15px rgba(255, 195, 0, 0.4);
         }
 
         .banner-desc {
-            font-size: 13px;
-            color: #d1d5db;
+            font-size: 13.5px;
+            color: var(--text-muted);
             line-height: 1.6;
-            margin-bottom: 14px;
+            margin-bottom: 18px;
         }
 
         .interactive-section {
@@ -362,55 +402,67 @@
         .promo-pill {
             display: flex;
             align-items: center;
-            background: #050d1a;
+            background: #040710;
             border: 1.5px dashed var(--accent-glow);
-            border-radius: 10px;
-            padding: 4px 6px 4px 14px;
-            gap: 10px;
+            border-radius: 12px;
+            padding: 6px 8px 6px 16px;
+            gap: 12px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
         }
 
         .promo-label {
             font-size: 13px;
             color: var(--text-muted);
-            font-weight: 500;
+            font-weight: 700;
         }
 
         .code-box {
-            font-size: 17px;
+            font-size: 18px;
             font-weight: 900;
             color: var(--bonus-gold);
             letter-spacing: 2px;
-            background: rgba(255, 190, 11, 0.1);
-            padding: 4px 10px;
-            border-radius: 6px;
+            background: rgba(255, 195, 0, 0.08);
+            padding: 4px 12px;
+            border-radius: 8px;
         }
 
         .btn-copy {
             background: var(--accent-blue);
             color: #fff;
             border: none;
-            padding: 8px 14px;
-            border-radius: 8px;
+            padding: 9px 16px;
+            border-radius: 9px;
             font-family: inherit;
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 800;
             cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-copy:hover {
+            background: #0095ff;
         }
 
         .btn-cta {
-            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+            background: linear-gradient(90deg, #00b0ff 0%, #0077b6 100%);
             color: #ffffff;
             font-size: 15px;
-            font-weight: 800;
+            font-weight: 900;
             text-decoration: none;
-            padding: 12px 24px;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+            padding: 13px 26px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 176, 255, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        @keyframes pulse-red {
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 176, 255, 0.6);
+        }
+
+        @keyframes pulse-dot {
             0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.8; }
+            50% { transform: scale(1.3); opacity: 0.6; }
             100% { transform: scale(1); opacity: 1; }
         }
 
@@ -440,19 +492,19 @@
             <a href="index.html" class="logo">ALA<span>TV</span></a>
             <div class="live-tag">
                 <span class="live-dot"></span>
-                مباشر الآن
+                بث مباشر حي
             </div>
         </header>
 
-        <!-- 1. خانة المباراة المختارة -->
+        <!-- 1. بطاقة تفاصيل المباراة -->
         <div class="match-info-card">
             <div class="match-league-header">
                 <span id="leagueName">🏆 بطولة كرة القدم</span>
-                <span id="matchStatusText">🟢 البث جاهز</span>
+                <span id="matchStatusText">🟢 إشارة البث مستقرة</span>
             </div>
             <div class="match-teams-box">
                 <div class="team-box">
-                    <img id="team1Logo" src="https://via.placeholder.com/52" alt="الفريق الأول">
+                    <img id="team1Logo" src="https://via.placeholder.com/58" alt="الفريق الأول">
                     <span id="team1Name">الفريق الأول</span>
                 </div>
                 <div class="match-center-score">
@@ -460,7 +512,7 @@
                     <span class="match-time-text" id="matchTime">--:--</span>
                 </div>
                 <div class="team-box">
-                    <img id="team2Logo" src="https://via.placeholder.com/52" alt="الفريق الثاني">
+                    <img id="team2Logo" src="https://via.placeholder.com/58" alt="الفريق الثاني">
                     <span id="team2Name">الفريق الثاني</span>
                 </div>
             </div>
@@ -474,45 +526,45 @@
         <!-- 3. أزرار السيرفرات -->
         <div class="server-controls">
             <button type="button" class="btn-server btn-free-server active" id="btnFree" onclick="switchServer('free')">
-                📺 سيرفر مجاني (SD/HD)
+                📺 السيرفر المجاني (SD/HD)
             </button>
             <button type="button" class="btn-server btn-vip-server" id="btnVip" onclick="switchServer('vip')">
                 👑 سيرفر VIP (FHD بدون تقطيع)
             </button>
         </div>
 
-        <!-- 4. صندوق الشات -->
+        <!-- 4. شات المشاهدين -->
         <div class="chat-container">
             <div class="chat-header">
                 <span>💬 شات المشاهدين المباشر</span>
-                <small style="color: var(--accent-glow);">🟢 متصل</small>
+                <small style="color: var(--accent-glow);">🟢 متصل الآن</small>
             </div>
             <div class="chat-messages" id="chatBox">
                 <div class="chat-msg">
-                    <span class="chat-author">مشرف ALATV</span>
-                    أهلاً بكم في البث المباشر! نتمنى لكم مشاهدة ممتعة وتشجيعاً بروح رياضية.
+                    <span class="chat-author">مشرف ALA TV</span>
+                    مرحباً بكم يا أبطال في البث الحي! استمتعوا بالمباراة وتشجيع بروح رياضية عالية.
                 </div>
             </div>
             <form class="chat-input-area" onsubmit="sendComment(event)">
-                <input type="text" id="userName" class="chat-input" placeholder="اسمك..." required>
+                <input type="text" id="userName" class="chat-input" placeholder="اسمك المستعار..." required>
                 <input type="text" id="userMsg" class="chat-input" placeholder="اكتب تعليقك هنا..." required>
                 <button type="submit" class="btn-send">إرسال</button>
             </form>
         </div>
 
-        <!-- 5. بانر 1xBet مدمج برابط الإحالة والبرومو كود الصحيح -->
+        <!-- 5. بانر 1xBet مدمج بكود البرومو الخاص بك ورابط الإحالة -->
         <section class="xbet-banner">
-            <div class="banner-badge">🔥 بونص ترحيبي مضاعف لمتابعي البث</div>
+            <div class="banner-badge">🔥 عرض حصري لمتابعي البث المباشر</div>
             <div class="banner-content">
                 <h2 class="banner-title">
                     ضاعف رصيدك الأول حتى <span class="gold-text">200% مجاناً</span> مع تطبيق 1xBet!
                 </h2>
                 <p class="banner-desc">
-                    سجّل الآن في التطبيق الرسمي واستفد من أكبر مكافأة مالية عند الإيداع باستخدام الكود الخاص بنا، مع متابعة البث الحصري لجميع مباريات الدوريات الكبرى.
+                    سجّل الآن باستخدام كود البرومو الخاص بنا واستفد من أكبر مكافأة ترحيبية عند أول إيداع، مع متابعة حصرية لكل الدوريات الكبرى.
                 </p>
                 <div class="interactive-section">
                     <div class="promo-pill">
-                        <span class="promo-label">كود المكافأة:</span>
+                        <span class="promo-label">كود البرومو:</span>
                         <!-- كود البرومو الخاص بك -->
                         <span id="promoCodeText" class="code-box">1x_6161996</span>
                         <button type="button" class="btn-copy" onclick="copyPromoCode()">
@@ -534,8 +586,8 @@
         
         const team1 = decodeURIComponent(urlParams.get('team1') || 'الفريق الأول');
         const team2 = decodeURIComponent(urlParams.get('team2') || 'الفريق الثاني');
-        const logo1 = decodeURIComponent(urlParams.get('logo1') || 'https://via.placeholder.com/52');
-        const logo2 = decodeURIComponent(urlParams.get('logo2') || 'https://via.placeholder.com/52');
+        const logo1 = decodeURIComponent(urlParams.get('logo1') || 'https://via.placeholder.com/58');
+        const logo2 = decodeURIComponent(urlParams.get('logo2') || 'https://via.placeholder.com/58');
         const time = decodeURIComponent(urlParams.get('time') || '--:--');
         const league = decodeURIComponent(urlParams.get('league') || '🏆 مباراة مباشرة');
 
@@ -546,7 +598,7 @@
         document.getElementById("team2Logo").src = logo2;
         document.getElementById("matchTime").innerText = time;
         document.getElementById("leagueName").innerText = league;
-        document.title = `${team1} ضد ${team2} | بث مباشر ALATV`;
+        document.title = `${team1} ضد ${team2} | بث مباشر ALA TV`;
 
         // روابط البث
         const freeStreamUrl = "about:blank"; 
