@@ -373,7 +373,7 @@
 
         async function fetchMatches(offsetDays, btnElement) {
             const grid = document.getElementById("matchesGrid");
-            grid.innerHTML = '<div class="loading-box">⏳ جاري تحديث قائمة المباريات...</div>';
+            grid.innerHTML = '<div class="loading-box">⏳ جاري تحديث قائمة المباريات الكبرى والتصفيات...</div>';
 
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             if (btnElement) btnElement.classList.add('active');
@@ -387,7 +387,7 @@
                 const matches = await response.json();
 
                 if (!Array.isArray(matches) || matches.length === 0) {
-                    grid.innerHTML = '<div class="loading-box">لا توجد مباريات مسجلة لهذا اليوم.</div>';
+                    grid.innerHTML = '<div class="loading-box">لا توجد مباريات مسجلة لهذا اليوم. جرب النقر على مباريات الغد.</div>';
                     return;
                 }
 
@@ -436,7 +436,7 @@
                 });
 
             } catch (err) {
-                grid.innerHTML = '<div class="loading-box">⚠️ تعذر تحميل المباريات. تأكد من إعداد المفاتيح داخل Cloudflare Worker.</div>';
+                grid.innerHTML = '<div class="loading-box">⚠️ تعذر تحميل المباريات. تأكد من اتصال الـ Worker.</div>';
             }
         }
 
