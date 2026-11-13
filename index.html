@@ -37,14 +37,15 @@
             transition: background 0.3s, color 0.3s;
         }
 
-        /* الهيدر الموحد بنفس عرض الحاوية تماماً لضمان عدم الخروج عن الإطار */
+        /* الهيدر المتجاوب */
         .main-header {
             width: 100%;
             background: linear-gradient(135deg, #7a161b 0%, #9e2329 100%);
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             display: flex;
             justify-content: center;
-            padding: 16px 0;
+            padding: 16px 15px;
+            box-sizing: border-box;
         }
 
         .header-inner {
@@ -53,12 +54,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 15px;
+            gap: 15px;
         }
 
         .header-controls {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             align-items: center;
         }
 
@@ -66,10 +67,10 @@
             background: rgba(255, 255, 255, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.3);
             color: #fff;
-            padding: 5px 10px;
+            padding: 5px 9px;
             border-radius: 6px;
             font-family: inherit;
-            font-size: 13px;
+            font-size: 12.5px;
             font-weight: 700;
             cursor: pointer;
             transition: background 0.2s;
@@ -81,26 +82,27 @@
 
         .nav-links-top {
             display: flex;
-            gap: 20px;
+            gap: 18px;
             align-items: center;
         }
 
         .nav-links-top a {
             color: #ffffff;
             text-decoration: none;
-            font-size: 14.5px;
+            font-size: 14px;
             font-weight: 700;
             transition: color 0.2s;
+            white-space: nowrap;
         }
 
         .nav-links-top a:hover {
             color: #ffc300;
         }
 
-        /* مربع اللوجو ALA TV داخل الإطار تماماً */
+        /* مربع اللوجو ALA TV */
         .site-logo-box {
             background: linear-gradient(145deg, #5c1014, #7a161b);
-            padding: 8px 24px;
+            padding: 8px 22px;
             border-radius: 8px;
             text-align: center;
             color: #fff;
@@ -113,7 +115,7 @@
         }
 
         .site-logo-box h1 {
-            font-size: 20px;
+            font-size: 19px;
             font-weight: 900;
             margin: 0;
             letter-spacing: 1px;
@@ -121,7 +123,7 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
-        /* الحاوية العامة الموحدة 850px */
+        /* الحاوية العامة */
         .container {
             width: 100%;
             max-width: 850px;
@@ -146,11 +148,11 @@
             background: #6b1419;
             border: none;
             color: #fff;
-            padding: 10px 24px;
-            min-width: 110px;
+            padding: 10px 20px;
+            min-width: 100px;
             border-radius: 6px;
             font-family: inherit;
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 800;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -200,7 +202,7 @@
         .team-box.left-side {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             width: 38%;
             justify-content: flex-start;
             text-align: left;
@@ -209,20 +211,20 @@
         .team-box.right-side {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             width: 38%;
             justify-content: flex-end;
             text-align: right;
         }
 
         .team-logo {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             object-fit: contain;
         }
 
         .team-name {
-            font-size: 15.5px;
+            font-size: 15px;
             font-weight: 800;
         }
 
@@ -235,7 +237,7 @@
         }
 
         .match-time {
-            font-size: 13px;
+            font-size: 12.5px;
             font-weight: 700;
         }
 
@@ -246,6 +248,7 @@
             border-radius: 20px;
             font-size: 11px;
             font-weight: 700;
+            white-space: nowrap;
         }
 
         .status-badge.live {
@@ -261,7 +264,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 12.5px;
+            font-size: 12px;
             color: var(--text-muted);
             border-top: 1px solid var(--card-border);
             padding-top: 10px;
@@ -280,6 +283,42 @@
             0% { transform: scale(1); opacity: 1; }
             50% { transform: scale(1.05); opacity: 0.8; }
             100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* تحسينات خاصة بالهاتف المحمول لتتطابق تماماً بدون الخروج عن الإطار */
+        @media (max-width: 768px) {
+            .header-inner {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .nav-links-top {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+            .header-controls {
+                order: 3;
+            }
+            .site-logo-box {
+                order: 1;
+                width: 100%;
+                max-width: 200px;
+            }
+            .nav-links-top {
+                order: 2;
+            }
+            .team-name {
+                font-size: 13px;
+            }
+            .team-logo {
+                width: 28px;
+                height: 28px;
+            }
+            .tab-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+                min-width: 80px;
+            }
         }
     </style>
 </head>
