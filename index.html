@@ -357,7 +357,8 @@
     </div>
 
     <script>
-        const WORKER_URL = "https://ala-tv-api.lyanita000.workers.dev";
+        // تم تصحيح الرابط هنا بإضافة /fixtures في النهاية ليتصل بالمسار الصحيح في الـ Worker
+        const WORKER_URL = "https://ala-tv-api.lyanita000.workers.dev/fixtures";
         let currentLang = localStorage.getItem('ala_lang') || 'ar';
         let currentTheme = localStorage.getItem('ala_theme') || 'light';
 
@@ -428,7 +429,7 @@
             const dateStr = getLocalDate(offsetDays);
 
             try {
-                const response = await fetch(`${WORKER_URL}/fixtures?date=${dateStr}`);
+                const response = await fetch(`${WORKER_URL}?date=${dateStr}`);
                 if (!response.ok) throw new Error("Worker Error");
                 
                 let matches = await response.json();
