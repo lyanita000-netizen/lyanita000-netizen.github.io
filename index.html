@@ -1,23 +1,42 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALA TV | جدول المباريات والبث المباشر</title>
+    <title id="pageTitle">ALA TV | جدول المباريات والبث المباشر</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --bg-color: #f3f4f6;
+            --text-color: #1f2937;
+            --card-bg: #ffffff;
+            --card-border: #e5e7eb;
+            --footer-bg: #f3f4f6;
+            --text-muted: #4b5563;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0b0f19;
+            --text-color: #f9fafb;
+            --card-bg: #111827;
+            --card-border: #1f2937;
+            --footer-bg: #0f172a;
+            --text-muted: #9ca3af;
+        }
+
         body {
-            background-color: #f3f4f6;
-            color: #1f2937;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             font-family: 'Tajawal', sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            transition: background 0.3s, color 0.3s;
         }
 
         /* البوندة العلوية الفخمة */
@@ -27,14 +46,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 40px;
+            padding: 18px 30px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            position: relative;
         }
 
         .nav-links-top {
             display: flex;
-            gap: 25px;
+            gap: 20px;
             align-items: center;
             margin: 0 auto;
         }
@@ -42,7 +60,7 @@
         .nav-links-top a {
             color: #ffffff;
             text-decoration: none;
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 700;
             transition: color 0.2s;
         }
@@ -51,33 +69,52 @@
             color: #ffc300;
         }
 
+        /* أزرار التحكم الجديدة (اللغة والوضع الليلي) */
+        .header-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* مربع اللوجو الكبير الفخم */
         .site-logo-box {
             background: linear-gradient(145deg, #5c1014, #7a161b);
-            padding: 12px 35px;
-            border-radius: 10px;
+            padding: 10px 30px;
+            border-radius: 8px;
             text-align: center;
             color: #fff;
             text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), inset 0 1px 3px rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 30px;
-            transition: transform 0.2s;
-        }
-
-        .site-logo-box:hover {
-            transform: translateY(-2px);
         }
 
         .site-logo-box h1 {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 900;
             margin: 0;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             color: #ffffff;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .container {
@@ -124,25 +161,24 @@
             gap: 14px;
         }
 
-        /* كارت المباراة مطابق للصورة المطلوبة 100% */
+        /* كارت المباراة */
         .match-card {
-            background: #ffffff;
-            border: 1.5px solid #e5e7eb;
+            background: var(--card-bg);
+            border: 1.5px solid var(--card-border);
             border-radius: 10px;
             padding: 16px 20px;
             display: flex;
             flex-direction: column;
             gap: 12px;
             text-decoration: none;
-            color: inherit;
+            color: var(--text-color);
             box-shadow: 0 2px 5px rgba(0,0,0,0.04);
             transition: all 0.2s ease;
         }
 
         .match-card:hover {
             border-color: #8b1e24;
-            box-shadow: 0 4px 12px rgba(139, 30, 36, 0.12);
-            background-color: #fcf8f8;
+            box-shadow: 0 4px 12px rgba(139, 30, 36, 0.15);
         }
 
         .match-main-row {
@@ -151,7 +187,6 @@
             justify-content: space-between;
         }
 
-        /* تعديل الاتجاهات: الفريق الأول على اليسار والفريق الثاني على اليمين كما في الصورة المطلوبة */
         .team-box.left-side {
             display: flex;
             align-items: center;
@@ -179,10 +214,8 @@
         .team-name {
             font-size: 16px;
             font-weight: 800;
-            color: #111827;
         }
 
-        /* الوسط: الوقت والحالة */
         .match-center-info {
             display: flex;
             flex-direction: column;
@@ -194,7 +227,6 @@
         .match-time {
             font-size: 13.5px;
             font-weight: 700;
-            color: #111827;
         }
 
         .status-badge {
@@ -215,14 +247,13 @@
             background: #4b5563;
         }
 
-        /* الشريط السفلي: بطولة على اليمين، معلق في الوسط، وقناة على اليسار */
         .match-footer-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 12.5px;
-            color: #4b5563;
-            border-top: 1px solid #f3f4f6;
+            color: var(--text-muted);
+            border-top: 1px solid var(--card-border);
             padding-top: 10px;
             font-weight: 700;
         }
@@ -230,7 +261,7 @@
         .loading-box {
             text-align: center;
             padding: 35px;
-            color: #6b7280;
+            color: var(--text-muted);
             font-weight: 700;
         }
 
@@ -241,15 +272,21 @@
         }
     </style>
 </head>
-<body>
+<body id="bodyTag">
 
     <header class="main-header">
+        <div class="header-controls">
+            <button class="control-btn" id="langBtn" onclick="toggleLanguage()">EN</button>
+            <button class="control-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+        </div>
+
         <div class="nav-links-top">
-            <a href="#">أخبار رياضية</a>
-            <a href="#">مباريات الغد</a>
-            <a href="#">مباريات اليوم</a>
+            <a href="#" id="navNews">أخبار رياضية</a>
+            <a href="#" id="navTomorrow">مباريات الغد</a>
+            <a href="#" id="navToday">مباريات اليوم</a>
             <a href="#">yalla shoot</a>
         </div>
+
         <a href="index.html" class="site-logo-box">
             <h1>ALA TV</h1>
         </a>
@@ -257,18 +294,62 @@
 
     <div class="container">
         <div class="tabs-bar">
-            <button class="tab-btn" onclick="fetchMatches(-1, this)">مباريات الأمس</button>
-            <button class="tab-btn active" onclick="fetchMatches(0, this)">مباريات اليوم</button>
-            <button class="tab-btn" onclick="fetchMatches(1, this)">مباريات الغد</button>
+            <button class="tab-btn" id="btnYesterday" onclick="fetchMatches(-1, this)">مباريات الأمس</button>
+            <button class="tab-btn active" id="btnTodayTab" onclick="fetchMatches(0, this)">مباريات اليوم</button>
+            <button class="tab-btn" id="btnTomorrowTab" onclick="fetchMatches(1, this)">مباريات الغد</button>
         </div>
 
         <main id="matchesGrid" class="matches-list">
-            <div class="loading-box">⏳ جاري تحميل المباريات...</div>
+            <div class="loading-box" id="loadingText">⏳ جاري تحميل المباريات...</div>
         </main>
     </div>
 
     <script>
         const WORKER_URL = "https://ala-tv-api.lyanita000.workers.dev";
+        let currentLang = localStorage.getItem('ala_lang') || 'ar';
+        let currentTheme = localStorage.getItem('ala_theme') || 'light';
+
+        // تطبيق الوضع عند التحميل
+        if (currentTheme === 'dark') {
+            document.getElementById('htmlRoot').setAttribute('data-theme', 'dark');
+            document.getElementById('themeBtn').innerText = '☀️';
+        }
+
+        function toggleTheme() {
+            if (currentTheme === 'light') {
+                currentTheme = 'dark';
+                document.getElementById('htmlRoot').setAttribute('data-theme', 'dark');
+                document.getElementById('themeBtn').innerText = '☀️';
+            } else {
+                currentTheme = 'light';
+                document.getElementById('htmlRoot').removeAttribute('data-theme');
+                document.getElementById('themeBtn').innerText = '🌙';
+            }
+            localStorage.setItem('ala_theme', currentTheme);
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('ala_lang', currentLang);
+            updateUIText();
+            // إعادة تحميل مباريات اليوم لتحديث النصوص
+            fetchMatches(0, document.querySelector('.tab-btn.active'));
+        }
+
+        function updateUIText() {
+            const isEn = currentLang === 'en';
+            document.getElementById('langBtn').innerText = isEn ? 'AR' : 'EN';
+            document.getElementById('navNews').innerText = isEn ? 'Sports News' : 'أخبار رياضية';
+            document.getElementById('navTomorrow').innerText = isEn ? 'Tomorrow Matches' : 'مباريات الغد';
+            document.getElementById('navToday').innerText = isEn ? 'Today Matches' : 'مباريات اليوم';
+            document.getElementById('btnYesterday').innerText = isEn ? 'Yesterday' : 'مباريات الأمس';
+            document.getElementById('btnTodayTab').innerText = isEn ? 'Today' : 'مباريات اليوم';
+            document.getElementById('btnTomorrowTab').innerText = isEn ? 'Tomorrow' : 'مباريات الغد';
+            document.documentElement.setAttribute('dir', isEn ? 'ltr' : 'rtl');
+        }
+
+        // تطبيق اللغة عند البداية
+        updateUIText();
 
         function getLocalDate(offsetDays = 0) {
             const d = new Date();
@@ -289,7 +370,8 @@
 
         async function fetchMatches(offsetDays, btnElement) {
             const grid = document.getElementById("matchesGrid");
-            grid.innerHTML = '<div class="loading-box">⏳ جاري تحديث الجدول...</div>';
+            const isEn = currentLang === 'en';
+            grid.innerHTML = `<div class="loading-box">${isEn ? '⏳ Loading matches...' : '⏳ جاري تحديث الجدول...'}</div>`;
 
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             if (btnElement) btnElement.classList.add('active');
@@ -303,11 +385,10 @@
                 let matches = await response.json();
 
                 if (!Array.isArray(matches) || matches.length === 0) {
-                    grid.innerHTML = '<div class="loading-box">لا توجد مباريات مسجلة لهذا اليوم.</div>';
+                    grid.innerHTML = `<div class="loading-box">${isEn ? 'No matches scheduled for today.' : 'لا توجد مباريات مسجلة لهذا اليوم.'}</div>`;
                     return;
                 }
 
-                // ترتيب ذكي: المباريات الجارية أولاً، ثم المجدولة، وفي النهاية المنتهية (تهبط للأسفل)
                 matches.sort((a, b) => {
                     const statusOrder = { "IN_PLAY": 1, "SCHEDULED": 2, "PAUSED": 2, "FINISHED": 3 };
                     const orderA = statusOrder[a.status] || 2;
@@ -318,21 +399,21 @@
 
                 grid.innerHTML = '';
                 matches.forEach(m => {
-                    const homeName = m.homeTeam?.name || "الفريق الأول";
-                    const awayName = m.awayTeam?.name || "الفريق الثاني";
+                    const homeName = m.homeTeam?.name || "Team 1";
+                    const awayName = m.awayTeam?.name || "Team 2";
                     const homeLogo = m.homeTeam?.crest || "https://placehold.co/40x40?text=FC";
-                    const awayLogo = m.homeTeam?.crest || "https://placehold.co/40x40?text=FC";
-                    const league = m.competition?.name || "🏆 بطولة كرة القدم";
+                    const awayLogo = m.awayTeam?.crest || "https://placehold.co/40x40?text=FC";
+                    const league = m.competition?.name || "Football Match";
                     const timeFormatted = formatMatchTime(m.utcDate);
 
-                    let statusText = "لم تبدأ بعد";
+                    let statusText = isEn ? "Not Started" : "لم تبدأ بعد";
                     let badgeClass = "";
 
                     if (m.status === "IN_PLAY") {
-                        statusText = `مباشر (${m.score?.fullTime?.home ?? 0} - ${m.score?.fullTime?.away ?? 0})`;
+                        statusText = isEn ? `Live (${m.score?.fullTime?.home ?? 0} - ${m.score?.fullTime?.away ?? 0})` : `مباشر (${m.score?.fullTime?.home ?? 0} - ${m.score?.fullTime?.away ?? 0})`;
                         badgeClass = "live";
                     } else if (m.status === "FINISHED") {
-                        statusText = `انتهت (${m.score?.fullTime?.home ?? 0} - ${m.score?.fullTime?.away ?? 0})`;
+                        statusText = isEn ? `Finished (${m.score?.fullTime?.home ?? 0} - ${m.score?.fullTime?.away ?? 0})` : `انتهت (${m.score?.fullTime?.home ?? 0} - ${m.score?.fullTime?.away ?? 0})`;
                         badgeClass = "finished";
                     }
 
@@ -341,26 +422,22 @@
                     const card = `
                         <a href="${matchUrl}" class="match-card">
                             <div class="match-main-row">
-                                <!-- اليسار: الفريق الأول والشعار -->
                                 <div class="team-box left-side">
                                     <span class="team-name">${homeName}</span>
                                     <img src="${homeLogo}" alt="${homeName}" class="team-logo" onerror="this.src='https://placehold.co/40x40?text=FC'">
                                 </div>
-                                <!-- المنتصف: الوقت والحالة -->
                                 <div class="match-center-info">
                                     <span class="match-time">${timeFormatted}</span>
                                     <span class="status-badge ${badgeClass}">${statusText}</span>
                                 </div>
-                                <!-- اليمين: الفريق الثاني والشعار -->
                                 <div class="team-box right-side">
                                     <img src="${awayLogo}" alt="${awayName}" class="team-logo" onerror="this.src='https://placehold.co/40x40?text=FC'">
                                     <span class="team-name">${awayName}</span>
                                 </div>
                             </div>
-                            <!-- الشريط السفلي المطابق تماماً للصورة: بطولة على اليمين، معلق في الوسط، وقناة على اليسار -->
                             <div class="match-footer-row">
                                 <span>🏆 ${league}</span>
-                                <span>🎤 ${m.commentator || 'حفيظ دراجي'}</span>
+                                <span>🎤 ${m.commentator || (isEn ? 'Unknown' : 'حفيظ دراجي')}</span>
                                 <span>${m.channel || 'Bein Sports HD1'} 📺</span>
                             </div>
                         </a>
@@ -369,7 +446,7 @@
                 });
 
             } catch (err) {
-                grid.innerHTML = '<div class="loading-box">⚠️ تعذر تحميل المباريات. تأكد من اتصال الـ Worker.</div>';
+                grid.innerHTML = `<div class="loading-box">⚠️ ${isEn ? 'Failed to load matches.' : 'تعذر تحميل المباريات.'}</div>`;
             }
         }
 
