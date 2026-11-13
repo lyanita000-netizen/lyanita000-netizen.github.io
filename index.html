@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بث مباشر للمباراة | ALA TV</title>
+    <title>ALA TV | جدول المباريات والبث المباشر</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -20,7 +20,7 @@
             align-items: center;
         }
 
-        /* البوندة العلوية الفخمة المتطابقة مع الرئيسية */
+        /* البوندة العلوية الفخمة */
         .main-header {
             width: 100%;
             background: linear-gradient(135deg, #7a161b 0%, #9e2329 100%);
@@ -89,138 +89,187 @@
             gap: 15px;
         }
 
-        .match-card-top {
+        /* أزرار الأيام الطويلة والمتناسقة */
+        .tabs-bar {
+            background-color: #8b1e24;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .tab-btn {
+            background: #6b1419;
+            border: none;
+            color: #fff;
+            padding: 12px 28px;
+            min-width: 130px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 14.5px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: #a9242b;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .matches-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        /* تعديل خانة المباراة لتكون طويلة أفقياً ومرتبة بشكل احترافي */
+        .match-box {
             background: #ffffff;
             border: 1.5px solid #e5e7eb;
             border-radius: 12px;
-            padding: 18px 22px;
+            padding: 18px 22px; /* مساحة داخلية مريحة تعطي طولاً وانسجاماً للخانة */
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            transition: all 0.2s ease;
         }
 
-        .match-league-title {
-            text-align: center;
-            font-size: 14px;
-            font-weight: 800;
-            color: #8b1e24;
+        .match-box:hover {
+            border-color: #8b1e24;
+            box-shadow: 0 6px 15px rgba(139, 30, 36, 0.1);
+        }
+
+        .match-top-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #4b5563;
             border-bottom: 1px solid #f3f4f6;
-            padding-bottom: 8px;
+            padding-bottom: 10px;
+            font-weight: 700;
         }
 
-        .teams-box {
+        .teams-row {
             display: flex;
             align-items: center;
-            justify-content: space-around;
+            justify-content: space-between;
         }
 
-        .team-col {
+        .team-side {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            width: 38%;
+        }
+
+        .team-side:nth-child(3) {
+            justify-content: flex-end;
+            text-align: left;
+        }
+
+        .team-logo {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+        }
+
+        .team-name {
+            font-size: 16px;
+            font-weight: 800;
+            color: #111827;
+        }
+
+        .match-middle {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
-            width: 140px;
-            text-align: center;
+            gap: 4px;
+            width: 24%;
         }
 
-        .team-col img { width: 48px; height: 48px; object-fit: contain; }
-        .team-col span { font-size: 15px; font-weight: 800; color: #111827; }
-
-        .player-wrapper {
-            width: 100%;
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            aspect-ratio: 16 / 9;
-            border: 2px solid #374151;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-        }
-
-        .player-wrapper iframe { width: 100%; height: 100%; border: none; }
-
-        .servers-row {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-        }
-
-        .btn-server {
-            flex: 1;
-            padding: 12px;
-            background: #ffffff;
-            border: 1.5px solid #d1d5db;
-            border-radius: 8px;
-            font-family: inherit;
-            font-weight: 800;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-server.active {
-            background: #8b1e24;
+        .status-badge {
+            background: #374151;
             color: #fff;
-            border-color: #8b1e24;
-            box-shadow: 0 4px 10px rgba(139, 30, 36, 0.3);
+            padding: 5px 14px;
+            border-radius: 6px;
+            font-size: 12.5px;
+            font-weight: 700;
         }
 
-        /* بانر المراهنات 1xBet */
-        .xbet-classic-banner {
-            background: linear-gradient(135deg, #0a1128 0%, #050b18 100%);
-            border: 2px solid #ffc300;
-            border-radius: 12px;
-            padding: 22px;
-            text-align: center;
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        .status-badge.live {
+            background: #dc2626;
+            animation: pulse-red 1.2s infinite;
         }
 
-        .xbet-title { font-size: 19px; font-weight: 900; margin-bottom: 8px; color: #ffc300; }
-        .xbet-desc { font-size: 13.5px; color: #d1d5db; margin-bottom: 16px; }
-
-        .xbet-actions {
+        /* خانة البث السفلية أصبحت أنيقة وطويلة بالكامل */
+        .match-bottom-bar {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .promo-box {
-            background: #000;
-            border: 1.5px dashed #ffc300;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 17px;
-            font-weight: 900;
-            color: #ffc300;
-            letter-spacing: 1px;
-        }
-
-        .btn-xbet-reg {
-            background: #ffc300;
-            color: #0b0f19;
+            font-size: 13.5px;
+            color: #374151;
+            background: #fdf2f2;
+            border: 1px solid #f8d7da;
+            padding: 12px 18px;
+            border-radius: 8px;
             text-decoration: none;
-            padding: 12px 22px;
-            border-radius: 6px;
-            font-weight: 900;
-            font-size: 14.5px;
-            box-shadow: 0 4px 12px rgba(255, 195, 0, 0.3);
-            transition: transform 0.2s;
+            font-weight: 700;
+            transition: all 0.2s ease;
         }
 
-        .btn-xbet-reg:hover { transform: scale(1.03); }
+        .match-bottom-bar:hover {
+            background-color: #8b1e24;
+            color: #ffffff;
+            border-color: #8b1e24;
+        }
+
+        .match-bottom-bar:hover strong, 
+        .match-bottom-bar:hover span {
+            color: #ffffff;
+        }
+
+        .btn-watch {
+            background-color: #8b1e24;
+            color: #fff;
+            padding: 7px 18px;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 13.5px;
+            transition: background 0.2s;
+        }
+
+        .match-bottom-bar:hover .btn-watch {
+            background-color: #ffffff;
+            color: #8b1e24;
+        }
+
+        .loading-box {
+            text-align: center;
+            padding: 35px;
+            color: #6b7280;
+            font-weight: 700;
+        }
+
+        @keyframes pulse-red {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
     </style>
 </head>
 <body>
 
     <header class="main-header">
         <div class="nav-links-top">
-            <a href="index.html">أخبار رياضية</a>
-            <a href="index.html">مباريات الغد</a>
-            <a href="index.html">مباريات اليوم</a>
-            <a href="index.html">yalla shoot</a>
+            <a href="#">أخبار رياضية</a>
+            <a href="#">مباريات الغد</a>
+            <a href="#">مباريات اليوم</a>
+            <a href="#">yalla shoot</a>
         </div>
         <a href="index.html" class="site-logo-box">
             <h1>ALA TV</h1>
@@ -228,78 +277,116 @@
     </header>
 
     <div class="container">
-        <div class="match-card-top">
-            <div class="match-league-title" id="leagueName">🏆 بطولة كرة القدم</div>
-            <div class="teams-box">
-                <div class="team-col">
-                    <img id="team1Logo" src="https://via.placeholder.com/48" alt="الفريق الأول">
-                    <span id="team1Name">الفريق الأول</span>
-                </div>
-                <div style="text-align:center;">
-                    <span style="background:#8b1e24; color:#fff; padding:5px 14px; border-radius:20px; font-size:12px; font-weight:800;">VS</span>
-                    <div style="margin-top:8px; font-size:13px; font-weight:700; color:#4b5563;" id="matchTime">--:--</div>
-                </div>
-                <div class="team-col">
-                    <img id="team2Logo" src="https://via.placeholder.com/48" alt="الفريق الثاني">
-                    <span id="team2Name">الفريق الثاني</span>
-                </div>
-            </div>
+        <div class="tabs-bar">
+            <button class="tab-btn" onclick="fetchMatches(-1, this)">مباريات الأمس</button>
+            <button class="tab-btn active" onclick="fetchMatches(0, this)">مباريات اليوم</button>
+            <button class="tab-btn" onclick="fetchMatches(1, this)">مباريات الغد</button>
         </div>
 
-        <div class="player-wrapper">
-            <iframe id="mainPlayer" src="about:blank" title="مشغل البث" allowfullscreen></iframe>
-        </div>
-
-        <div class="servers-row">
-            <button class="btn-server active" id="btnFree" onclick="switchServer('free')">📺 السيرفر المجاني (HD)</button>
-            <button class="btn-server" id="btnVip" onclick="switchServer('vip')">👑 سيرفر VIP (بدون تقطيع)</button>
-        </div>
-
-        <section class="xbet-classic-banner">
-            <div class="xbet-title">🔥 ضاعف رصيدك الأول حتى 200% مع 1xBet!</div>
-            <p class="xbet-desc">سجّل الآن باستخدام كود البرومو واستفد من مكافأة ترحيبية فورية عند أول إيداع.</p>
-            <div class="xbet-actions">
-                <div class="promo-box">1x_6161996</div>
-                <a href="https://refpa-78460.com/L?tag=d_6329886m_1599c_&site=6329886&ad=1599" target="_blank" rel="noopener noreferrer" class="btn-xbet-reg">سجّل واحصل على المكافأة ←</a>
-            </div>
-        </section>
+        <main id="matchesGrid" class="matches-list">
+            <div class="loading-box">⏳ جاري تحميل المباريات...</div>
+        </main>
     </div>
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const team1 = decodeURIComponent(urlParams.get('team1') || 'الفريق الأول');
-        const team2 = decodeURIComponent(urlParams.get('team2') || 'الفريق الثاني');
-        const logo1 = decodeURIComponent(urlParams.get('logo1') || 'https://via.placeholder.com/48');
-        const logo2 = decodeURIComponent(urlParams.get('logo2') || 'https://via.placeholder.com/48');
-        const time = decodeURIComponent(urlParams.get('time') || '--:--');
-        const league = decodeURIComponent(urlParams.get('league') || '🏆 مباراة مباشرة');
+        const WORKER_URL = "https://ala-tv-api.lyanita000.workers.dev";
 
-        document.getElementById("team1Name").innerText = team1;
-        document.getElementById("team1Logo").src = logo1;
-        document.getElementById("team2Name").innerText = team2;
-        document.getElementById("team2Logo").src = logo2;
-        document.getElementById("matchTime").innerText = time;
-        document.getElementById("leagueName").innerText = league;
-        document.title = `${team1} ضد ${team2} | بث مباشر ALA TV`;
+        function getLocalDate(offsetDays = 0) {
+            const d = new Date();
+            d.setDate(d.getDate() + offsetDays);
+            return d.toISOString().split('T')[0];
+        }
 
-        const freeStreamUrl = "about:blank"; 
-        const vipStreamUrl = "about:blank";
-        const player = document.getElementById("mainPlayer");
-        player.src = freeStreamUrl;
+        function formatMatchTime(utcDateStr) {
+            if (!utcDateStr) return "--:--";
+            const date = new Date(utcDateStr);
+            return date.toLocaleTimeString('ar-DZ', { 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                hour12: true, 
+                timeZone: 'Africa/Algiers' 
+            });
+        }
 
-        function switchServer(type) {
-            const btnFree = document.getElementById("btnFree");
-            const btnVip = document.getElementById("btnVip");
-            if (type === 'free') {
-                player.src = freeStreamUrl;
-                btnFree.classList.add("active");
-                btnVip.classList.remove("active");
-            } else {
-                player.src = vipStreamUrl;
-                btnVip.classList.add("active");
-                btnFree.classList.remove("active");
+        async function fetchMatches(offsetDays, btnElement) {
+            const grid = document.getElementById("matchesGrid");
+            grid.innerHTML = '<div class="loading-box">⏳ جاري تحديث الجدول...</div>';
+
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            if (btnElement) btnElement.classList.add('active');
+
+            const dateStr = getLocalDate(offsetDays);
+
+            try {
+                const response = await fetch(`${WORKER_URL}/fixtures?date=${dateStr}`);
+                if (!response.ok) throw new Error("Worker Error");
+                
+                const matches = await response.json();
+
+                if (!Array.isArray(matches) || matches.length === 0) {
+                    grid.innerHTML = '<div class="loading-box">لا توجد مباريات مسجلة لهذا اليوم.</div>';
+                    return;
+                }
+
+                grid.innerHTML = '';
+                matches.forEach(m => {
+                    const homeName = m.homeTeam?.name || "الفريق الأول";
+                    const awayName = m.awayTeam?.name || "الفريق الثاني";
+                    const homeLogo = m.homeTeam?.crest || "https://placehold.co/38x34?text=FC";
+                    const awayLogo = m.awayTeam?.crest || "https://placehold.co/38x34?text=FC";
+                    const league = m.competition?.name || "🏆 مباراة مباشرة";
+                    const time = formatMatchTime(m.utcDate);
+
+                    let statusBadge = time;
+                    let vsDisplay = "VS";
+
+                    if (m.status === "IN_PLAY") {
+                        statusBadge = `جارية الآن (${m.score?.fullTime?.home ?? 0} - ${m.score?.fullTime?.away ?? 0})`;
+                        vsDisplay = `${m.score?.fullTime?.home ?? 0} - ${m.score?.fullTime?.away ?? 0}`;
+                    } else if (m.status === "FINISHED") {
+                        statusBadge = `انتهت (${m.score?.fullTime?.home ?? 0} - ${m.score?.fullTime?.away ?? 0})`;
+                        vsDisplay = `${m.score?.fullTime?.home ?? 0} - ${m.score?.fullTime?.away ?? 0}`;
+                    }
+
+                    const matchUrl = `match.html?id=${m.id}&team1=${encodeURIComponent(homeName)}&team2=${encodeURIComponent(awayName)}&logo1=${encodeURIComponent(homeLogo)}&logo2=${encodeURIComponent(awayLogo)}&time=${encodeURIComponent(time)}&league=${encodeURIComponent(league)}`;
+
+                    const card = `
+                        <div class="match-box">
+                            <div class="match-top-info">
+                                <span>🏆 ${league}</span>
+                                <span>🎤 المعلق: ${m.commentator || 'حفيظ دراجي'}</span>
+                            </div>
+                            <div class="teams-row">
+                                <div class="team-side">
+                                    <img src="${homeLogo}" alt="${homeName}" class="team-logo" onerror="this.src='https://placehold.co/38x38?text=FC'">
+                                    <span class="team-name">${homeName}</span>
+                                </div>
+                                <div class="match-middle">
+                                    <div class="status-badge ${m.status === 'IN_PLAY' ? 'live' : ''}">${statusBadge}</div>
+                                    <span style="font-size: 15px; font-weight: 900; color: #8b1e24;">${vsDisplay}</span>
+                                </div>
+                                <div class="team-side">
+                                    <span class="team-name">${awayName}</span>
+                                    <img src="${awayLogo}" alt="${awayName}" class="team-logo" onerror="this.src='https://placehold.co/38x38?text=FC'">
+                                </div>
+                            </div>
+                            <a href="${matchUrl}" class="match-bottom-bar">
+                                <span>📺 القناة: <strong>${m.channel || 'Bein Sports HD1'}</strong></span>
+                                <span class="btn-watch">مشاهدة البث ←</span>
+                            </a>
+                        </div>
+                    `;
+                    grid.innerHTML += card;
+                });
+
+            } catch (err) {
+                grid.innerHTML = '<div class="loading-box">⚠️ تعذر تحميل المباريات. تأكد من اتصال الـ Worker.</div>';
             }
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchMatches(0, document.querySelectorAll('.tab-btn')[1]);
+        });
     </script>
 </body>
 </html>
