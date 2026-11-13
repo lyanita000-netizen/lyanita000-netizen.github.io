@@ -14,7 +14,6 @@
             --text-color: #1f2937;
             --card-bg: #ffffff;
             --card-border: #e5e7eb;
-            --footer-bg: #f3f4f6;
             --text-muted: #4b5563;
         }
 
@@ -23,7 +22,6 @@
             --text-color: #f9fafb;
             --card-bg: #111827;
             --card-border: #1f2937;
-            --footer-bg: #0f172a;
             --text-muted: #9ca3af;
         }
 
@@ -39,22 +37,52 @@
             transition: background 0.3s, color 0.3s;
         }
 
-        /* البوندة العلوية الفخمة */
+        /* الهيدر الموحد بنفس عرض الحاوية تماماً لضمان عدم الخروج عن الإطار */
         .main-header {
             width: 100%;
             background: linear-gradient(135deg, #7a161b 0%, #9e2329 100%);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: center;
+            padding: 16px 0;
+        }
+
+        .header-inner {
+            width: 100%;
+            max-width: 850px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            padding: 0 15px;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
         }
 
         .nav-links-top {
             display: flex;
             gap: 20px;
             align-items: center;
-            margin: 0 auto;
         }
 
         .nav-links-top a {
@@ -69,34 +97,10 @@
             color: #ffc300;
         }
 
-        /* أزرار التحكم الجديدة (اللغة والوضع الليلي) */
-        .header-controls {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .control-btn {
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: #fff;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .control-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-        }
-
-        /* مربع اللوجو الكبير الفخم */
+        /* مربع اللوجو ALA TV داخل الإطار تماماً */
         .site-logo-box {
             background: linear-gradient(145deg, #5c1014, #7a161b);
-            padding: 10px 30px;
+            padding: 8px 24px;
             border-radius: 8px;
             text-align: center;
             color: #fff;
@@ -109,7 +113,7 @@
         }
 
         .site-logo-box h1 {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 900;
             margin: 0;
             letter-spacing: 1px;
@@ -117,13 +121,15 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
+        /* الحاوية العامة الموحدة 850px */
         .container {
             width: 100%;
             max-width: 850px;
-            margin: 25px 10px;
+            margin: 20px 15px;
             display: flex;
             flex-direction: column;
             gap: 15px;
+            box-sizing: border-box;
         }
 
         .tabs-bar {
@@ -131,7 +137,7 @@
             display: flex;
             justify-content: center;
             gap: 8px;
-            padding: 12px;
+            padding: 10px;
             border-radius: 8px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.15);
         }
@@ -140,11 +146,11 @@
             background: #6b1419;
             border: none;
             color: #fff;
-            padding: 12px 28px;
-            min-width: 130px;
+            padding: 10px 24px;
+            min-width: 110px;
             border-radius: 6px;
             font-family: inherit;
-            font-size: 14.5px;
+            font-size: 14px;
             font-weight: 800;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -159,9 +165,10 @@
             display: flex;
             flex-direction: column;
             gap: 14px;
+            width: 100%;
         }
 
-        /* كارت المباراة */
+        /* كارت المباراة منضبط داخل الإطار تماماً */
         .match-card {
             background: var(--card-bg);
             border: 1.5px solid var(--card-border);
@@ -174,6 +181,8 @@
             color: var(--text-color);
             box-shadow: 0 2px 5px rgba(0,0,0,0.04);
             transition: all 0.2s ease;
+            box-sizing: border-box;
+            width: 100%;
         }
 
         .match-card:hover {
@@ -185,6 +194,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            width: 100%;
         }
 
         .team-box.left-side {
@@ -206,13 +216,13 @@
         }
 
         .team-logo {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             object-fit: contain;
         }
 
         .team-name {
-            font-size: 16px;
+            font-size: 15.5px;
             font-weight: 800;
         }
 
@@ -225,14 +235,14 @@
         }
 
         .match-time {
-            font-size: 13.5px;
+            font-size: 13px;
             font-weight: 700;
         }
 
         .status-badge {
             background: #1f2937;
             color: #fff;
-            padding: 3px 14px;
+            padding: 3px 12px;
             border-radius: 20px;
             font-size: 11px;
             font-weight: 700;
@@ -256,6 +266,7 @@
             border-top: 1px solid var(--card-border);
             padding-top: 10px;
             font-weight: 700;
+            width: 100%;
         }
 
         .loading-box {
@@ -275,21 +286,23 @@
 <body id="bodyTag">
 
     <header class="main-header">
-        <div class="header-controls">
-            <button class="control-btn" id="langBtn" onclick="toggleLanguage()">EN</button>
-            <button class="control-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
-        </div>
+        <div class="header-inner">
+            <div class="header-controls">
+                <button class="control-btn" id="langBtn" onclick="toggleLanguage()">EN</button>
+                <button class="control-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+            </div>
 
-        <div class="nav-links-top">
-            <a href="#" id="navNews">أخبار رياضية</a>
-            <a href="#" id="navTomorrow">مباريات الغد</a>
-            <a href="#" id="navToday">مباريات اليوم</a>
-            <a href="#">yalla shoot</a>
-        </div>
+            <div class="nav-links-top">
+                <a href="#" id="navNews">أخبار رياضية</a>
+                <a href="#" id="navTomorrow">مباريات الغد</a>
+                <a href="#" id="navToday">مباريات اليوم</a>
+                <a href="#">yalla shoot</a>
+            </div>
 
-        <a href="index.html" class="site-logo-box">
-            <h1>ALA TV</h1>
-        </a>
+            <a href="index.html" class="site-logo-box">
+                <h1>ALA TV</h1>
+            </a>
+        </div>
     </header>
 
     <div class="container">
@@ -309,7 +322,6 @@
         let currentLang = localStorage.getItem('ala_lang') || 'ar';
         let currentTheme = localStorage.getItem('ala_theme') || 'light';
 
-        // تطبيق الوضع عند التحميل
         if (currentTheme === 'dark') {
             document.getElementById('htmlRoot').setAttribute('data-theme', 'dark');
             document.getElementById('themeBtn').innerText = '☀️';
@@ -332,7 +344,6 @@
             currentLang = currentLang === 'ar' ? 'en' : 'ar';
             localStorage.setItem('ala_lang', currentLang);
             updateUIText();
-            // إعادة تحميل مباريات اليوم لتحديث النصوص
             fetchMatches(0, document.querySelector('.tab-btn.active'));
         }
 
@@ -348,7 +359,6 @@
             document.documentElement.setAttribute('dir', isEn ? 'ltr' : 'rtl');
         }
 
-        // تطبيق اللغة عند البداية
         updateUIText();
 
         function getLocalDate(offsetDays = 0) {
