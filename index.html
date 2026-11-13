@@ -124,7 +124,7 @@
             gap: 14px;
         }
 
-        /* كارت المباراة مطابق تماماً للقالب الأصلي */
+        /* كارت المباراة مطابق للصورة المطلوبة 100% */
         .match-card {
             background: #ffffff;
             border: 1.5px solid #e5e7eb;
@@ -151,23 +151,23 @@
             justify-content: space-between;
         }
 
-        /* اليمين: الفريق الأول (صاحب الأرض) والشعار */
-        .team-box.right {
+        /* تعديل الاتجاهات: الفريق الأول على اليسار والفريق الثاني على اليمين كما في الصورة المطلوبة */
+        .team-box.left-side {
             display: flex;
             align-items: center;
             gap: 15px;
             width: 38%;
             justify-content: flex-start;
+            text-align: left;
         }
 
-        /* اليسار: الفريق الثاني (الضيف) والشعار */
-        .team-box.left {
+        .team-box.right-side {
             display: flex;
             align-items: center;
             gap: 15px;
             width: 38%;
             justify-content: flex-end;
-            text-align: left;
+            text-align: right;
         }
 
         .team-logo {
@@ -200,7 +200,7 @@
         .status-badge {
             background: #1f2937;
             color: #fff;
-            padding: 3px 12px;
+            padding: 3px 14px;
             border-radius: 20px;
             font-size: 11px;
             font-weight: 700;
@@ -215,7 +215,7 @@
             background: #4b5563;
         }
 
-        /* الشريط السفلي مطابق تماماً للصورة الأصلية (قناة على اليمين، معلق في الوسط، بطولة على اليسار) */
+        /* الشريط السفلي: بطولة على اليمين، معلق في الوسط، وقناة على اليسار */
         .match-footer-row {
             display: flex;
             justify-content: space-between;
@@ -277,7 +277,7 @@
         }
 
         function formatMatchTime(utcDateStr) {
-            if (!utcDateStr) return "04:00 PM";
+            if (!utcDateStr) return "06:00 PM";
             const date = new Date(utcDateStr);
             return date.toLocaleTimeString('en-US', { 
                 hour: '2-digit', 
@@ -307,7 +307,7 @@
                     return;
                 }
 
-                // ترتيب ذكي: المباريات الجارية أولاً، ثم المجدولة، وفي النهاية المنتهية (تهبط لأسفل القائمة)
+                // ترتيب ذكي: المباريات الجارية أولاً، ثم المجدولة، وفي النهاية المنتهية (تهبط للأسفل)
                 matches.sort((a, b) => {
                     const statusOrder = { "IN_PLAY": 1, "SCHEDULED": 2, "PAUSED": 2, "FINISHED": 3 };
                     const orderA = statusOrder[a.status] || 2;
@@ -321,7 +321,7 @@
                     const homeName = m.homeTeam?.name || "الفريق الأول";
                     const awayName = m.awayTeam?.name || "الفريق الثاني";
                     const homeLogo = m.homeTeam?.crest || "https://placehold.co/40x40?text=FC";
-                    const awayLogo = m.awayTeam?.crest || "https://placehold.co/40x40?text=FC";
+                    const awayLogo = m.homeTeam?.crest || "https://placehold.co/40x40?text=FC";
                     const league = m.competition?.name || "🏆 بطولة كرة القدم";
                     const timeFormatted = formatMatchTime(m.utcDate);
 
@@ -341,27 +341,27 @@
                     const card = `
                         <a href="${matchUrl}" class="match-card">
                             <div class="match-main-row">
-                                <!-- اليمين: صاحب الأرض والشعار -->
-                                <div class="team-box right">
-                                    <img src="${homeLogo}" alt="${homeName}" class="team-logo" onerror="this.src='https://placehold.co/40x40?text=FC'">
+                                <!-- اليسار: الفريق الأول والشعار -->
+                                <div class="team-box left-side">
                                     <span class="team-name">${homeName}</span>
+                                    <img src="${homeLogo}" alt="${homeName}" class="team-logo" onerror="this.src='https://placehold.co/40x40?text=FC'">
                                 </div>
                                 <!-- المنتصف: الوقت والحالة -->
                                 <div class="match-center-info">
                                     <span class="match-time">${timeFormatted}</span>
                                     <span class="status-badge ${badgeClass}">${statusText}</span>
                                 </div>
-                                <!-- اليسار: الضيف والشعار -->
-                                <div class="team-box left">
-                                    <span class="team-name">${awayName}</span>
+                                <!-- اليمين: الفريق الثاني والشعار -->
+                                <div class="team-box right-side">
                                     <img src="${awayLogo}" alt="${awayName}" class="team-logo" onerror="this.src='https://placehold.co/40x40?text=FC'">
+                                    <span class="team-name">${awayName}</span>
                                 </div>
                             </div>
-                            <!-- الشريط السفلي المطابق تماماً للأصل -->
+                            <!-- الشريط السفلي المطابق تماماً للصورة: بطولة على اليمين، معلق في الوسط، وقناة على اليسار -->
                             <div class="match-footer-row">
-                                <span>${m.channel || 'Bein Sports HD 1'} 📺</span>
-                                <span>🎤 ${m.commentator || 'غير معروف'}</span>
                                 <span>🏆 ${league}</span>
+                                <span>🎤 ${m.commentator || 'حفيظ دراجي'}</span>
+                                <span>${m.channel || 'Bein Sports HD1'} 📺</span>
                             </div>
                         </a>
                     `;
