@@ -80,10 +80,9 @@
             text-shadow: 0 2px 5px rgba(0,0,0,0.4);
         }
 
-        /* تحجيم الحاوية لتكون أصغر عرضاً وأطول شكلاً */
         .container {
             width: 100%;
-            max-width: 680px;
+            max-width: 850px;
             margin: 25px 10px;
             display: flex;
             flex-direction: column;
@@ -104,11 +103,11 @@
             background: #6b1419;
             border: none;
             color: #fff;
-            padding: 12px 22px;
-            min-width: 110px;
+            padding: 12px 28px;
+            min-width: 130px;
             border-radius: 6px;
             font-family: inherit;
-            font-size: 14px;
+            font-size: 14.5px;
             font-weight: 800;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -122,69 +121,66 @@
         .matches-list {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 14px;
         }
 
-        /* تعديل خانة المباراة لتصبح طويلة رأسياً ومرتبة */
-        .match-box {
+        /* كارت المباراة الكلاسيكي الاحترافي */
+        .match-card {
             background: #ffffff;
             border: 1.5px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 20px 24px;
+            border-radius: 10px;
+            padding: 16px 20px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.04);
             transition: all 0.2s ease;
         }
 
-        .match-box:hover {
+        .match-card:hover {
             border-color: #8b1e24;
-            box-shadow: 0 6px 15px rgba(139, 30, 36, 0.1);
+            box-shadow: 0 4px 12px rgba(139, 30, 36, 0.12);
+            background-color: #fcf8f8;
         }
 
-        .match-top-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-            color: #4b5563;
-            border-bottom: 1px solid #f3f4f6;
-            padding-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .teams-row {
+        /* صف الفرق والوسط */
+        .match-main-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
-        .team-side {
+        .team-box {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
             width: 38%;
         }
 
-        .team-side:nth-child(3) {
+        .team-box.right {
+            justify-content: flex-start;
+        }
+
+        .team-box.left {
             justify-content: flex-end;
             text-align: left;
         }
 
         .team-logo {
-            width: 38px;
-            height: 38px;
+            width: 40px;
+            height: 40px;
             object-fit: contain;
         }
 
         .team-name {
-            font-size: 15.5px;
+            font-size: 16px;
             font-weight: 800;
             color: #111827;
         }
 
-        .match-middle {
+        .match-center-info {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -192,13 +188,20 @@
             width: 24%;
         }
 
-        .status-badge {
-            background: #374151;
-            color: #fff;
-            padding: 5px 12px;
-            border-radius: 6px;
-            font-size: 12px;
+        .match-time {
+            font-size: 13.5px;
             font-weight: 700;
+            color: #4b5563;
+        }
+
+        .status-badge {
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 11.5px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
         .status-badge.live {
@@ -206,45 +209,20 @@
             animation: pulse-red 1.2s infinite;
         }
 
-        .match-bottom-bar {
+        .status-badge.finished {
+            background: #4b5563;
+        }
+
+        /* الشريط السفلي (قناة، معلق، بطولة) */
+        .match-footer-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 13.5px;
-            color: #374151;
-            background: #fdf2f2;
-            border: 1px solid #f8d7da;
-            padding: 14px 20px;
-            border-radius: 8px;
-            text-decoration: none;
+            font-size: 12.5px;
+            color: #6b7280;
+            border-top: 1px solid #f3f4f6;
+            padding-top: 10px;
             font-weight: 700;
-            transition: all 0.2s ease;
-        }
-
-        .match-bottom-bar:hover {
-            background-color: #8b1e24;
-            color: #ffffff;
-            border-color: #8b1e24;
-        }
-
-        .match-bottom-bar:hover strong, 
-        .match-bottom-bar:hover span {
-            color: #ffffff;
-        }
-
-        .btn-watch {
-            background-color: #8b1e24;
-            color: #fff;
-            padding: 8px 20px;
-            border-radius: 6px;
-            font-weight: 800;
-            font-size: 13.5px;
-            transition: background 0.2s;
-        }
-
-        .match-bottom-bar:hover .btn-watch {
-            background-color: #ffffff;
-            color: #8b1e24;
         }
 
         .loading-box {
@@ -297,9 +275,9 @@
         }
 
         function formatMatchTime(utcDateStr) {
-            if (!utcDateStr) return "--:--";
+            if (!utcDateStr) return "00:00 AM";
             const date = new Date(utcDateStr);
-            return date.toLocaleTimeString('ar-DZ', { 
+            return date.toLocaleTimeString('en-US', { 
                 hour: '2-digit', 
                 minute: '2-digit', 
                 hour12: true, 
@@ -320,60 +298,66 @@
                 const response = await fetch(`${WORKER_URL}/fixtures?date=${dateStr}`);
                 if (!response.ok) throw new Error("Worker Error");
                 
-                const matches = await response.json();
+                let matches = await response.json();
 
                 if (!Array.isArray(matches) || matches.length === 0) {
                     grid.innerHTML = '<div class="loading-box">لا توجد مباريات مسجلة لهذا اليوم.</div>';
                     return;
                 }
 
+                // ترتيب ذكي: المباريات الجارية أولاً، ثم المجدولة، وفي النهاية المنتهية (تهبط للأسفل)
+                matches.sort((a, b) => {
+                    const statusOrder = { "IN_PLAY": 1, "SCHEDULED": 2, "PAUSED": 2, "FINISHED": 3 };
+                    const orderA = statusOrder[a.status] || 2;
+                    const orderB = statusOrder[b.status] || 2;
+                    if (orderA !== orderB) return orderA - orderB;
+                    return (Date.parse(a.utcDate) || 0) - (Date.parse(b.utcDate) || 0);
+                });
+
                 grid.innerHTML = '';
                 matches.forEach(m => {
                     const homeName = m.homeTeam?.name || "الفريق الأول";
                     const awayName = m.awayTeam?.name || "الفريق الثاني";
-                    const homeLogo = m.homeTeam?.crest || "https://placehold.co/38x38?text=FC";
-                    const awayLogo = m.awayTeam?.crest || "https://placehold.co/38x38?text=FC";
+                    const homeLogo = m.homeTeam?.crest || "https://placehold.co/40x40?text=FC";
+                    const awayLogo = m.awayTeam?.crest || "https://placehold.co/40x40?text=FC";
                     const league = m.competition?.name || "🏆 مباراة مباشرة";
-                    const time = formatMatchTime(m.utcDate);
+                    const timeFormatted = formatMatchTime(m.utcDate);
 
-                    let statusBadge = time;
-                    let vsDisplay = "VS";
+                    let statusText = "لم تبدأ بعد";
+                    let badgeClass = "";
 
                     if (m.status === "IN_PLAY") {
-                        statusBadge = `جارية الآن (${m.score?.fullTime?.home ?? 0} - ${m.score?.fullTime?.away ?? 0})`;
-                        vsDisplay = `${m.score?.fullTime?.home ?? 0} - ${m.score?.fullTime?.away ?? 0}`;
+                        statusText = `مباشر (${m.score?.fullTime?.home ?? 0} - ${m.score?.fullTime?.away ?? 0})`;
+                        badgeClass = "live";
                     } else if (m.status === "FINISHED") {
-                        statusBadge = `انتهت (${m.score?.fullTime?.home ?? 0} - ${m.score?.fullTime?.away ?? 0})`;
-                        vsDisplay = `${m.score?.fullTime?.home ?? 0} - ${m.score?.fullTime?.away ?? 0}`;
+                        statusText = `انتهت (${m.score?.fullTime?.home ?? 0} - ${m.score?.fullTime?.away ?? 0})`;
+                        badgeClass = "finished";
                     }
 
-                    const matchUrl = `match.html?id=${m.id}&team1=${encodeURIComponent(homeName)}&team2=${encodeURIComponent(awayName)}&logo1=${encodeURIComponent(homeLogo)}&logo2=${encodeURIComponent(awayLogo)}&time=${encodeURIComponent(time)}&league=${encodeURIComponent(league)}`;
+                    const matchUrl = `match.html?id=${m.id}&team1=${encodeURIComponent(homeName)}&team2=${encodeURIComponent(awayName)}&logo1=${encodeURIComponent(homeLogo)}&logo2=${encodeURIComponent(awayLogo)}&time=${encodeURIComponent(timeFormatted)}&league=${encodeURIComponent(league)}`;
 
                     const card = `
-                        <div class="match-box">
-                            <div class="match-top-info">
-                                <span>🏆 ${league}</span>
-                                <span>🎤 المعلق: ${m.commentator || 'حفيظ دراجي'}</span>
-                            </div>
-                            <div class="teams-row">
-                                <div class="team-side">
-                                    <img src="${homeLogo}" alt="${homeName}" class="team-logo" onerror="this.src='https://placehold.co/38x38?text=FC'">
+                        <a href="${matchUrl}" class="match-card">
+                            <div class="match-main-row">
+                                <div class="team-box right">
+                                    <img src="${homeLogo}" alt="${homeName}" class="team-logo" onerror="this.src='https://placehold.co/40x40?text=FC'">
                                     <span class="team-name">${homeName}</span>
                                 </div>
-                                <div class="match-middle">
-                                    <div class="status-badge ${m.status === 'IN_PLAY' ? 'live' : ''}">${statusBadge}</div>
-                                    <span style="font-size: 15px; font-weight: 900; color: #8b1e24;">${vsDisplay}</span>
+                                <div class="match-center-info">
+                                    <span class="match-time">${timeFormatted}</span>
+                                    <span class="status-badge ${badgeClass}">${statusText}</span>
                                 </div>
-                                <div class="team-side">
+                                <div class="team-box left">
                                     <span class="team-name">${awayName}</span>
-                                    <img src="${awayLogo}" alt="${awayName}" class="team-logo" onerror="this.src='https://placehold.co/38x38?text=FC'">
+                                    <img src="${awayLogo}" alt="${awayName}" class="team-logo" onerror="this.src='https://placehold.co/40x40?text=FC'">
                                 </div>
                             </div>
-                            <a href="${matchUrl}" class="match-bottom-bar">
-                                <span>📺 القناة: <strong>${m.channel || 'Bein Sports HD1'}</strong></span>
-                                <span class="btn-watch">مشاهدة البث ←</span>
-                            </a>
-                        </div>
+                            <div class="match-footer-row">
+                                <span>📺 ${m.channel || 'Bein Sports HD 1'}</span>
+                                <span>🎤 ${m.commentator || 'غير معروف'}</span>
+                                <span>🏆 ${league}</span>
+                            </div>
+                        </a>
                     `;
                     grid.innerHTML += card;
                 });
